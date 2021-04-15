@@ -46,7 +46,7 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
         requestQueue = Volley.newRequestQueue(getActivity());
 
         String apikey = "z6N3a8QW0Cwy80k9sTxvPNHCGqvRFq5f";
-        double[] location = {40.758, -73.9855};
+        double[] location = {51.4816, -3.1791};
         String[] fields = {"temperature"};
         String units = "metric";
         String[] timestamps = {"current"};
@@ -71,15 +71,12 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
                         //       List
                         listView = (ListView) v.findViewById(R.id.main_weather_list);
 
-                        System.out.println(weatherList);
-
                         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(),
                                 android.R.layout.simple_list_item_1,
                                 weatherList);
 
                         listView.setAdapter(arrayAdapter);
-
-                        listView.setOnItemClickListener(this);
+//                        listView.setOnItemClickListener(this);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -94,8 +91,7 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
             }
         );
 
-        Request<JSONObject> i = requestQueue.add(jsonObjectRequest);
-
+        requestQueue.add(jsonObjectRequest);
 
         return v;
     }
@@ -110,7 +106,8 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
         try {
             JSONArray arr = response.getJSONObject("data").getJSONArray("timelines").getJSONObject(0).getJSONArray("intervals");
             for (int i = 0; i < arr.length(); i++) {
-                weatherList.add(String.valueOf(arr.getJSONObject(i).getJSONObject("values").getDouble("temperature")));
+                weatherList.add(String.valueOf(arr.getJSONObject(i).getString("startTime")) + "\n" +
+                        String.valueOf(arr.getJSONObject(i).getJSONObject("values").getDouble("temperature")));
             }
         } catch (JSONException e) {
             e.printStackTrace();
