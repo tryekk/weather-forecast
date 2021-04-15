@@ -2,6 +2,7 @@ package com.example.app_coursework;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +28,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
 
 public class HourlyWeatherFragment extends Fragment implements AdapterView.OnItemClickListener {
 
@@ -44,15 +50,25 @@ public class HourlyWeatherFragment extends Fragment implements AdapterView.OnIte
 //        API
         requestQueue = Volley.newRequestQueue(getActivity());
 
+        // Get time and date
+        TimeZone tz = TimeZone.getTimeZone("UTC");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'"); // Quoted "Z" to indicate UTC, no timezone offset
+        df.setTimeZone(tz);
+        // Convert Date to Calendar
+        Calendar c = Calendar.getInstance();
+        c.setTime(new Date());
+        c.add(Calendar.HOUR, 24);
+
+        String endTime = df.format(c.getTime());
         String apikey = "z6N3a8QW0Cwy80k9sTxvPNHCGqvRFq5f";
         double[] location = {51.4816, -3.1791};
         String[] fields = {"temperature"};
         String units = "metric";
-        String[] timesteps = {"current"};
+        String[] timesteps = {"1h"};
         String timezone = "Europe/London";
 
         String url = "https://api.tomorrow.io/v4/timelines" + "?apikey=" + apikey + "&location=" + location[0] + "," + location[1] +
-                "&fields=" + fields[0] + "&units=" + units + "&timesteps=" + timesteps[0] + "&timezone=" + timezone;
+                "&fields=" + fields[0] + "&units=" + units + "&timesteps=" + timesteps[0] + "&endTime=" + endTime + "&timezone=" + timezone;
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.GET, //The type of request, e.g., GET, POST, DELETE, PUT, etc.
