@@ -27,13 +27,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class MainFragment extends Fragment implements AdapterView.OnItemClickListener {
 
     private RequestQueue requestQueue;
     ListView listView;
-    JSONObject APIResponse;
     ArrayList<String> weatherList = new ArrayList<>();
 
 
@@ -68,6 +68,18 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
                     try {
                         Log.d("RESPONSE", response.toString(2)); //prints the response to LogCat
                         parseJSON(response);
+                        //       List
+                        listView = (ListView) v.findViewById(R.id.main_weather_list);
+
+                        System.out.println(weatherList);
+
+                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(),
+                                android.R.layout.simple_list_item_1,
+                                weatherList);
+
+                        listView.setAdapter(arrayAdapter);
+
+                        listView.setOnItemClickListener(this);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -82,19 +94,8 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
             }
         );
 
-        requestQueue.add(jsonObjectRequest);
+        Request<JSONObject> i = requestQueue.add(jsonObjectRequest);
 
-//       List
-        listView = (ListView) v.findViewById(R.id.main_weather_list);
-
-
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(),
-                android.R.layout.simple_list_item_1,
-                weatherList);
-
-        listView.setAdapter(arrayAdapter);
-
-        listView.setOnItemClickListener(this);
 
         return v;
     }
@@ -107,9 +108,7 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
 
     private void parseJSON(JSONObject response) {
         try {
-//            JSONObject response = new JSONObject(String.valueOf(APIResponse));
             JSONArray arr = response.getJSONObject("data").getJSONArray("timelines").getJSONObject(0).getJSONArray("intervals");
-//            JSONArray arr = data.getJSONArray("timelines");
             for (int i = 0; i < arr.length(); i++) {
                 weatherList.add(String.valueOf(arr.getJSONObject(i).getJSONObject("values").getDouble("temperature")));
             }
