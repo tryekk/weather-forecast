@@ -1,5 +1,9 @@
 package com.example.app_coursework;
 
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.format.DateUtils;
@@ -15,6 +19,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 import com.android.volley.Request;
@@ -23,11 +28,15 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -35,8 +44,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+
 public class HourlyWeatherFragment extends Fragment implements AdapterView.OnItemClickListener {
 
+    private FusedLocationProviderClient locationManager;
     private RequestQueue requestQueue;
     ListView listView;
     ArrayList<String> weatherList = new ArrayList<>();
@@ -50,6 +62,37 @@ public class HourlyWeatherFragment extends Fragment implements AdapterView.OnIte
 //        API
         requestQueue = Volley.newRequestQueue(getActivity());
 
+        // Get location
+        requestPermission();
+        ArrayList<Double> currentPosition = new ArrayList<>();
+
+        locationManager = LocationServices.getFusedLocationProviderClient(getActivity());
+        if (ActivityCompat.checkSelfPermission(getActivity(), ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+        }
+        locationManager.getLastLocation().addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                if (location != null) {
+                    Log.d("COORDINATES", location.getLatitude() + ", " + location.getLongitude());
+                    currentPosition.add(location.getLatitude());
+                    currentPosition.add(location.getLongitude());
+
+                    getWeatherData(v, currentPosition);
+                }
+            }
+        });
+
+
+
+        return v;
+    }
+
+    private void requestPermission() {
+        ActivityCompat.requestPermissions(getActivity(), new String[]{ACCESS_FINE_LOCATION}, 1);
+    }
+
+    private void getWeatherData(View v, ArrayList<Double> currentPosition) {
         // Get time and date
         TimeZone tz = TimeZone.getTimeZone("UTC");
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'"); // Quoted "Z" to indicate UTC, no timezone offset
@@ -61,13 +104,13 @@ public class HourlyWeatherFragment extends Fragment implements AdapterView.OnIte
 
         String endTime = df.format(c.getTime());
         String apikey = "z6N3a8QW0Cwy80k9sTxvPNHCGqvRFq5f";
-        double[] location = {51.4816, -3.1791};
+//        double[] location = {51.4816, -3.1791};
         String[] fields = {"temperature"};
         String units = "metric";
         String[] timesteps = {"1h"};
         String timezone = "Europe/London";
 
-        String url = "https://api.tomorrow.io/v4/timelines" + "?apikey=" + apikey + "&location=" + location[0] + "," + location[1] +
+        String url = "https://api.tomorrow.io/v4/timelines" + "?apikey=" + apikey + "&location=" + currentPosition.get(0) + "," + currentPosition.get(1) +
                 "&fields=" + fields[0] + "&units=" + units + "&timesteps=" + timesteps[0] + "&endTime=" + endTime + "&timezone=" + timezone;
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
@@ -107,8 +150,6 @@ public class HourlyWeatherFragment extends Fragment implements AdapterView.OnIte
         );
 
         requestQueue.add(jsonObjectRequest);
-
-        return v;
     }
 
     @Override
