@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -48,7 +49,10 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.first_item) {
-            Toast.makeText(this, "1", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "1", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent();
+            intent.setClass(getApplicationContext(), AddLocation.class);
+            startActivity(intent);
             return true;
         }
 //        else if (id == R.id.second_item) {
