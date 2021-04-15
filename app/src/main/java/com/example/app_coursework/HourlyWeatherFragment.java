@@ -59,7 +59,7 @@ public class HourlyWeatherFragment extends Fragment implements AdapterView.OnIte
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_hourly, container, false);
 
-//        API
+        //  API
         requestQueue = Volley.newRequestQueue(getActivity());
 
         // Get location
@@ -68,22 +68,23 @@ public class HourlyWeatherFragment extends Fragment implements AdapterView.OnIte
 
         locationManager = LocationServices.getFusedLocationProviderClient(getActivity());
         if (ActivityCompat.checkSelfPermission(getActivity(), ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
+//            currentPosition.add(51.4816);  // Default value for when location permission denied
+//            currentPosition.add(-3.1791);
+//            getWeatherData(v, currentPosition);
         }
         locationManager.getLastLocation().addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
             @Override
             public void onSuccess(Location location) {
                 if (location != null) {
                     Log.d("COORDINATES", location.getLatitude() + ", " + location.getLongitude());
+                    currentPosition.clear();
                     currentPosition.add(location.getLatitude());
                     currentPosition.add(location.getLongitude());
-
+                    // Make and parse API request
                     getWeatherData(v, currentPosition);
                 }
             }
         });
-
-
 
         return v;
     }
