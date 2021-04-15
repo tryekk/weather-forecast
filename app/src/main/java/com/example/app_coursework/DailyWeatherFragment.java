@@ -27,10 +27,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class MainFragment extends Fragment implements AdapterView.OnItemClickListener {
+public class DailyWeatherFragment extends Fragment implements AdapterView.OnItemClickListener {
 
     private RequestQueue requestQueue;
     ListView listView;
@@ -40,7 +39,7 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_main, container, false);
+        View v = inflater.inflate(R.layout.fragment_daily, container, false);
 
 //        API
         requestQueue = Volley.newRequestQueue(getActivity());
@@ -49,11 +48,11 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
         double[] location = {51.4816, -3.1791};
         String[] fields = {"temperature"};
         String units = "metric";
-        String[] timestamps = {"current"};
+        String[] timesteps = {"1d"};
         String timezone = "Europe/London";
 
         String url = "https://api.tomorrow.io/v4/timelines" + "?apikey=" + apikey + "&location=" + location[0] + "," + location[1] +
-                "&fields=" + fields[0] + "&units=" + units + "&timezone=" + timezone;
+                "&fields=" + fields[0] + "&units=" + units + "&timesteps=" + timesteps[0] + "&timezone=" + timezone;
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
             Request.Method.GET, //The type of request, e.g., GET, POST, DELETE, PUT, etc.
@@ -69,7 +68,7 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
                         Log.d("RESPONSE", response.toString(2)); //prints the response to LogCat
                         parseJSON(response);
                         //       List
-                        listView = (ListView) v.findViewById(R.id.main_weather_list);
+                        listView = (ListView) v.findViewById(R.id.daily_weather_list);
 
                         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(),
                                 android.R.layout.simple_list_item_1,

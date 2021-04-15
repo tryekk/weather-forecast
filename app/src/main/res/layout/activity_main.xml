@@ -16,8 +16,13 @@
         android:background="@color/menu_bar"/>
 
     <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragment_hourly_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/fragment_container"/>
+        android:layout_height="250dp" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragment_daily_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

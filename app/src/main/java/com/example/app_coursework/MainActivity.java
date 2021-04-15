@@ -28,7 +28,10 @@ public class MainActivity extends AppCompatActivity {
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, new MainFragment())
+                .replace(R.id.fragment_hourly_container, new HourlyWeatherFragment())
+                .commit();
+        fragmentManager.beginTransaction()
+                .replace(R.id.fragment_daily_container, new DailyWeatherFragment())
                 .commit();
     }
 
