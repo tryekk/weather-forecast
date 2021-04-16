@@ -1,27 +1,32 @@
 package com.example.app_coursework;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
+import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-public class weatherLocation {
+@Entity
+public class WeatherLocation {
 
     @PrimaryKey
+    @NonNull
     private String name;
     @ColumnInfo
-    private double[] coordinates;
+    private String coordinates;
     @ColumnInfo(defaultValue = "false")
-    private boolean isChosen;
+    private Boolean isChosen;
 
-    public weatherLocation(String name, boolean isChosen) {
+    public WeatherLocation(String name, String coordinates, Boolean isChosen) {
         this.name = name;
+        this.coordinates = coordinates;
         this.isChosen = isChosen;
     }
 
-    public double[] getCoordinates() {
+    public String getCoordinates() {
         return coordinates;
     }
 
-    public void setCoordinates(double[] coordinates) {
+    public void setCoordinates(String coordinates) {
         this.coordinates = coordinates;
     }
 
@@ -33,11 +38,11 @@ public class weatherLocation {
         this.name = name;
     }
 
-    public boolean isChosen() {
+    public Boolean isChosen() {
         return isChosen;
     }
 
-    public void setChosen(boolean chosen) {
+    public void setChosen(Boolean chosen) {
         isChosen = chosen;
     }
 }
