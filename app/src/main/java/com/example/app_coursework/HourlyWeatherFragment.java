@@ -42,6 +42,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
 import java.util.TimeZone;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
@@ -77,7 +78,7 @@ public class HourlyWeatherFragment extends Fragment implements AdapterView.OnIte
             public void onSuccess(Location location) {
                 if (location != null) {
                     Log.d("COORDINATES", location.getLatitude() + ", " + location.getLongitude());
-                    currentPosition.clear();
+//                    currentPosition.clear();
                     currentPosition.add(location.getLatitude());
                     currentPosition.add(location.getLongitude());
                     // Make and parse API request

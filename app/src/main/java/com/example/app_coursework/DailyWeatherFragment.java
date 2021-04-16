@@ -31,6 +31,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
 import java.util.TimeZone;
 
 public class DailyWeatherFragment extends Fragment implements AdapterView.OnItemClickListener {
@@ -46,7 +47,7 @@ public class DailyWeatherFragment extends Fragment implements AdapterView.OnItem
         View v = inflater.inflate(R.layout.fragment_daily, container, false);
 
 //        API
-        requestQueue = Volley.newRequestQueue(getActivity());
+        requestQueue = Volley.newRequestQueue(requireActivity());
 
         String apikey = "z6N3a8QW0Cwy80k9sTxvPNHCGqvRFq5f";
         double[] location = {51.4816, -3.1791};
@@ -74,7 +75,7 @@ public class DailyWeatherFragment extends Fragment implements AdapterView.OnItem
                         //       List
                         listView = (ListView) v.findViewById(R.id.daily_weather_list);
 
-                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(),
+                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(requireActivity(),
                                 android.R.layout.simple_list_item_1,
                                 weatherList);
 
