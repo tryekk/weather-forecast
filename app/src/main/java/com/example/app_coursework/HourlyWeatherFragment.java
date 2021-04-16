@@ -91,7 +91,7 @@ public class HourlyWeatherFragment extends Fragment implements AdapterView.OnIte
     }
 
     private void requestPermission() {
-        ActivityCompat.requestPermissions(getActivity(), new String[]{ACCESS_FINE_LOCATION}, 1);
+        ActivityCompat.requestPermissions(requireActivity(), new String[]{ACCESS_FINE_LOCATION}, 1);
     }
 
     private void getWeatherData(View v, ArrayList<Double> currentPosition) {
