@@ -26,7 +26,7 @@ public class AddLocationFragment extends Fragment implements AdapterView.OnItemC
     private WeatherLocationDatabase weatherLocationDatabase;
     private ExecutorService executorService;
     ListView listView;
-    ArrayList<String> locationsList = new ArrayList<>();
+    ArrayList<WeatherLocation> locationsList = new ArrayList<>();
 
     @Nullable
     @Override
@@ -56,18 +56,19 @@ public class AddLocationFragment extends Fragment implements AdapterView.OnItemC
                 );
                 List<WeatherLocation> weatherLocationList = weatherLocationDatabase.weatherLocationDAO().getUnselectedWeatherLocations();
                 for (int i = 0; i<weatherLocationList.size(); i++) {
-                    locationsList.add(weatherLocationList.get(i).getName());
+                    locationsList.add(weatherLocationList.get(i));
                 }
 
-                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(requireActivity(),
-                        android.R.layout.simple_list_item_1,
-                        locationsList);
+//                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(requireActivity(),
+//                        android.R.layout.simple_list_item_1,
+//                        locationsList);
 
-                listView.setAdapter(arrayAdapter);
+//                listView.setAdapter(arrayAdapter);
+
+                LocationArrayAdapter adapter = new LocationArrayAdapter (getActivity(), locationsList);
+                listView.setAdapter(adapter);
             }
         });
-
-//        listView.setClickable(true);
 
         listView.setOnItemClickListener(this);
 
@@ -76,7 +77,10 @@ public class AddLocationFragment extends Fragment implements AdapterView.OnItemC
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        String day = parent.getItemAtPosition(position).toString();
-        Toast.makeText(getActivity(), day, Toast.LENGTH_SHORT).show();
+        WeatherLocation weatherLocation = (WeatherLocation) parent.getItemAtPosition(position);
+        String location = weatherLocation.getCoordinates();
+        Toast.makeText(getActivity(), location, Toast.LENGTH_SHORT).show();
+
+
     }
 }

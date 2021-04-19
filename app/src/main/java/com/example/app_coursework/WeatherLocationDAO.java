@@ -12,7 +12,7 @@ import java.util.List;
 public interface WeatherLocationDAO {
 
     @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
-    @Query("SELECT name FROM WeatherLocation WHERE isChosen = false")
+    @Query("SELECT name, coordinates FROM WeatherLocation WHERE isChosen = false")
     List<WeatherLocation> getUnselectedWeatherLocations();
 
     @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)

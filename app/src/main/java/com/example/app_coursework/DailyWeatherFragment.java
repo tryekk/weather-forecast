@@ -75,7 +75,7 @@ public class DailyWeatherFragment extends Fragment implements AdapterView.OnItem
                         //       List
                         listView = (ListView) v.findViewById(R.id.daily_weather_list);
 
-                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(requireActivity(),
+                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(),
                                 android.R.layout.simple_list_item_1,
                                 weatherList);
 
