@@ -26,6 +26,9 @@ public interface WeatherLocationDAO {
     @Insert
     void addWeatherLocation(WeatherLocation... weatherLocation);
 
+    @Insert
+    void insertAll(WeatherLocation... weatherLocations);
+
     @Query("DELETE FROM WeatherLocation")
     void deleteAllWeatherLocations();
 }

@@ -38,24 +38,8 @@ public class AddLocationFragment extends Fragment implements AdapterView.OnItemC
 
         listView = (ListView) v.findViewById(R.id.weather_locations_list);
 
-        // Populate database
-        RoomDatabase.Callback rdc = new RoomDatabase.Callback() {
-            public void onCreate(SupportSQLiteDatabase db) {
-                weatherLocationDatabase.weatherLocationDAO().addWeatherLocation(
-                        new WeatherLocation("Cardiff", "51.4816,-3.1791", false),
-                        new WeatherLocation("London", "51.5074,0.1278", false),
-                        new WeatherLocation("New York", "40.7128,74.0060", false),
-                        new WeatherLocation("San Francisco", "37.7749,122.4194", false)
-                );
-            }
-        };
-
-        // Build database
-        weatherLocationDatabase = Room.databaseBuilder(
-                getContext(),
-                WeatherLocationDatabase.class,
-                "WeatherDatabase"
-        ).addCallback(rdc).build();
+        // Get database
+        weatherLocationDatabase = WeatherLocationDatabase.getInstance(getContext());
 
         // Create background thread
         executorService = Executors.newSingleThreadExecutor();

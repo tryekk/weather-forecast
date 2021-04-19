@@ -45,4 +45,13 @@ public class WeatherLocation {
     public void setChosen(Boolean chosen) {
         isChosen = chosen;
     }
+
+    public static WeatherLocation[] populateData() {
+        return new WeatherLocation[] {
+                new WeatherLocation("Cardiff", "51.4816,-3.1791", false),
+                new WeatherLocation("London", "51.5074,0.1278", false),
+                new WeatherLocation("New York", "40.7128,74.0060", false),
+                new WeatherLocation("San Francisco", "37.7749,122.4194", false)
+        };
+    }
 }
