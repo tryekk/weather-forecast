@@ -13,6 +13,12 @@
         android:hint="Location"
         android:id="@+id/add_location_text"/>
 
+    <ListView
+        android:id="@+id/weather_locations_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
     <Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"

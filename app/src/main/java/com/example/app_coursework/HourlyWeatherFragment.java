@@ -47,7 +47,7 @@ import java.util.TimeZone;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
-public class HourlyWeatherFragment extends Fragment implements AdapterView.OnItemClickListener {
+public class HourlyWeatherFragment extends Fragment {
 
     private FusedLocationProviderClient locationManager;
     private RequestQueue requestQueue;
@@ -152,12 +152,6 @@ public class HourlyWeatherFragment extends Fragment implements AdapterView.OnIte
         );
 
         requestQueue.add(jsonObjectRequest);
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        String day = parent.getItemAtPosition(position).toString();
-        Toast.makeText(getActivity(), day, Toast.LENGTH_SHORT).show();
     }
 
     private void parseJSON(JSONObject response) {
