@@ -38,7 +38,7 @@ public class AddLocationFragment extends Fragment implements AdapterView.OnItemC
 
         listView = (ListView) v.findViewById(R.id.weather_locations_list);
 
-        // Build database
+        // Populate database
         RoomDatabase.Callback rdc = new RoomDatabase.Callback() {
             public void onCreate(SupportSQLiteDatabase db) {
                 weatherLocationDatabase.weatherLocationDAO().addWeatherLocation(
@@ -50,21 +50,19 @@ public class AddLocationFragment extends Fragment implements AdapterView.OnItemC
             }
         };
 
+        // Build database
         weatherLocationDatabase = Room.databaseBuilder(
                 getContext(),
                 WeatherLocationDatabase.class,
                 "WeatherDatabase"
         ).addCallback(rdc).build();
 
-//        Room.databaseBuilder(getContext(), WeatherLocationDatabase.class, "WeatherDatabase")
-//                .createFromAsset("database/weather_location_database.db")
-//                .build();
-
         // Create background thread
         executorService = Executors.newSingleThreadExecutor();
         executorService.execute(new Runnable() {
             @Override
             public void run() {
+                // Get weather locations from DB
                 List<WeatherLocation> weatherLocationList = weatherLocationDatabase.weatherLocationDAO().getUnselectedWeatherLocations();
                 for (int i = 0; i<weatherLocationList.size(); i++) {
                     locationsList.add(weatherLocationList.get(i));
