@@ -50,7 +50,9 @@ public class AddLocationFragment extends Fragment implements AdapterView.OnItemC
                 weatherLocationDatabase.weatherLocationDAO().deleteAllWeatherLocations();
                 weatherLocationDatabase.weatherLocationDAO().addWeatherLocation(
                         new WeatherLocation("Cardiff", "51.4816,-3.1791", false),
-                        new WeatherLocation("London", "51.5074, 0.1278", false)
+                        new WeatherLocation("London", "51.5074,0.1278", false),
+                        new WeatherLocation("New York", "40.7128,74.0060", false),
+                        new WeatherLocation("San Francisco", "37.7749,122.4194", false)
                 );
                 List<WeatherLocation> weatherLocationList = weatherLocationDatabase.weatherLocationDAO().getUnselectedWeatherLocations();
                 for (int i = 0; i<weatherLocationList.size(); i++) {
