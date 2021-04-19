@@ -5,6 +5,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.RoomWarnings;
+import androidx.room.Update;
 
 import java.util.List;
 
@@ -18,6 +19,9 @@ public interface WeatherLocationDAO {
     @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
     @Query("SELECT name, coordinates FROM WeatherLocation WHERE name = :inputName")
     WeatherLocation getChosenWeatherLocation(String inputName);
+
+    @Query("UPDATE weatherlocation SET isChosen=:status WHERE name = :inputName")
+    void setWeatherLocationAsSelected(String inputName, Boolean status);
 
     @Insert
     void addWeatherLocation(WeatherLocation... weatherLocation);

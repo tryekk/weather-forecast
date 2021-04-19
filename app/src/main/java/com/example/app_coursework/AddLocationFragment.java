@@ -14,7 +14,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.room.Room;
+import androidx.room.RoomDatabase;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executor;
@@ -36,35 +39,38 @@ public class AddLocationFragment extends Fragment implements AdapterView.OnItemC
         listView = (ListView) v.findViewById(R.id.weather_locations_list);
 
         // Build database
-        weatherLocationDatabase = Room.databaseBuilder(
-                getContext(),
-                WeatherLocationDatabase.class,
-                "WeatherDatabase"
-        ).build();
-
-        // Create background thread
-        executorService = Executors.newSingleThreadExecutor();
-        executorService.execute(new Runnable() {
-            @Override
-            public void run() {
-                weatherLocationDatabase.weatherLocationDAO().deleteAllWeatherLocations();
+        RoomDatabase.Callback rdc = new RoomDatabase.Callback() {
+            public void onCreate(SupportSQLiteDatabase db) {
                 weatherLocationDatabase.weatherLocationDAO().addWeatherLocation(
                         new WeatherLocation("Cardiff", "51.4816,-3.1791", false),
                         new WeatherLocation("London", "51.5074,0.1278", false),
                         new WeatherLocation("New York", "40.7128,74.0060", false),
                         new WeatherLocation("San Francisco", "37.7749,122.4194", false)
                 );
+            }
+        };
+
+        weatherLocationDatabase = Room.databaseBuilder(
+                getContext(),
+                WeatherLocationDatabase.class,
+                "WeatherDatabase"
+        ).addCallback(rdc).build();
+
+//        Room.databaseBuilder(getContext(), WeatherLocationDatabase.class, "WeatherDatabase")
+//                .createFromAsset("database/weather_location_database.db")
+//                .build();
+
+        // Create background thread
+        executorService = Executors.newSingleThreadExecutor();
+        executorService.execute(new Runnable() {
+            @Override
+            public void run() {
                 List<WeatherLocation> weatherLocationList = weatherLocationDatabase.weatherLocationDAO().getUnselectedWeatherLocations();
                 for (int i = 0; i<weatherLocationList.size(); i++) {
                     locationsList.add(weatherLocationList.get(i));
                 }
 
-//                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(requireActivity(),
-//                        android.R.layout.simple_list_item_1,
-//                        locationsList);
-
-//                listView.setAdapter(arrayAdapter);
-
+                // Custom array adapter
                 LocationArrayAdapter adapter = new LocationArrayAdapter (getActivity(), locationsList);
                 listView.setAdapter(adapter);
             }
@@ -81,6 +87,14 @@ public class AddLocationFragment extends Fragment implements AdapterView.OnItemC
         String location = weatherLocation.getCoordinates();
         Toast.makeText(getActivity(), location, Toast.LENGTH_SHORT).show();
 
-
+        // Create background thread
+        executorService = Executors.newSingleThreadExecutor();
+        executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                weatherLocationDatabase.weatherLocationDAO().setWeatherLocationAsSelected(weatherLocation.getName(), true);
+                System.out.println(weatherLocationDatabase.weatherLocationDAO().getUnselectedWeatherLocations());
+            }
+        });
     }
 }
