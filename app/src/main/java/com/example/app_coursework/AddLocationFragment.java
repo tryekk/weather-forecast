@@ -51,16 +51,24 @@ public class AddLocationFragment extends Fragment implements AdapterView.OnItemC
                 for (int i = 0; i<weatherLocationList.size(); i++) {
                     locationsList.add(weatherLocationList.get(i));
                 }
+                updateListView();
 
-                // Custom array adapter
-                LocationArrayAdapter adapter = new LocationArrayAdapter (getActivity(), locationsList);
-                listView.setAdapter(adapter);
             }
         });
+
+        // Custom array adapter
+        LocationArrayAdapter adapter = new LocationArrayAdapter (getActivity(), locationsList);
+        listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(this);
 
         return v;
+    }
+
+    private void updateListView() {
+        // Custom array adapter
+        LocationArrayAdapter adapter = new LocationArrayAdapter (getActivity(), locationsList);
+        listView.setAdapter(adapter);
     }
 
     @Override
