@@ -50,7 +50,7 @@ public class AddLocationFragment extends Fragment implements AdapterView.OnItemC
                 for (int i = 0; i<weatherLocationList.size(); i++) {
                     locationsList.add(weatherLocationList.get(i));
                 }
-                // Update list
+                // Update listView
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
