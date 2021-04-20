@@ -51,7 +51,13 @@ public class WeatherLocation {
                 new WeatherLocation("Cardiff", "51.4816,-3.1791", false),
                 new WeatherLocation("London", "51.5074,0.1278", false),
                 new WeatherLocation("New York", "40.7128,74.0060", false),
-                new WeatherLocation("San Francisco", "37.7749,122.4194", false)
+                new WeatherLocation("San Francisco", "37.7749,122.4194", false),
+                new WeatherLocation("Stockholm", "59.3293,18.0686", false),
+                new WeatherLocation("Moscow", "55.7558,37.6173", false),
+                new WeatherLocation("Kuala Lumpur", "3.1390,101.6869", false),
+                new WeatherLocation("Tokyo", "35.6762,139.6503", false),
+                new WeatherLocation("Cologne", "50.9375,6.9603", false),
+                new WeatherLocation("Madrid", "40.4168,3.7038", false)
         };
     }
 }
