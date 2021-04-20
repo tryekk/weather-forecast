@@ -15,10 +15,31 @@
         android:id="@+id/toolbar"
         android:background="@color/menu_bar"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginBottom="6dp"
+        android:text="Hourly Forecast"
+        android:textSize="20sp" />
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_hourly_container"
         android:layout_width="match_parent"
-        android:layout_height="250dp" />
+        android:layout_height="250dp"
+        android:layout_marginBottom="15dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="6dp"
+        android:text="Daily Forecast"
+        android:textSize="20sp" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_daily_container"
