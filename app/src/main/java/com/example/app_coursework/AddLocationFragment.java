@@ -36,8 +36,6 @@ public class AddLocationFragment extends Fragment implements AdapterView.OnItemC
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_add_location, container, false);
 
-        listView = (ListView) v.findViewById(R.id.weather_locations_list);
-
         // Get database
         weatherLocationDatabase = WeatherLocationDatabase.getInstance(getContext());
 
@@ -51,24 +49,21 @@ public class AddLocationFragment extends Fragment implements AdapterView.OnItemC
                 for (int i = 0; i<weatherLocationList.size(); i++) {
                     locationsList.add(weatherLocationList.get(i));
                 }
-                updateListView();
+                updateListView(v);
 
             }
         });
 
+        return v;
+    }
+
+    private void updateListView(View v) {
+        listView = (ListView) v.findViewById(R.id.weather_locations_list);
         // Custom array adapter
         LocationArrayAdapter adapter = new LocationArrayAdapter (getActivity(), locationsList);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(this);
-
-        return v;
-    }
-
-    private void updateListView() {
-        // Custom array adapter
-        LocationArrayAdapter adapter = new LocationArrayAdapter (getActivity(), locationsList);
-        listView.setAdapter(adapter);
     }
 
     @Override
