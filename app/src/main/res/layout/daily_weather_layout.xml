@@ -9,13 +9,20 @@
         android:id="@+id/daily_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:paddingTop="3dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"/>
 
     <TextView
         android:id="@+id/daily_temperature"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/daily_time"
-        android:textSize="30sp" />
+        android:textSize="26sp"
+        android:paddingTop="3dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="3dp"/>
 
 </RelativeLayout>

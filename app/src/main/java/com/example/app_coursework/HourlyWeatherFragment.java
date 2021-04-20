@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -151,7 +152,8 @@ public class HourlyWeatherFragment extends Fragment {
         try {
             JSONArray arr = response.getJSONObject("data").getJSONArray("timelines").getJSONObject(0).getJSONArray("intervals");
             for (int i = 0; i < arr.length(); i++) {
-                weatherList.add(arr.getJSONObject(i).getString("startTime") + "," +
+                String[] dateFormatted = arr.getJSONObject(i).getString("startTime").split("T");
+                weatherList.add(dateFormatted[1] + "," +
                         String.valueOf(arr.getJSONObject(i).getJSONObject("values").getDouble("temperature")));
             }
         } catch (JSONException e) {

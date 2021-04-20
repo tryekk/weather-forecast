@@ -34,6 +34,7 @@ public class HourlyWeatherAdapter extends ArrayAdapter<String> {
         time.setText(display[0]);
         temperature.setText(display[1]);
 
+
         return rowView;
     }
 
