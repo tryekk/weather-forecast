@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -96,11 +97,10 @@ public class MainActivity extends AppCompatActivity {
             intent.setClass(getApplicationContext(), AddLocation.class);
             startActivity(intent);
             return true;
+        } else {
+            Toast.makeText(this, String.valueOf(id), Toast.LENGTH_SHORT).show();
+            return true;
         }
-//        else if (id == R.id.second_item) {
-//            Toast.makeText(this, "2", Toast.LENGTH_SHORT).show();
-//            return true;
-//        }
-        return super.onOptionsItemSelected(item);
+//        return super.onOptionsItemSelected(item);
     }
 }
