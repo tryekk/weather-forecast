@@ -30,8 +30,9 @@ public class HourlyWeatherAdapter extends ArrayAdapter<String> {
         TextView time = (TextView) rowView.findViewById(R.id.hourly_time);
         TextView temperature = (TextView) rowView.findViewById(R.id.hourly_temperature);
 
-        time.setText(items.get(2*position));
-        temperature.setText(items.get((2*position)+1));
+        String[] display = items.get(position).split(",");
+        time.setText(display[0]);
+        temperature.setText(display[1]);
 
         return rowView;
     }

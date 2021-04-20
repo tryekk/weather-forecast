@@ -9,13 +9,13 @@
         android:id="@+id/daily_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        />
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/daily_temperature"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/daily_time"
-        />
+        android:textSize="30sp" />
 
 </RelativeLayout>
