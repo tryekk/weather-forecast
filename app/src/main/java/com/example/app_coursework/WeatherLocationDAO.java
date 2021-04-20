@@ -17,6 +17,10 @@ public interface WeatherLocationDAO {
     List<WeatherLocation> getUnselectedWeatherLocations();
 
     @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
+    @Query("SELECT name, coordinates FROM WeatherLocation WHERE isChosen = true")
+    List<WeatherLocation> getSelectedWeatherLocations();
+
+    @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
     @Query("SELECT name, coordinates FROM WeatherLocation WHERE name = :inputName")
     WeatherLocation getChosenWeatherLocation(String inputName);
 

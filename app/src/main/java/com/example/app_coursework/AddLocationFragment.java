@@ -62,7 +62,6 @@ public class AddLocationFragment extends Fragment implements AdapterView.OnItemC
                         listView.setOnItemClickListener(AddLocationFragment.this::onItemClick);
                     }
                 });
-
             }
         });
 
