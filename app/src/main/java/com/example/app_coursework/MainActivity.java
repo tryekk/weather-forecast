@@ -3,6 +3,7 @@ package com.example.app_coursework;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.multidex.MultiDex;
 
@@ -11,7 +12,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.SubMenu;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+
+import static android.app.usage.UsageEvents.Event.NONE;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,10 +38,6 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         // Get a fragment manager
-        // Start a fragment transaction
-        // Replace the container with MyFragment
-        // (Can be done on one line)
-
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.fragment_hourly_container, new HourlyWeatherFragment())
@@ -52,13 +54,26 @@ public class MainActivity extends AppCompatActivity {
 //        return super.onCreateOptionsMenu(menu);
     }
 
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        menu.clear();
+        ArrayList<String> array = new ArrayList<String>();
+        array.add("23123");
+        array.add("35443534");
+        for (int i = 0; i<array.size(); i++) {
+            menu.add(NONE, i, NONE, array.get(i));
+        }
+        menu.add(NONE, R.id.first_item, NONE, "Add Location")
+                .setIcon(ContextCompat.getDrawable(this, R.drawable.ic_baseline_add_24)).setShowAsAction(1);
+        return super.onPrepareOptionsMenu(menu);
+    }
+
     // Options menu items
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
         if (id == R.id.first_item) {
-//            Toast.makeText(this, "1", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent();
             intent.setClass(getApplicationContext(), AddLocation.class);
             startActivity(intent);

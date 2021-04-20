@@ -1,6 +1,7 @@
 package com.example.app_coursework;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,21 +50,23 @@ public class AddLocationFragment extends Fragment implements AdapterView.OnItemC
                 for (int i = 0; i<weatherLocationList.size(); i++) {
                     locationsList.add(weatherLocationList.get(i));
                 }
-                updateListView(v);
+                // Update list
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        listView = (ListView) v.findViewById(R.id.weather_locations_list);
+                        // Custom array adapter
+                        LocationArrayAdapter adapter = new LocationArrayAdapter (getActivity(), locationsList);
+                        listView.setAdapter(adapter);
+
+                        listView.setOnItemClickListener(AddLocationFragment.this::onItemClick);
+                    }
+                });
 
             }
         });
 
         return v;
-    }
-
-    private void updateListView(View v) {
-        listView = (ListView) v.findViewById(R.id.weather_locations_list);
-        // Custom array adapter
-        LocationArrayAdapter adapter = new LocationArrayAdapter (getActivity(), locationsList);
-        listView.setAdapter(adapter);
-
-        listView.setOnItemClickListener(this);
     }
 
     @Override
@@ -78,7 +81,10 @@ public class AddLocationFragment extends Fragment implements AdapterView.OnItemC
             @Override
             public void run() {
                 weatherLocationDatabase.weatherLocationDAO().setWeatherLocationAsSelected(weatherLocation.getName(), true);
-                System.out.println(weatherLocationDatabase.weatherLocationDAO().getUnselectedWeatherLocations());
+                // Back to main activity
+                Intent intent = new Intent();
+                intent.setClass(getContext(), MainActivity.class);
+                startActivity(intent);
             }
         });
     }
