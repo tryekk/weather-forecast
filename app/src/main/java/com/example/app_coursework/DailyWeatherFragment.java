@@ -22,6 +22,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.app_coursework.adapter.DailyWeatherAdapter;
+import com.example.app_coursework.adapter.HourlyWeatherAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -75,8 +77,8 @@ public class DailyWeatherFragment extends Fragment implements AdapterView.OnItem
                         //       List
                         listView = (ListView) v.findViewById(R.id.daily_weather_list);
 
-                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(),
-                                android.R.layout.simple_list_item_1,
+                        DailyWeatherAdapter arrayAdapter = new DailyWeatherAdapter(
+                                getActivity(),
                                 weatherList);
 
                         listView.setAdapter(arrayAdapter);
@@ -110,8 +112,8 @@ public class DailyWeatherFragment extends Fragment implements AdapterView.OnItem
         try {
             JSONArray arr = response.getJSONObject("data").getJSONArray("timelines").getJSONObject(0).getJSONArray("intervals");
             for (int i = 0; i < arr.length(); i++) {
-                weatherList.add(String.valueOf(arr.getJSONObject(i).getString("startTime")) + "\n" +
-                        String.valueOf(arr.getJSONObject(i).getJSONObject("values").getDouble("temperature")));
+                weatherList.add(arr.getJSONObject(i).getString("startTime"));
+                weatherList.add(String.valueOf(arr.getJSONObject(i).getJSONObject("values").getDouble("temperature")));
             }
         } catch (JSONException e) {
             e.printStackTrace();

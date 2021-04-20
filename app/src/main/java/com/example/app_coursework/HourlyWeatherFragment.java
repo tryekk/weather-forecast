@@ -1,20 +1,14 @@
 package com.example.app_coursework;
 
-import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,6 +22,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.app_coursework.adapter.HourlyWeatherAdapter;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -36,13 +31,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Objects;
 import java.util.TimeZone;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
@@ -131,8 +124,8 @@ public class HourlyWeatherFragment extends Fragment {
                             //       List
                             listView = (ListView) v.findViewById(R.id.hourly_weather_list);
 
-                            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(),
-                                    android.R.layout.simple_list_item_1,
+                            HourlyWeatherAdapter arrayAdapter = new HourlyWeatherAdapter(
+                                    getActivity(),
                                     weatherList);
 
                             listView.setAdapter(arrayAdapter);
@@ -158,8 +151,8 @@ public class HourlyWeatherFragment extends Fragment {
         try {
             JSONArray arr = response.getJSONObject("data").getJSONArray("timelines").getJSONObject(0).getJSONArray("intervals");
             for (int i = 0; i < arr.length(); i++) {
-                weatherList.add(String.valueOf(arr.getJSONObject(i).getString("startTime")) + "\n" +
-                        String.valueOf(arr.getJSONObject(i).getJSONObject("values").getDouble("temperature")));
+                weatherList.add(arr.getJSONObject(i).getString("startTime"));
+                weatherList.add(String.valueOf(arr.getJSONObject(i).getJSONObject("values").getDouble("temperature")));
             }
         } catch (JSONException e) {
             e.printStackTrace();
