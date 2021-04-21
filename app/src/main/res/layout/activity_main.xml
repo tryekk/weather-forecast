@@ -22,7 +22,7 @@
         android:padding="15dp"
         android:text="@string/hourly_forecast"
         android:textSize="20sp"
-        android:background="@color/status_bar"/>
+        android:background="@color/header_light"/>
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_hourly_container"
@@ -35,7 +35,7 @@
         android:padding="15dp"
         android:text="@string/daily_forecast"
         android:textSize="20sp"
-        android:background="@color/status_bar"/>
+        android:background="@color/header_light"/>
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_daily_container"

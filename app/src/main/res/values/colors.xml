@@ -9,6 +9,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="menu_bar">#C5D5EA</color>
     <color name="status_bar">#D8E1E9</color>
-    <color name="weather_list_dark">#1B1D22</color>
+    <color name="weather_list_dark">#232529</color>
     <color name="weather_list_light">#FFFFFF</color>
+    <color name="header_light">#D8E1E9</color>
+    <color name="header_dark">#7392B7</color>
 </resources>
