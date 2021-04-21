@@ -8,12 +8,14 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 
+import android.app.Application;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -52,7 +54,6 @@ import static android.app.usage.UsageEvents.Event.NONE;
 
 public class MainActivity extends AppCompatActivity {
 
-    // Get database
     private WeatherLocationDatabase weatherLocationDatabase;
     private ExecutorService executorService;
     private FusedLocationProviderClient locationManager;
@@ -78,15 +79,6 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 //        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        // Get a fragment manager
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.fragment_hourly_container, new HourlyWeatherFragment())
-                .commit();
-        fragmentManager.beginTransaction()
-                .replace(R.id.fragment_daily_container, new DailyWeatherFragment())
-                .commit();
-
         // Get location
         requestPermission();
         ArrayList<Double> currentPosition = new ArrayList<>();
@@ -106,10 +98,23 @@ public class MainActivity extends AppCompatActivity {
                     // Make and parse API request
                     getWeatherData(currentPosition);
                 } else {
-                    Log.d("COORDINATES", "nope");
+                    Log.d("COORDINATES", "Location is null");
+                    currentPosition.add(new Double(51.4816));
+                    currentPosition.add(new Double(-3.1791));
+                    // Make and parse API request
+                    getWeatherData(currentPosition);
                 }
             }
         });
+
+        // Get a fragment manager
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.fragment_hourly_container, new HourlyWeatherFragment())
+                .commit();
+        fragmentManager.beginTransaction()
+                .replace(R.id.fragment_daily_container, new DailyWeatherFragment())
+                .commit();
     }
 
     private void requestPermission() {
@@ -152,9 +157,13 @@ public class MainActivity extends AppCompatActivity {
                         //handled in some way - such as surrounding the code in a try-catch block
                         try {
                             Log.d("RESPONSE", response.toString(2)); //prints the response to LogCat
-//                            SharedPreferences.Editor editor = getSharedPreferences("APIResponse", MODE_PRIVATE).edit();
-//                            editor.putString("name", "Elena");
-//                            editor.apply();
+//                            // set sharedPreference
+//                            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+//                            SharedPreferences.Editor editor = preferences.edit();
+//                            editor.putString("response", response.toString());
+//                            editor.commit();
+                            HourlyWeatherFragment.getInstance().parseJSON(response);
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
