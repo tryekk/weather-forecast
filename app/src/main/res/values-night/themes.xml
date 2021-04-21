@@ -1,16 +1,18 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.App_coursework" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.App_coursework.Dark" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_200</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/dark_primary</item>
+        <item name="colorOnPrimary">@color/weather_list_dark</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
         <item name="colorSecondaryVariant">@color/teal_200</item>
-        <item name="colorOnSecondary">@color/dark_primary</item>
+        <item name="colorOnSecondary">@color/weather_list_dark</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">@color/menu_bar</item>
         <!-- Customize your theme here. -->
+        <item name="android:windowBackground">@color/weather_list_dark</item>
+<!--        <item name="android:listViewStyle">@color/weather_list_dark</item>-->
     </style>
 </resources>

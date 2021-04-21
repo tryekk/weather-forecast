@@ -4,4 +4,6 @@
     <string name="menu_item_1">1</string>
     <string name="first_item">first item</string>
     <string name="second_item">second item</string>
+    <string name="hourly_forecast">Hourly Forecast</string>
+    <string name="daily_forecast">Daily Forecast</string>
 </resources>

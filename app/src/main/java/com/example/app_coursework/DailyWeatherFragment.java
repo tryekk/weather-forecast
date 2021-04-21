@@ -91,8 +91,23 @@ public class DailyWeatherFragment extends Fragment implements AdapterView.OnItem
             new Response.ErrorListener() { //onerror
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    if (error.getMessage() != null)
+                    if (error.getMessage() != null) {
                         Log.d("ERROR", error.getMessage()); //prints the error message to LogCat
+                    }
+
+                    ArrayList<String> array = new ArrayList<>();
+                    array.add("hello,1");
+                    array.add("hello,1");
+                    array.add("hello,1");
+                    array.add("hello,1");
+
+                    listView = (ListView) v.findViewById(R.id.daily_weather_list);
+
+                    DailyWeatherAdapter arrayAdapter = new DailyWeatherAdapter(
+                            getActivity(),
+                            array);
+
+                    listView.setAdapter(arrayAdapter);
                 }
             }
         );
