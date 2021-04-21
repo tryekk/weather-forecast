@@ -17,12 +17,13 @@
         android:background="@color/menu_bar"/>
 
     <TextView
+        style="@style/header"
+        android:id="@+id/hourly_header"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:padding="15dp"
         android:text="@string/hourly_forecast"
-        android:textSize="20sp"
-        android:background="@color/header_light"/>
+        android:textSize="20sp"/>
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_hourly_container"
@@ -30,12 +31,13 @@
         android:layout_height="300dp" />
 
     <TextView
+        style="@style/header"
+        android:id="@+id/daily_header"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:padding="15dp"
         android:text="@string/daily_forecast"
-        android:textSize="20sp"
-        android:background="@color/header_light"/>
+        android:textSize="20sp"/>
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_daily_container"
