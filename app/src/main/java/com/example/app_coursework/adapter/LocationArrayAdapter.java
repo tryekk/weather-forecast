@@ -8,7 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.example.app_coursework.R;
-import com.example.app_coursework.WeatherLocation;
+import com.example.app_coursework.database.WeatherLocation;
 
 import java.util.List;
 

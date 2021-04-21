@@ -1,31 +1,62 @@
 package com.example.app_coursework;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.app_coursework.adapter.HourlyWeatherAdapter;
+import com.example.app_coursework.database.WeatherLocation;
+import com.example.app_coursework.database.WeatherLocationDatabase;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.app.usage.UsageEvents.Event.NONE;
 
 public class MainActivity extends AppCompatActivity {
 
-//    private WeatherLocationDatabase weatherLocationDatabase;
     // Get database
     private WeatherLocationDatabase weatherLocationDatabase;
     private ExecutorService executorService;
+    private FusedLocationProviderClient locationManager;
+    private RequestQueue requestQueue;
 
 //    @Override
 //    protected void attachBaseContext(Context base) {
@@ -39,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setTitle("Weather");
 
+        // Initialize room database
         weatherLocationDatabase = WeatherLocationDatabase.getInstance(getApplicationContext());
 
         // Add toolbar to the appbar
@@ -54,6 +86,89 @@ public class MainActivity extends AppCompatActivity {
         fragmentManager.beginTransaction()
                 .replace(R.id.fragment_daily_container, new DailyWeatherFragment())
                 .commit();
+
+        // Get location
+        requestPermission();
+        ArrayList<Double> currentPosition = new ArrayList<>();
+
+        locationManager = LocationServices.getFusedLocationProviderClient(this);
+        if (ActivityCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+        }
+        locationManager.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                if (location != null) {
+                    Log.d("COORDINATES", location.getLatitude() + ", " + location.getLongitude());
+//                    currentPosition.clear();
+                    currentPosition.add(location.getLatitude());
+                    currentPosition.add(location.getLongitude());
+                    // Make and parse API request
+                    getWeatherData(currentPosition);
+                } else {
+                    Log.d("COORDINATES", "nope");
+                }
+            }
+        });
+    }
+
+    private void requestPermission() {
+        ActivityCompat.requestPermissions(this, new String[]{ACCESS_FINE_LOCATION}, 1);
+    }
+
+    private void getWeatherData(ArrayList<Double> currentPosition) {
+        //  API
+        requestQueue = Volley.newRequestQueue(this);
+
+        // Get time and date
+        TimeZone tz = TimeZone.getTimeZone("UTC");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'"); // Quoted "Z" to indicate UTC, no timezone offset
+        df.setTimeZone(tz);
+        // Convert Date to Calendar
+        Calendar c = Calendar.getInstance();
+        c.setTime(new Date());
+        c.add(Calendar.HOUR, 24);
+
+        String endTime = df.format(c.getTime());
+        String apikey = "z6N3a8QW0Cwy80k9sTxvPNHCGqvRFq5f";
+//        double[] location = {51.4816, -3.1791};
+        String[] fields = {"temperature"};
+        String units = "metric";
+        String[] timesteps = {"1h"};
+        String timezone = "Europe/London";
+
+        String url = "https://api.tomorrow.io/v4/timelines" + "?apikey=" + apikey + "&location=" + currentPosition.get(0) + "," + currentPosition.get(1) +
+                "&fields=" + fields[0] + "&units=" + units + "&timesteps=" + timesteps[0] + "&endTime=" + endTime + "&timezone=" + timezone;
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.GET, //The type of request, e.g., GET, POST, DELETE, PUT, etc.
+                url, //as defined above
+                null, //data to send with the request, none in this case
+                new Response.Listener<JSONObject>() { //onsuccess
+                    @RequiresApi(api = Build.VERSION_CODES.N)
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        //access to methods on a JSONObject requires JSONException errors to be
+                        //handled in some way - such as surrounding the code in a try-catch block
+                        try {
+                            Log.d("RESPONSE", response.toString(2)); //prints the response to LogCat
+//                            SharedPreferences.Editor editor = getSharedPreferences("APIResponse", MODE_PRIVATE).edit();
+//                            editor.putString("name", "Elena");
+//                            editor.apply();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() { //onerror
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        if (error.getMessage() != null)
+                            Log.d("ERROR", error.getMessage()); //prints the error message to LogCat
+                    }
+                }
+        );
+        requestQueue.add(jsonObjectRequest);
     }
 
     @Override

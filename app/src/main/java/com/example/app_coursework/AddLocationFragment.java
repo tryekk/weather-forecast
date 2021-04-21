@@ -14,6 +14,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.app_coursework.adapter.LocationArrayAdapter;
+import com.example.app_coursework.database.WeatherLocation;
+import com.example.app_coursework.database.WeatherLocationDatabase;
 
 import java.util.ArrayList;
 import java.util.List;

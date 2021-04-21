@@ -1,4 +1,4 @@
-package com.example.app_coursework;
+package com.example.app_coursework.database;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;

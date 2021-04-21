@@ -1,11 +1,9 @@
-package com.example.app_coursework;
+package com.example.app_coursework.database;
 
 import androidx.room.Dao;
-import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.RoomWarnings;
-import androidx.room.Update;
 
 import java.util.List;
 
