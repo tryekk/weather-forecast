@@ -37,12 +37,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setTitle("Weather");
 
         weatherLocationDatabase = WeatherLocationDatabase.getInstance(getApplicationContext());
 
         // Add toolbar to the appbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+//        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         // Get a fragment manager
         FragmentManager fragmentManager = getSupportFragmentManager();

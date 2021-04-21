@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:background="#7392B7"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    >
     <!--vertical means the fragment is below the toolbar-->
 
     <androidx.appcompat.widget.Toolbar
