@@ -162,7 +162,8 @@ public class MainActivity extends AppCompatActivity {
 //                            SharedPreferences.Editor editor = preferences.edit();
 //                            editor.putString("response", response.toString());
 //                            editor.commit();
-                            HourlyWeatherFragment.getInstance().parseJSON(response);
+                            HourlyWeatherFragment hourlyWeatherFragment = HourlyWeatherFragment.getInstance();
+                            hourlyWeatherFragment.parseJSON(response);
 
                         } catch (JSONException e) {
                             e.printStackTrace();

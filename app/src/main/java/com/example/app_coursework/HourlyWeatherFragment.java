@@ -26,6 +26,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.app_coursework.adapter.DailyWeatherAdapter;
 import com.example.app_coursework.adapter.HourlyWeatherAdapter;
 import com.example.app_coursework.adapter.LocationArrayAdapter;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -44,6 +45,7 @@ import java.util.Date;
 import java.util.TimeZone;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+import static android.Manifest.permission.SYSTEM_ALERT_WINDOW;
 
 public class HourlyWeatherFragment extends Fragment {
 
@@ -58,22 +60,7 @@ public class HourlyWeatherFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_hourly, container, false);
         instance = this;
 
-        // Update listView
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-
-                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-                System.out.println(preferences.getString("response", null));
-
-//                listView = (ListView) v.findViewById(R.id.weather_locations_list);
-//                // Custom array adapter
-//                LocationArrayAdapter adapter = new LocationArrayAdapter (getActivity(), locationsList);
-//                listView.setAdapter(adapter);
-//
-//                listView.setOnItemClickListener(AddLocationFragment.this::onItemClick);
-            }
-        });
+        listView = (ListView) v.findViewById(R.id.hourly_weather_list);
 
         return v;
     }
@@ -93,7 +80,10 @@ public class HourlyWeatherFragment extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        System.out.println(weatherList);
+
+        HourlyWeatherAdapter adapter = new HourlyWeatherAdapter (getActivity(), weatherList);
+        listView.setAdapter(adapter);
+
     }
 
 }
