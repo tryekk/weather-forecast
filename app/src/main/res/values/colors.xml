@@ -7,10 +7,11 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="menu_bar">#C5D5EA</color>
+    <color name="menu_bar_light">#C5D5EA</color>
+    <color name="menu_bar_dark">#779DCF</color>
     <color name="status_bar">#D8E1E9</color>
-    <color name="weather_list_dark">#232529</color>
+    <color name="weather_list_dark">#1C2935</color>
     <color name="weather_list_light">#FFFFFF</color>
-    <color name="header_light">#D8E1E9</color>
-    <color name="header_dark">#7392B7</color>
+    <color name="header_light">#4C6D94</color>
+    <color name="header_dark">#759EB8</color>
 </resources>

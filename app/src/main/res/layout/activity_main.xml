@@ -14,16 +14,17 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/menu_bar"/>
+        style="@style/menu_bar"/>
 
     <TextView
-        style="@style/header"
         android:id="@+id/hourly_header"
+        style="@style/header"
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:layout_marginTop="10dp"
         android:padding="15dp"
         android:text="@string/hourly_forecast"
-        android:textSize="20sp"/>
+        android:textSize="20sp" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_hourly_container"
@@ -31,13 +32,14 @@
         android:layout_height="300dp" />
 
     <TextView
-        style="@style/header"
         android:id="@+id/daily_header"
+        style="@style/header"
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:layout_marginTop="10dp"
         android:padding="15dp"
         android:text="@string/daily_forecast"
-        android:textSize="20sp"/>
+        android:textSize="20sp" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_daily_container"
