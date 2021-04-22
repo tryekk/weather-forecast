@@ -56,7 +56,8 @@ public class DailyWeatherFragment extends Fragment implements AdapterView.OnItem
             for (int i = 0; i < arr.length(); i++) {
                 String[] dateFormatted = arr.getJSONObject(i).getString("startTime").split("T");
                 weatherList.add(dateFormatted[0] + "," +
-                        String.valueOf(arr.getJSONObject(i).getJSONObject("values").getDouble("temperature")));
+                        String.valueOf(arr.getJSONObject(i).getJSONObject("values").getDouble("temperature")) + "    " +
+                        String.valueOf(arr.getJSONObject(i).getJSONObject("values").getDouble("weatherCode")));  // TODO requires translation
             }
         } catch (JSONException e) {
             e.printStackTrace();

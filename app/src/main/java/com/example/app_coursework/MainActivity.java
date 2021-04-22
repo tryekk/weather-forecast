@@ -139,13 +139,15 @@ public class MainActivity extends AppCompatActivity {
         String endTime = df.format(c.getTime());
         String apikey = "z6N3a8QW0Cwy80k9sTxvPNHCGqvRFq5f";
 //        double[] location = {51.4816, -3.1791};
-        String[] fields = {"temperature"};
+        String[] fields = {"temperature", "weatherCode"};
         String units = "metric";
         String[] timesteps = {"1h", "1d"};
         String timezone = "Europe/London";
 
-        String url = "https://api.tomorrow.io/v4/timelines" + "?apikey=" + apikey + "&location=" + currentPosition.get(0) + "," + currentPosition.get(1) +
-                "&fields=" + fields[0] + "&units=" + units + "&timesteps=" + timesteps[0] + "&timesteps=" + timesteps[1] + "&endTime=" + endTime + "&timezone=" + timezone;
+        String url = "https://api.tomorrow.io/v4/timelines" + "?apikey=" + apikey + "&location=" +
+                currentPosition.get(0) + "," + currentPosition.get(1) + "&fields=" + fields[0]
+                + "&fields=" + fields[1] + "&units=" + units + "&timesteps=" + timesteps[0] + "&timesteps=" + timesteps[1] +
+                "&endTime=" + endTime + "&timezone=" + timezone;
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.GET, //The type of request, e.g., GET, POST, DELETE, PUT, etc.
@@ -159,16 +161,11 @@ public class MainActivity extends AppCompatActivity {
                         //handled in some way - such as surrounding the code in a try-catch block
                         try {
                             Log.d("RESPONSE", response.toString(2)); //prints the response to LogCat
-//                            // set sharedPreference
-//                            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-//                            SharedPreferences.Editor editor = preferences.edit();
-//                            editor.putString("response", response.toString());
-//                            editor.commit();
+                            // Process data
                             HourlyWeatherFragment hourlyWeatherFragment = HourlyWeatherFragment.getInstance();
                             hourlyWeatherFragment.parseJSON(response);
                             DailyWeatherFragment dailyWeatherFragment = DailyWeatherFragment.getInstance();
                             dailyWeatherFragment.parseJSON(response);
-
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
