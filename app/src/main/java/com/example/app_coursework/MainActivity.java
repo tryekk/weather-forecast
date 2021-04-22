@@ -232,7 +232,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
             return true;
         } else {
-
 //            Toast.makeText(this, item.getTitle(), Toast.LENGTH_SHORT).show();
             // Create background thread
             executorService = Executors.newSingleThreadExecutor();
@@ -244,14 +243,14 @@ public class MainActivity extends AppCompatActivity {
                             .getCoordinates();
 
                     String[] formattedCoordinates = coordinates.split(",");
-
+                    // Update weather with selected coordinates
                     currentPosition.clear();
                     currentPosition.add(Double.valueOf(formattedCoordinates[0]));
                     currentPosition.add(Double.valueOf(formattedCoordinates[1]));
                     getWeatherData(currentPosition);
                 }
             });
-
+            setTitle(item.getTitle());
             return true;
         }
     }
