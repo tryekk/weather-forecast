@@ -41,6 +41,7 @@ public class HourlyWeatherFragment extends Fragment {
     }
 
     protected void parseJSON(JSONObject response) {
+        weatherList.clear();
         try {
             JSONArray arr = response.getJSONObject("data").getJSONArray("timelines").getJSONObject(0).getJSONArray("intervals");
             for (int i = 0; i < arr.length(); i++) {

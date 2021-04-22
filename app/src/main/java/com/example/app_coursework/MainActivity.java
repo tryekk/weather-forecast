@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
     private ExecutorService executorService;
     private FusedLocationProviderClient locationManager;
     private RequestQueue requestQueue;
+    ArrayList<Double> currentPosition = new ArrayList<>();
 
 //    @Override
 //    protected void attachBaseContext(Context base) {
@@ -81,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Get location
         requestPermission();
-        ArrayList<Double> currentPosition = new ArrayList<>();
 
         locationManager = LocationServices.getFusedLocationProviderClient(this);
         if (ActivityCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -92,13 +92,14 @@ public class MainActivity extends AppCompatActivity {
             public void onSuccess(Location location) {
                 if (location != null) {
                     Log.d("COORDINATES", location.getLatitude() + ", " + location.getLongitude());
-//                    currentPosition.clear();
+                    currentPosition.clear();
                     currentPosition.add(location.getLatitude());
                     currentPosition.add(location.getLongitude());
                     // Make and parse API request
                     getWeatherData(currentPosition);
                 } else {
                     Log.d("COORDINATES", "Location is null");
+                    currentPosition.clear();
                     currentPosition.add(new Double(51.4816));
                     currentPosition.add(new Double(-3.1791));
                     // Make and parse API request
@@ -231,7 +232,26 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
             return true;
         } else {
-            Toast.makeText(this, String.valueOf(id), Toast.LENGTH_SHORT).show();
+
+//            Toast.makeText(this, item.getTitle(), Toast.LENGTH_SHORT).show();
+            // Create background thread
+            executorService = Executors.newSingleThreadExecutor();
+            executorService.execute(new Runnable() {
+                @Override
+                public void run() {
+                    String coordinates = weatherLocationDatabase.weatherLocationDAO()
+                            .getChosenWeatherLocation(String.valueOf(item.getTitle()))
+                            .getCoordinates();
+
+                    String[] formattedCoordinates = coordinates.split(",");
+
+                    currentPosition.clear();
+                    currentPosition.add(Double.valueOf(formattedCoordinates[0]));
+                    currentPosition.add(Double.valueOf(formattedCoordinates[1]));
+                    getWeatherData(currentPosition);
+                }
+            });
+
             return true;
         }
     }

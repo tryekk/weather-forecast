@@ -50,6 +50,7 @@ public class DailyWeatherFragment extends Fragment implements AdapterView.OnItem
     }
 
     protected void parseJSON(JSONObject response) {
+        weatherList.clear();
         try {
             JSONArray arr = response.getJSONObject("data").getJSONArray("timelines").getJSONObject(1).getJSONArray("intervals");
             for (int i = 0; i < arr.length(); i++) {
