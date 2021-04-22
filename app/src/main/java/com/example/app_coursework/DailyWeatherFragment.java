@@ -38,83 +38,24 @@ import java.util.TimeZone;
 
 public class DailyWeatherFragment extends Fragment implements AdapterView.OnItemClickListener {
 
-    private RequestQueue requestQueue;
     ListView listView;
     ArrayList<String> weatherList = new ArrayList<>();
+    private static DailyWeatherFragment instance = null;
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_daily, container, false);
+        instance = this;
 
-//        API
-        requestQueue = Volley.newRequestQueue(requireActivity());
-
-        String apikey = "z6N3a8QW0Cwy80k9sTxvPNHCGqvRFq5f";
-        double[] location = {51.4816, -3.1791};
-        String[] fields = {"temperature"};
-        String units = "metric";
-        String[] timesteps = {"1d"};
-        String timezone = "Europe/London";
-
-        String url = "https://api.tomorrow.io/v4/timelines" + "?apikey=" + apikey + "&location=" + location[0] + "," + location[1] +
-                "&fields=" + fields[0] + "&units=" + units + "&timesteps=" + timesteps[0] + "&timezone=" + timezone;
-
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
-            Request.Method.GET, //The type of request, e.g., GET, POST, DELETE, PUT, etc.
-            url, //as defined above
-            null, //data to send with the request, none in this case
-            new Response.Listener<JSONObject>() { //onsuccess
-                @RequiresApi(api = Build.VERSION_CODES.N)
-                @Override
-                public void onResponse(JSONObject response) {
-                    //access to methods on a JSONObject requires JSONException errors to be
-                    //handled in some way - such as surrounding the code in a try-catch block
-                    try {
-                        Log.d("RESPONSE", response.toString(2)); //prints the response to LogCat
-                        parseJSON(response);
-                        //       List
-                        listView = (ListView) v.findViewById(R.id.daily_weather_list);
-
-                        DailyWeatherAdapter arrayAdapter = new DailyWeatherAdapter(
-                                getActivity(),
-                                weatherList);
-
-                        listView.setAdapter(arrayAdapter);
-//                        listView.setOnItemClickListener(this);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            },
-            new Response.ErrorListener() { //onerror
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    if (error.getMessage() != null) {
-                        Log.d("ERROR", error.getMessage()); //prints the error message to LogCat
-                    }
-
-                    ArrayList<String> array = new ArrayList<>();
-                    array.add("hello,1");
-                    array.add("hello,1");
-                    array.add("hello,1");
-                    array.add("hello,1");
-
-                    listView = (ListView) v.findViewById(R.id.daily_weather_list);
-
-                    DailyWeatherAdapter arrayAdapter = new DailyWeatherAdapter(
-                            getActivity(),
-                            array);
-
-                    listView.setAdapter(arrayAdapter);
-                }
-            }
-        );
-
-        requestQueue.add(jsonObjectRequest);
+        listView = (ListView) v.findViewById(R.id.daily_weather_list);
 
         return v;
+    }
+
+    public static DailyWeatherFragment getInstance() {
+        return instance;
     }
 
     @Override
@@ -123,9 +64,9 @@ public class DailyWeatherFragment extends Fragment implements AdapterView.OnItem
         Toast.makeText(getActivity(), day, Toast.LENGTH_SHORT).show();
     }
 
-    private void parseJSON(JSONObject response) {
+    protected void parseJSON(JSONObject response) {
         try {
-            JSONArray arr = response.getJSONObject("data").getJSONArray("timelines").getJSONObject(0).getJSONArray("intervals");
+            JSONArray arr = response.getJSONObject("data").getJSONArray("timelines").getJSONObject(1).getJSONArray("intervals");
             for (int i = 0; i < arr.length(); i++) {
                 String[] dateFormatted = arr.getJSONObject(i).getString("startTime").split("T");
                 weatherList.add(dateFormatted[0] + "," +
@@ -134,6 +75,9 @@ public class DailyWeatherFragment extends Fragment implements AdapterView.OnItem
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        // Update listView
+        DailyWeatherAdapter adapter = new DailyWeatherAdapter (getActivity(), weatherList);
+        listView.setAdapter(adapter);
     }
 
 }

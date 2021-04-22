@@ -132,18 +132,18 @@ public class MainActivity extends AppCompatActivity {
         // Convert Date to Calendar
         Calendar c = Calendar.getInstance();
         c.setTime(new Date());
-        c.add(Calendar.HOUR, 24);
+        c.add(Calendar.DATE, 10);
 
         String endTime = df.format(c.getTime());
         String apikey = "z6N3a8QW0Cwy80k9sTxvPNHCGqvRFq5f";
 //        double[] location = {51.4816, -3.1791};
         String[] fields = {"temperature"};
         String units = "metric";
-        String[] timesteps = {"1h"};
+        String[] timesteps = {"1h", "1d"};
         String timezone = "Europe/London";
 
         String url = "https://api.tomorrow.io/v4/timelines" + "?apikey=" + apikey + "&location=" + currentPosition.get(0) + "," + currentPosition.get(1) +
-                "&fields=" + fields[0] + "&units=" + units + "&timesteps=" + timesteps[0] + "&endTime=" + endTime + "&timezone=" + timezone;
+                "&fields=" + fields[0] + "&units=" + units + "&timesteps=" + timesteps[0] + "&timesteps=" + timesteps[1] + "&endTime=" + endTime + "&timezone=" + timezone;
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.GET, //The type of request, e.g., GET, POST, DELETE, PUT, etc.
@@ -164,6 +164,8 @@ public class MainActivity extends AppCompatActivity {
 //                            editor.commit();
                             HourlyWeatherFragment hourlyWeatherFragment = HourlyWeatherFragment.getInstance();
                             hourlyWeatherFragment.parseJSON(response);
+                            DailyWeatherFragment dailyWeatherFragment = DailyWeatherFragment.getInstance();
+                            dailyWeatherFragment.parseJSON(response);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -173,8 +175,12 @@ public class MainActivity extends AppCompatActivity {
                 new Response.ErrorListener() { //onerror
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        if (error.getMessage() != null)
+                        if (error.getMessage() != null) {
                             Log.d("ERROR", error.getMessage()); //prints the error message to LogCat
+                        }
+                            // Dummy data
+                            ArrayList<String> array = new ArrayList<>();
+                            array.add("hello,1");
                     }
                 }
         );
