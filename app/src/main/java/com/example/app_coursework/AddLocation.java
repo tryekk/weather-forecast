@@ -3,21 +3,12 @@ package com.example.app_coursework;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-
-import com.example.app_coursework.database.WeatherLocation;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.Executors;
-
-import static android.app.usage.UsageEvents.Event.NONE;
 
 public class AddLocation extends AppCompatActivity {
 
