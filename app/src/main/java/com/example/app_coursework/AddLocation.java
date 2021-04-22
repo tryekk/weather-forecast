@@ -25,7 +25,7 @@ public class AddLocation extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_location);
-        setTitle("Add a location");
+        setTitle("Select a location");
 
         // Add toolbar to the appbar
         Toolbar toolbar = findViewById(R.id.toolbar_add_location);
