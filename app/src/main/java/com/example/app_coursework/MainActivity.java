@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setTitle("Weather");
+        setTitle("Current Location");
 
         // Initialize room database
         weatherLocationDatabase = WeatherLocationDatabase.getInstance(getApplicationContext());
