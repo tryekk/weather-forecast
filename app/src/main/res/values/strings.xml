@@ -6,4 +6,5 @@
     <string name="second_item">second item</string>
     <string name="hourly_forecast">Hourly Forecast</string>
     <string name="daily_forecast">Daily Forecast</string>
+    <string name="create_new_location">Create new location</string>
 </resources>

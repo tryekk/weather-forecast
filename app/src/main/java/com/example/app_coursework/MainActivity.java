@@ -8,6 +8,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -232,7 +233,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
             return true;
         } else {
-//            Toast.makeText(this, item.getTitle(), Toast.LENGTH_SHORT).show();
             // Create background thread
             executorService = Executors.newSingleThreadExecutor();
             executorService.execute(new Runnable() {
