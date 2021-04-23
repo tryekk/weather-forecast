@@ -36,8 +36,18 @@ public class DailyWeatherAdapter extends ArrayAdapter<String> {
         String[] display = items.get(position).split(",");
         time.setText(display[0]);
         temperature.setText(display[1]);
-        weatherIcon.setBackgroundResource(R.drawable.sunny);
-        precipitation.setText("TODO");
+        switch (display[2]) {
+            case "1000.0":
+                weatherIcon.setBackgroundResource(R.drawable.sunny);
+                break;
+            case "1100.0":
+                weatherIcon.setImageResource(R.drawable.ic_mostly_clear_day);
+                break;
+        }
+
+        System.out.println(display[2]);
+
+        precipitation.setText(display[3]);
 
         return rowView;
     }

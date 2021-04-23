@@ -65,9 +65,13 @@ public class DailyWeatherFragment extends Fragment implements AdapterView.OnItem
                 DateFormat format2 = new SimpleDateFormat("EEEE");
                 String finalDay = format2.format(dt1);
 
+                // Weather code
+                String weatherCode = String.valueOf(arr.getJSONObject(i).getJSONObject("values").getDouble("weatherCode"));
+
                 weatherList.add(finalDay + "," +
-                        String.valueOf(arr.getJSONObject(i).getJSONObject("values").getDouble("temperature")) + "    " +
-                        String.valueOf(arr.getJSONObject(i).getJSONObject("values").getDouble("weatherCode")));  // TODO requires translation
+                        String.valueOf(arr.getJSONObject(i).getJSONObject("values").getDouble("temperature")) + "," +
+                        String.valueOf(arr.getJSONObject(i).getJSONObject("values").getDouble("weatherCode")) + "," +
+                        String.valueOf(arr.getJSONObject(i).getJSONObject("values").getDouble("precipitationProbability")));
             }
         } catch (JSONException | ParseException e) {
             e.printStackTrace();
