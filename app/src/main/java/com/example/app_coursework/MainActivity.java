@@ -218,7 +218,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (id == R.id.add_location) {
             Intent intent = new Intent();
-            intent.setClass(getApplicationContext(), AddLocation.class);
+            intent.setClass(getApplicationContext(), AddLocationActivity.class);
             startActivity(intent);
             return true;
         } else {

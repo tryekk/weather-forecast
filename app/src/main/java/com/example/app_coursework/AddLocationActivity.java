@@ -10,7 +10,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class AddLocation extends AppCompatActivity {
+public class AddLocationActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,15 +40,12 @@ public class AddLocation extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.add_location) {
-            // TODO Direct to create location activity
+        if (id == R.id.create_location) {
             Intent intent = new Intent();
-            intent.setClass(getApplicationContext(), AddLocation.class);
+            intent.setClass(getApplicationContext(), CreateLocationActivity.class);
             startActivity(intent);
             return true;
-        } else {
-
-            return true;
         }
+        return false;
     }
 }
