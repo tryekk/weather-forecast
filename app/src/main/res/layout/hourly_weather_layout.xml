@@ -25,9 +25,19 @@
         android:textSize="22sp" />
 
     <ImageView
+        android:id="@+id/weather_icon"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:src="@drawable/sunny"
         />
+
+    <TextView
+        android:id="@+id/hourly_precipitation"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:textSize="22sp"
+        android:paddingTop="3dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="3dp"/>
 
 </LinearLayout>

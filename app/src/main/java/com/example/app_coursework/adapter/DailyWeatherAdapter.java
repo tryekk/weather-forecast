@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.app_coursework.R;
@@ -29,10 +30,14 @@ public class DailyWeatherAdapter extends ArrayAdapter<String> {
 
         TextView time = (TextView) rowView.findViewById(R.id.daily_time);
         TextView temperature = (TextView) rowView.findViewById(R.id.daily_temperature);
+        ImageView weatherIcon = (ImageView) rowView.findViewById(R.id.weather_icon);
+        TextView precipitation = (TextView) rowView.findViewById(R.id.daily_precipitation);
 
         String[] display = items.get(position).split(",");
         time.setText(display[0]);
         temperature.setText(display[1]);
+        weatherIcon.setBackgroundResource(R.drawable.sunny);
+        precipitation.setText("TODO");
 
         return rowView;
     }
