@@ -18,7 +18,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 public class DailyWeatherFragment extends Fragment implements AdapterView.OnItemClickListener {
@@ -54,12 +58,18 @@ public class DailyWeatherFragment extends Fragment implements AdapterView.OnItem
         try {
             JSONArray arr = response.getJSONObject("data").getJSONArray("timelines").getJSONObject(1).getJSONArray("intervals");
             for (int i = 0; i < arr.length(); i++) {
+                // Format date
                 String[] dateFormatted = arr.getJSONObject(i).getString("startTime").split("T");
-                weatherList.add(dateFormatted[0] + "," +
+                DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                Date dt1 = df.parse(dateFormatted[0]);
+                DateFormat format2 = new SimpleDateFormat("EEEE");
+                String finalDay = format2.format(dt1);
+
+                weatherList.add(finalDay + "," +
                         String.valueOf(arr.getJSONObject(i).getJSONObject("values").getDouble("temperature")) + "    " +
                         String.valueOf(arr.getJSONObject(i).getJSONObject("values").getDouble("weatherCode")));  // TODO requires translation
             }
-        } catch (JSONException e) {
+        } catch (JSONException | ParseException e) {
             e.printStackTrace();
         }
         // Update listView
