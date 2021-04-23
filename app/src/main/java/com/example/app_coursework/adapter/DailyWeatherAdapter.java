@@ -44,9 +44,6 @@ public class DailyWeatherAdapter extends ArrayAdapter<String> {
                 weatherIcon.setImageResource(R.drawable.ic_mostly_clear_day);
                 break;
         }
-
-        System.out.println(display[2]);
-
         precipitation.setText(display[3]);
 
         return rowView;
