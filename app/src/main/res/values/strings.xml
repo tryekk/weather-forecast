@@ -9,4 +9,5 @@
     <string name="create_new_location">Create new location</string>
     <string name="create_location_name_hint">Location name</string>
     <string name="create_location_coordinates_hint">Coordinates</string>
+    <string name="save">Save</string>
 </resources>
