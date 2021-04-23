@@ -7,17 +7,12 @@
     tools:context=".AddLocationActivity"
     android:orientation="vertical">
 
-<!--    <EditText-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:hint="Location"-->
-<!--        android:id="@+id/add_location_text"/>-->
-
     <ListView
         android:id="@+id/weather_locations_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
+        android:divider="@null"
         />
 
 </LinearLayout>
