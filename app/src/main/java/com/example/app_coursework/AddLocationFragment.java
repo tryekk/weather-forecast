@@ -76,7 +76,7 @@ public class AddLocationFragment extends Fragment implements AdapterView.OnItemC
         executorService.execute(new Runnable() {
             @Override
             public void run() {
-                weatherLocationDatabase.weatherLocationDAO().setWeatherLocationAsSelected(weatherLocation.getName(), true);
+                weatherLocationDatabase.weatherLocationDAO().setWeatherLocationAsSelected(weatherLocation.getName(), 1);
                 // Back to main activity
                 Intent intent = new Intent();
                 intent.setClass(getContext(), MainActivity.class);

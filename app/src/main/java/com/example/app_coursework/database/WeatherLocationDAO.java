@@ -11,11 +11,11 @@ import java.util.List;
 public interface WeatherLocationDAO {
 
     @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
-    @Query("SELECT name, coordinates FROM WeatherLocation WHERE isChosen = false")
+    @Query("SELECT name, coordinates FROM WeatherLocation WHERE isChosen = 0")
     List<WeatherLocation> getUnselectedWeatherLocations();
 
     @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
-    @Query("SELECT name, coordinates FROM WeatherLocation WHERE isChosen = true")
+    @Query("SELECT name, coordinates FROM WeatherLocation WHERE isChosen = 1")
     List<WeatherLocation> getSelectedWeatherLocations();
 
     @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
@@ -23,7 +23,7 @@ public interface WeatherLocationDAO {
     WeatherLocation getChosenWeatherLocation(String inputName);
 
     @Query("UPDATE weatherlocation SET isChosen=:status WHERE name = :inputName")
-    void setWeatherLocationAsSelected(String inputName, Boolean status);
+    void setWeatherLocationAsSelected(String inputName, Integer status);
 
     @Insert
     void addWeatherLocation(WeatherLocation... weatherLocation);
