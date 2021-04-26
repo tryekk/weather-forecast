@@ -19,12 +19,15 @@
         android:id="@+id/hourly_header"
         style="@style/header"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar"
-        android:layout_marginTop="10dp"
-        android:padding="15dp"
+        android:padding="10dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:text="@string/hourly_forecast"
         android:textSize="20sp" />
+<!--    android:layout_marginTop="10dp"-->
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_hourly_container"
@@ -36,10 +39,12 @@
         android:id="@+id/daily_header"
         style="@style/header"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/fragment_hourly_container"
-        android:layout_marginTop="10dp"
-        android:padding="15dp"
+        android:padding="10dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:text="@string/daily_forecast"
         android:textSize="20sp" />
 

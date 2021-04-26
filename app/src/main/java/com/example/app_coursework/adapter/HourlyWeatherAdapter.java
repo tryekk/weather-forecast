@@ -65,6 +65,9 @@ public class HourlyWeatherAdapter extends ArrayAdapter<String> {
             case "4201.0":
                 weatherIcon.setImageResource(R.drawable.ic_rain_heavy);
                 break;
+            case "5000.0":
+                weatherIcon.setImageResource(R.drawable.ic_snow);
+                break;
         }
         precipitation.setText(display[3]);
 
