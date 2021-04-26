@@ -57,7 +57,8 @@ public class WeatherLocation {
                 new WeatherLocation("Kuala Lumpur", "3.1390,101.6869", 0),
                 new WeatherLocation("Tokyo", "35.6762,139.6503", 0),
                 new WeatherLocation("Cologne", "50.9375,6.9603", 0),
-                new WeatherLocation("Madrid", "40.4168,3.7038", 0)
+                new WeatherLocation("Madrid", "40.4168,3.7038", 0),
+                new WeatherLocation("Bristol", "51.4545,2.5879", 0)
         };
     }
 }
