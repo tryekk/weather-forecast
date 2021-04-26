@@ -16,13 +16,12 @@
 
     <TextView
         android:id="@+id/hourly_temperature"
-        android:layout_width="100dp"
+        android:layout_width="60dp"
         android:layout_height="wrap_content"
-        android:paddingLeft="21dp"
-        android:paddingTop="5dp"
-        android:paddingRight="20dp"
+        android:textSize="21sp"
+        android:paddingTop="3dp"
         android:paddingBottom="3dp"
-        android:textSize="22sp" />
+        android:layout_marginLeft="20dp"/>
 
     <ImageView
         android:id="@+id/weather_icon"
@@ -32,12 +31,11 @@
 
     <TextView
         android:id="@+id/hourly_precipitation"
-        android:layout_width="100dp"
+        android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:textSize="21sp"
         android:paddingTop="3dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:paddingBottom="3dp"/>
+        android:paddingBottom="3dp"
+        android:layout_marginLeft="20dp"/>
 
 </LinearLayout>
