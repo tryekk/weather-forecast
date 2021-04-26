@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -34,6 +35,7 @@ public class CreateLocationFragment extends Fragment {
 
         EditText input = (EditText) v.findViewById(R.id.create_location_text);
         EditText inputCoordinates = (EditText) v.findViewById(R.id.create_location_text_coordinates);
+        ToggleButton selected = (ToggleButton) v.findViewById(R.id.toggleButton);
 
         Button submitButton = v.findViewById(R.id.button_save_location);
         submitButton.setOnClickListener(new View.OnClickListener()
@@ -47,10 +49,10 @@ public class CreateLocationFragment extends Fragment {
                     public void run() {
                         // Add user input to database
                         weatherLocationDatabase.weatherLocationDAO().addWeatherLocation(
-                                new WeatherLocation(input.getText().toString(), inputCoordinates.getText().toString(), 0));
+                                new WeatherLocation(input.getText().toString(), inputCoordinates.getText().toString(), selected.isChecked() ? 1:0));
                         // Back to add location screen
                         Intent intent = new Intent();
-                        intent.setClass(getActivity(), AddLocationActivity.class);
+                        intent.setClass(getActivity(), MainActivity.class);
                         startActivity(intent);
                     }
                 });
