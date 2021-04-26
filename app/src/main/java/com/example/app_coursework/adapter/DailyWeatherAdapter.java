@@ -41,8 +41,17 @@ public class DailyWeatherAdapter extends ArrayAdapter<String> {
                 weatherIcon.setBackgroundResource(R.drawable.sunny);
 //                weatherIcon.setImageResource(R.drawable.ic_clear_day);
                 break;
+            case "1001.0":
+                weatherIcon.setImageResource(R.drawable.ic_cloudy);
+                break;
             case "1100.0":
                 weatherIcon.setImageResource(R.drawable.ic_mostly_clear_day);
+                break;
+            case "1101.0":
+                weatherIcon.setImageResource(R.drawable.ic_partly_cloudy_day);
+                break;
+            case "1102.0":
+                weatherIcon.setImageResource(R.drawable.ic_mostly_cloudy);
                 break;
             case "4000.0":
                 weatherIcon.setImageResource(R.drawable.ic_drizzle);
