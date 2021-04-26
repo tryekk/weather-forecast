@@ -10,4 +10,7 @@
     <string name="create_location_name_hint">Location name</string>
     <string name="create_location_coordinates_hint">Coordinates: eg. 51.4816,3.1791</string>
     <string name="save">Save</string>
+    <string name="add_to_main_menu">Add to main menu?</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
 </resources>

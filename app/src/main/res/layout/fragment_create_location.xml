@@ -31,14 +31,24 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"/>
 
-    <ToggleButton
-        android:id="@+id/toggleButton"
+    <TextView
+        android:id="@+id/add_to_menu_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/create_location_text_coordinates"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="35dp"
-        android:text="ToggleButton" />
+        android:layout_marginTop="30dp"
+        android:text="@string/add_to_main_menu" />
+
+    <ToggleButton
+        android:id="@+id/toggleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/add_to_menu_text"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:textOff="@string/no"
+        android:textOn="@string/yes"  />
 
     <Button
         android:id="@+id/button_save_location"
