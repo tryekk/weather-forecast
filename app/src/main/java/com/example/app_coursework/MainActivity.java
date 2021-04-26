@@ -203,13 +203,13 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         // Update menu
-                        menu.add(NONE, 0, NONE, "Current Location")
-                                .setIcon(ContextCompat.getDrawable(MainActivity.this, R.drawable.ic_baseline_add_24));
                         for (int i = 0; i<locationsList.size(); i++) {
                             menu.add(NONE, i+1, NONE, locationsList.get(i));
                         }
                         menu.add(NONE, R.id.add_location, NONE, "Add Location")
                                 .setIcon(ContextCompat.getDrawable(MainActivity.this, R.drawable.ic_baseline_add_24)).setShowAsAction(1);
+                        menu.add(NONE, 0, NONE, "Current Location")
+                                .setIcon(ContextCompat.getDrawable(MainActivity.this, R.drawable.ic_baseline_location_on_24)).setShowAsAction(1);
                     }
                 });
             }
