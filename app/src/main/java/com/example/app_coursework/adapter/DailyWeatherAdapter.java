@@ -43,6 +43,9 @@ public class DailyWeatherAdapter extends ArrayAdapter<String> {
             case "1100.0":
                 weatherIcon.setImageResource(R.drawable.ic_mostly_clear_day);
                 break;
+            case "4200.0":
+                weatherIcon.setImageResource(R.drawable.ic_rain_light);
+                break;
         }
         precipitation.setText(display[3]);
 
