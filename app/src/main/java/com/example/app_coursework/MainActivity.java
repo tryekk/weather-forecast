@@ -75,7 +75,23 @@ public class MainActivity extends AppCompatActivity {
 
         // Get location
         requestPermission();
+        getCurrentLocationAndGetWeather();
 
+        // Get a fragment manager
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.fragment_hourly_container, new HourlyWeatherFragment())
+                .commit();
+        fragmentManager.beginTransaction()
+                .replace(R.id.fragment_daily_container, new DailyWeatherFragment())
+                .commit();
+    }
+
+    private void requestPermission() {
+        ActivityCompat.requestPermissions(this, new String[]{ACCESS_FINE_LOCATION}, 1);
+    }
+
+    private void getCurrentLocationAndGetWeather() {
         locationManager = LocationServices.getFusedLocationProviderClient(this);
         if (ActivityCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
@@ -100,19 +116,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
-        // Get a fragment manager
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.fragment_hourly_container, new HourlyWeatherFragment())
-                .commit();
-        fragmentManager.beginTransaction()
-                .replace(R.id.fragment_daily_container, new DailyWeatherFragment())
-                .commit();
-    }
-
-    private void requestPermission() {
-        ActivityCompat.requestPermissions(this, new String[]{ACCESS_FINE_LOCATION}, 1);
     }
 
     private void getWeatherData(ArrayList<Double> currentPosition) {
@@ -200,8 +203,10 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         // Update menu
+                        menu.add(NONE, 0, NONE, "Current Location")
+                                .setIcon(ContextCompat.getDrawable(MainActivity.this, R.drawable.ic_baseline_add_24));
                         for (int i = 0; i<locationsList.size(); i++) {
-                            menu.add(NONE, i, NONE, locationsList.get(i));
+                            menu.add(NONE, i+1, NONE, locationsList.get(i));
                         }
                         menu.add(NONE, R.id.add_location, NONE, "Add Location")
                                 .setIcon(ContextCompat.getDrawable(MainActivity.this, R.drawable.ic_baseline_add_24)).setShowAsAction(1);
@@ -228,16 +233,20 @@ public class MainActivity extends AppCompatActivity {
             executorService.execute(new Runnable() {
                 @Override
                 public void run() {
-                    String coordinates = weatherLocationDatabase.weatherLocationDAO()
-                            .getChosenWeatherLocation(String.valueOf(item.getTitle()))
-                            .getCoordinates();
+                    if (item.getTitle().toString().equals("Current Location")) {
+                        getCurrentLocationAndGetWeather();
+                    } else {
+                        String coordinates = weatherLocationDatabase.weatherLocationDAO()
+                                .getChosenWeatherLocation(String.valueOf(item.getTitle()))
+                                .getCoordinates();
 
-                    String[] formattedCoordinates = coordinates.split(",");
-                    // Update weather with selected coordinates
-                    currentPosition.clear();
-                    currentPosition.add(Double.valueOf(formattedCoordinates[0]));
-                    currentPosition.add(Double.valueOf(formattedCoordinates[1]));
-                    getWeatherData(currentPosition);
+                        String[] formattedCoordinates = coordinates.split(",");
+                        // Update weather with selected coordinates
+                        currentPosition.clear();
+                        currentPosition.add(Double.valueOf(formattedCoordinates[0]));
+                        currentPosition.add(Double.valueOf(formattedCoordinates[1]));
+                        getWeatherData(currentPosition);
+                    }
                 }
             });
             setTitle(item.getTitle());
