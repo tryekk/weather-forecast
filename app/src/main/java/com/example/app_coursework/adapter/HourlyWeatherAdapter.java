@@ -38,10 +38,14 @@ public class HourlyWeatherAdapter extends ArrayAdapter<String> {
         temperature.setText(display[1]);
         switch (display[2]) {
             case "1000.0":
-                weatherIcon.setBackgroundResource(R.drawable.sunny);
+//                weatherIcon.setBackgroundResource(R.drawable.sunny);
+                weatherIcon.setImageResource(R.drawable.ic_clear_day);
                 break;
             case "1100.0":
                 weatherIcon.setImageResource(R.drawable.ic_mostly_clear_day);
+                break;
+            case "4000.0":
+                weatherIcon.setImageResource(R.drawable.ic_drizzle);
                 break;
             case "4200.0":
                 weatherIcon.setImageResource(R.drawable.ic_rain_light);
