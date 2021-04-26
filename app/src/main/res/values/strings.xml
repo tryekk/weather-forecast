@@ -8,6 +8,6 @@
     <string name="daily_forecast">Daily Forecast</string>
     <string name="create_new_location">Create new location</string>
     <string name="create_location_name_hint">Location name</string>
-    <string name="create_location_coordinates_hint">Coordinates</string>
+    <string name="create_location_coordinates_hint">Coordinates: eg. 51.4816,3.1791</string>
     <string name="save">Save</string>
 </resources>
