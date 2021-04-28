@@ -57,6 +57,18 @@ public class AddLocationFragment extends Fragment implements AdapterView.OnItemC
                         listView.setAdapter(adapter);
 
                         listView.setOnItemClickListener(AddLocationFragment.this::onItemClick);
+
+                        // Modified code from https://stackoverflow.com/questions/8846707/how-to-implement-a-long-click-listener-on-a-listview
+                        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                            @Override
+                            public boolean onItemLongClick(AdapterView<?> parent, View arg1,
+                                                           int position, long id) {
+                                WeatherLocation weatherLocation = (WeatherLocation) parent.getItemAtPosition(position);
+                                String location = weatherLocation.getCoordinates();
+                                Toast.makeText(getActivity(), location, Toast.LENGTH_SHORT).show();
+                                return true;
+                            }
+                        });
                     }
                 });
             }
@@ -69,7 +81,6 @@ public class AddLocationFragment extends Fragment implements AdapterView.OnItemC
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         WeatherLocation weatherLocation = (WeatherLocation) parent.getItemAtPosition(position);
         String location = weatherLocation.getCoordinates();
-        Toast.makeText(getActivity(), location, Toast.LENGTH_SHORT).show();
 
         // Create background thread
         executorService = Executors.newSingleThreadExecutor();
