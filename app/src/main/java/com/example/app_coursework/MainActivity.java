@@ -95,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getCurrentLocationAndGetWeather() {
+        // Location code modified from https://stackoverflow.com/questions/1513485/how-do-i-get-the-current-gps-location-programmatically-in-android
         locationManager = LocationServices.getFusedLocationProviderClient(this);
         if (ActivityCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 

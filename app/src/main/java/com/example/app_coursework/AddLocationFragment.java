@@ -73,7 +73,6 @@ public class AddLocationFragment extends Fragment implements AdapterView.OnItemC
                 });
             }
         });
-
         return v;
     }
 

@@ -23,6 +23,7 @@ public class LocationArrayAdapter extends ArrayAdapter<WeatherLocation> {
 
     }
 
+    // Modified code from https://stackoverflow.com/questions/25501460/android-custom-arrayadapter
     @Override
     public View getView(final int position, View view, ViewGroup parent) {
 
