@@ -9,9 +9,14 @@ import androidx.core.content.ContextCompat;
 import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.FragmentManager;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -28,9 +33,6 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.app_coursework.database.WeatherLocation;
 import com.example.app_coursework.database.WeatherLocationDatabase;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnSuccessListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -48,19 +50,13 @@ import java.util.concurrent.Executors;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.app.usage.UsageEvents.Event.NONE;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements LocationListener {
 
     private WeatherLocationDatabase weatherLocationDatabase;
     private ExecutorService executorService;
-    private FusedLocationProviderClient locationManager;
     private RequestQueue requestQueue;
-    ArrayList<Double> currentPosition = new ArrayList<>();
+    private LocationManager locationManager;
 
-//    @Override
-//    protected void attachBaseContext(Context base) {
-//        super.attachBaseContext(base);
-//        MultiDex.install(this);
-//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,32 +90,27 @@ public class MainActivity extends AppCompatActivity {
         ActivityCompat.requestPermissions(this, new String[]{ACCESS_FINE_LOCATION}, 1);
     }
 
+    @SuppressLint("MissingPermission")
     private void getCurrentLocationAndGetWeather() {
-        // Location code modified from https://stackoverflow.com/questions/1513485/how-do-i-get-the-current-gps-location-programmatically-in-android
-        locationManager = LocationServices.getFusedLocationProviderClient(this);
-        if (ActivityCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-        }
-        locationManager.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+        MainActivity.this.runOnUiThread(new Runnable() {
             @Override
-            public void onSuccess(Location location) {
-                if (location != null) {
-                    Log.d("COORDINATES", location.getLatitude() + ", " + location.getLongitude());
-                    currentPosition.clear();
-                    currentPosition.add(location.getLatitude());
-                    currentPosition.add(location.getLongitude());
-                    // Make and parse API request
-                    getWeatherData(currentPosition);
-                } else {
-                    Log.d("COORDINATES", "Location is null");
-                    currentPosition.clear();
-                    currentPosition.add(new Double(51.4816));
-                    currentPosition.add(new Double(-3.1791));
-                    // Make and parse API request
-                    getWeatherData(currentPosition);
+            public void run() {
+                try {
+                    locationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
+                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5, MainActivity.this);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         });
+    }
+
+    @Override
+    public void onLocationChanged(@NonNull Location location) {
+        ArrayList<Double> currentPosition = new ArrayList<>();
+        currentPosition.add(location.getLatitude());
+        currentPosition.add(location.getLongitude());
+        getWeatherData(currentPosition);
     }
 
     private void getWeatherData(ArrayList<Double> currentPosition) {
@@ -246,7 +237,7 @@ public class MainActivity extends AppCompatActivity {
 
                         String[] formattedCoordinates = coordinates.split(",");
                         // Update weather with selected coordinates
-                        currentPosition.clear();
+                        ArrayList<Double> currentPosition = new ArrayList<>();
                         currentPosition.add(Double.valueOf(formattedCoordinates[0]));
                         currentPosition.add(Double.valueOf(formattedCoordinates[1]));
                         getWeatherData(currentPosition);
