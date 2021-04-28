@@ -90,17 +90,18 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         ActivityCompat.requestPermissions(this, new String[]{ACCESS_FINE_LOCATION}, 1);
     }
 
-    @SuppressLint("MissingPermission")
     private void getCurrentLocationAndGetWeather() {
         MainActivity.this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                try {
-                    locationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
-                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5, MainActivity.this);
-                } catch (Exception e) {
-                    e.printStackTrace();
+                locationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
+                if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)
+                        != PackageManager.PERMISSION_GRANTED
+                        && ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    requestPermission();
                 }
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5, MainActivity.this);
             }
         });
     }
