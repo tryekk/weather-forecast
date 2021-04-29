@@ -114,6 +114,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         getWeatherData(currentPosition);
     }
 
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
     private void getWeatherData(ArrayList<Double> currentPosition) {
         //  API
         requestQueue = Volley.newRequestQueue(this);
@@ -169,9 +174,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                         if (error.getMessage() != null) {
                             Log.d("ERROR", error.getMessage()); //prints the error message to LogCat
                         }
-                            // Dummy data
-                            ArrayList<String> array = new ArrayList<>();
-                            array.add("hello,1");
                     }
                 }
         );
