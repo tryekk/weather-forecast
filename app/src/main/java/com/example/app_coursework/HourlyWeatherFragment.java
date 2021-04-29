@@ -45,7 +45,7 @@ public class HourlyWeatherFragment extends Fragment {
         try {
             JSONArray arr = response.getJSONObject("data").getJSONArray("timelines").getJSONObject(0).getJSONArray("intervals");
             for (int i = 0; i < arr.length(); i++) {
-                String[] dateFormatted = arr.getJSONObject(i).getString("startTime").split("T|:00");  // Get time from UTC timestamp string
+                String[] dateFormatted = arr.getJSONObject(i).getString("startTime").split("T|:00\\+");  // Get time from UTC timestamp string
 
                 // Weather code
                 String weatherCode = String.valueOf(arr.getJSONObject(i).getJSONObject("values").getDouble("weatherCode"));
