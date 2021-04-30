@@ -13,4 +13,7 @@
     <string name="add_to_main_menu">Add to main menu?</string>
     <string name="no">No</string>
     <string name="yes">Yes</string>
+    <string name="location_name">Location name</string>
+    <string name="coordinates">Coordinates</string>
+    <string name="name">Name</string>
 </resources>

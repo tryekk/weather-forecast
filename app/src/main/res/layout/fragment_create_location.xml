@@ -6,30 +6,49 @@
     tools:context=".CreateLocationFragment"
     android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/location_name_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp"
+        android:text="@string/location_name"
+        android:textSize="18sp"/>
+
     <EditText
         android:id="@+id/create_location_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/create_location_name_hint"
+        android:layout_below="@+id/location_name_title"
         android:inputType="textCapWords"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp" />
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp" />
+
+    <TextView
+        android:id="@+id/location_coordinates_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/create_location_text"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp"
+        android:text="@string/create_location_coordinates_hint"
+        android:textSize="18sp"/>
 
     <EditText
         android:id="@+id/create_location_text_coordinates"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/create_location_text"
-        android:hint="@string/create_location_coordinates_hint"
+        android:layout_below="@+id/location_coordinates_title"
         android:inputType="text"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"/>
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:textSize="17sp"/>
 
     <TextView
         android:id="@+id/add_to_menu_text"
@@ -37,7 +56,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/create_location_text_coordinates"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="35dp"
         android:text="@string/add_to_main_menu" />
 
     <ToggleButton
@@ -47,6 +66,7 @@
         android:layout_below="@+id/add_to_menu_text"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
+        android:checked="true"
         android:textOff="@string/no"
         android:textOn="@string/yes"  />
 
