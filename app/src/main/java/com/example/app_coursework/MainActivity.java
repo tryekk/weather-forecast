@@ -12,7 +12,6 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -92,10 +91,10 @@ public class MainActivity extends AppCompatActivity {
             int[] grantResults
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        getLastKnownLocation();
+        getLastKnownLocationAndWeather();
     }
 
-    private void getLastKnownLocation() {
+    private void getLastKnownLocationAndWeather() {
         locationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
         List<String> providers = locationManager.getProviders(true);
         Location bestLocation = null;
@@ -241,7 +240,7 @@ public class MainActivity extends AppCompatActivity {
                 public void run() {
                     if (item.getTitle().toString().equals("Current Location")) {
 //                        getCurrentLocationAndGetWeather();
-                        getLastKnownLocation();
+                        getLastKnownLocationAndWeather();
                     } else {
                         String coordinates = weatherLocationDatabase.weatherLocationDAO()
                                 .getChosenWeatherLocation(String.valueOf(item.getTitle()))
