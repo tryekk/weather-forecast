@@ -24,6 +24,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -31,6 +33,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.app_coursework.adapter.HourlyWeatherAdapter;
 import com.example.app_coursework.database.WeatherLocation;
 import com.example.app_coursework.database.WeatherLocationDatabase;
 
@@ -173,6 +176,13 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                     public void onErrorResponse(VolleyError error) {
                         if (error.getMessage() != null) {
                             Log.d("ERROR", error.getMessage()); //prints the error message to LogCat
+                            // Display error to user
+                            ListView listView = (ListView) MainActivity.this.findViewById(R.id.hourly_weather_list);
+                            ArrayList<String> errorList = new ArrayList<>();
+                            errorList.add("Error retrieving weather information: SSL HandshakeException");
+                            errorList.add("Try using a newer version of Android");
+                            ArrayAdapter adapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, errorList);
+                            listView.setAdapter(adapter);
                         }
                     }
                 }
