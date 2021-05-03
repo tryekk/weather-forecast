@@ -94,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
         getLastKnownLocationAndWeather();
     }
 
+    // Modified code from - user:TharakaNirmana @ https://stackoverflow.com/questions/20438627/getlastknownlocation-returns-null
     private void getLastKnownLocationAndWeather() {
         locationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
         List<String> providers = locationManager.getProviders(true);
