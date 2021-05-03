@@ -77,7 +77,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
         // Get location
         requestPermission();
-        getCurrentLocationAndGetWeather();
 
         // Get a fragment manager
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -93,6 +92,15 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         ActivityCompat.requestPermissions(this, new String[]{ACCESS_FINE_LOCATION}, 1);
     }
 
+    public void onRequestPermissionsResult(
+            int requestCode,
+            String[] permissions,
+            int[] grantResults
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        getCurrentLocationAndGetWeather();
+    }
+
     private void getCurrentLocationAndGetWeather() {
         MainActivity.this.runOnUiThread(new Runnable() {
             @Override
@@ -103,8 +111,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                         && ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION)
                         != PackageManager.PERMISSION_GRANTED) {
                     requestPermission();
+                } else {
+                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5, MainActivity.this);
                 }
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5, MainActivity.this);
             }
         });
     }
