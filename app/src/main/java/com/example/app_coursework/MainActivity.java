@@ -6,12 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.FragmentManager;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -19,11 +16,9 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -33,7 +28,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.app_coursework.adapter.HourlyWeatherAdapter;
 import com.example.app_coursework.database.WeatherLocation;
 import com.example.app_coursework.database.WeatherLocationDatabase;
 
@@ -53,7 +47,7 @@ import java.util.concurrent.Executors;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.app.usage.UsageEvents.Event.NONE;
 
-public class MainActivity extends AppCompatActivity implements LocationListener {
+public class MainActivity extends AppCompatActivity {
 
     private WeatherLocationDatabase weatherLocationDatabase;
     private ExecutorService executorService;
@@ -98,37 +92,32 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             int[] grantResults
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        getCurrentLocationAndGetWeather();
+        getLastKnownLocation();
     }
 
-    private void getCurrentLocationAndGetWeather() {
-        MainActivity.this.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                locationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
-                if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)
-                        != PackageManager.PERMISSION_GRANTED
-                        && ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION)
-                        != PackageManager.PERMISSION_GRANTED) {
-                    requestPermission();
-                } else {
-                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5, MainActivity.this);
+    private void getLastKnownLocation() {
+        locationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
+        List<String> providers = locationManager.getProviders(true);
+        Location bestLocation = null;
+        for (String provider : providers) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                requestPermission();
+            } else {
+                Location l = locationManager.getLastKnownLocation(provider);
+                if (l == null) {
+                    continue;
                 }
+                if (bestLocation == null || l.getAccuracy() < bestLocation.getAccuracy()) {
+                    // Found best last known location: %s", l);
+                    bestLocation = l;
+                }
+                // Get weather using API
+                ArrayList<Double> currentPosition = new ArrayList<>();
+                currentPosition.add(bestLocation.getLatitude());
+                currentPosition.add(bestLocation.getLongitude());
+                getWeatherData(currentPosition);
             }
-        });
-    }
-
-    @Override
-    public void onLocationChanged(@NonNull Location location) {
-        ArrayList<Double> currentPosition = new ArrayList<>();
-        currentPosition.add(location.getLatitude());
-        currentPosition.add(location.getLongitude());
-        getWeatherData(currentPosition);
-    }
-
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-
+        }
     }
 
     private void getWeatherData(ArrayList<Double> currentPosition) {
@@ -251,7 +240,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 @Override
                 public void run() {
                     if (item.getTitle().toString().equals("Current Location")) {
-                        getCurrentLocationAndGetWeather();
+//                        getCurrentLocationAndGetWeather();
+                        getLastKnownLocation();
                     } else {
                         String coordinates = weatherLocationDatabase.weatherLocationDAO()
                                 .getChosenWeatherLocation(String.valueOf(item.getTitle()))
