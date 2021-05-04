@@ -20,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -44,6 +45,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+import static android.Manifest.permission.SYSTEM_ALERT_WINDOW;
 import static android.app.usage.UsageEvents.Event.NONE;
 
 public class MainActivity extends AppCompatActivity {
@@ -96,6 +98,15 @@ public class MainActivity extends AppCompatActivity {
 
     // Method is modified code from - user:TharakaNirmana @ https://stackoverflow.com/questions/20438627/getlastknownlocation-returns-null
     private void getLastKnownLocationAndWeather() {
+        // Inform user the information is being retrieved
+        ListView listView = (ListView) this.findViewById(R.id.hourly_weather_list);
+        ListView listViewDaily = (ListView) this.findViewById(R.id.daily_weather_list);
+        ArrayList<String> statusList = new ArrayList<>();
+        statusList.add("Retrieving weather information...");
+        listView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, statusList));
+        listViewDaily.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, statusList));
+
+        // Get location
         locationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
         List<String> providers = locationManager.getProviders(true);
         Location bestLocation = null;
@@ -165,6 +176,7 @@ public class MainActivity extends AppCompatActivity {
                             DailyWeatherFragment dailyWeatherFragment = DailyWeatherFragment.getInstance();
                             dailyWeatherFragment.parseJSON(response);
                         } catch (JSONException e) {
+                            Toast.makeText(getApplicationContext(), "Too many requests", Toast.LENGTH_LONG).show();
                             e.printStackTrace();
                         }
                     }
