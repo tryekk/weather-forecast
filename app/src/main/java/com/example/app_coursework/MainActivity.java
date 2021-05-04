@@ -166,8 +166,6 @@ public class MainActivity extends AppCompatActivity {
                     @RequiresApi(api = Build.VERSION_CODES.N)
                     @Override
                     public void onResponse(JSONObject response) {
-                        //access to methods on a JSONObject requires JSONException errors to be
-                        //handled in some way - such as surrounding the code in a try-catch block
                         try {
                             Log.d("RESPONSE", response.toString(2)); //prints the response to LogCat
                             // Process data
