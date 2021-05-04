@@ -18,8 +18,6 @@ android {
 
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments += ["room.schemaLocation":
-                                      "$projectDir/assets/database".toString()]
             }
         }
     }
