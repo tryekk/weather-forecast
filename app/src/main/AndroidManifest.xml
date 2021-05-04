@@ -20,6 +20,7 @@
         <!-- android:foregroundServiceType="location"> -->
         <!-- </service> -->
         <activity android:name=".MainActivity">
+            android:exported="false"
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
