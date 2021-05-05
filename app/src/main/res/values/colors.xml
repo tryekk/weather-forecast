@@ -8,7 +8,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="menu_bar_light">#C5D5EA</color>
-    <color name="menu_bar_dark">#3A69A6</color>
+<!--    <color name="menu_bar_dark">#3A69A6</color>-->
+    <color name="menu_bar_dark">#151F28</color>
     <color name="status_bar">#D8E1E9</color>
     <color name="weather_list_dark">#151F28</color>
     <color name="weather_list_light">#FFFFFF</color>
