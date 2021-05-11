@@ -1,3 +1,3 @@
-# Android App
+# Weather forecast
 
-Tom's App
+Android app to display weather forecast for multiple locations
