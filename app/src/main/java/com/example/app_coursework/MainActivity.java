@@ -166,17 +166,12 @@ public class MainActivity extends AppCompatActivity {
                     @RequiresApi(api = Build.VERSION_CODES.N)
                     @Override
                     public void onResponse(JSONObject response) {
-                        try {
-                            Log.d("RESPONSE", response.toString(2)); //prints the response to LogCat
+//                            Log.d("RESPONSE", response.toString(2)); //prints the response to LogCat
                             // Process data
                             HourlyWeatherFragment hourlyWeatherFragment = HourlyWeatherFragment.getInstance();
                             hourlyWeatherFragment.parseJSON(response);
                             DailyWeatherFragment dailyWeatherFragment = DailyWeatherFragment.getInstance();
                             dailyWeatherFragment.parseJSON(response);
-                        } catch (JSONException e) {
-                            Toast.makeText(getApplicationContext(), "Too many requests", Toast.LENGTH_LONG).show();
-                            e.printStackTrace();
-                        }
                     }
                 },
                 new Response.ErrorListener() { //onerror
