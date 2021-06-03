@@ -36,19 +36,33 @@ public class HourlyWeatherAdapter extends ArrayAdapter<String> {
         String[] display = items.get(position).split(",");
         time.setText(display[0]);
         temperature.setText(display[1]);
+
+        String[] timeSplit = display[0].split(":");  // For night-time definition
+
         switch (display[2]) {
             case "1000.0":
-//                weatherIcon.setBackgroundResource(R.drawable.sunny);
-                weatherIcon.setImageResource(R.drawable.ic_clear_day);
+                if (Integer.valueOf(timeSplit[0]) > 20 || Integer.valueOf(timeSplit[0]) < 7) {
+                    weatherIcon.setImageResource(R.drawable.ic_clear_night);
+                } else {
+                    weatherIcon.setImageResource(R.drawable.ic_clear_day);
+                }
                 break;
             case "1001.0":
                 weatherIcon.setImageResource(R.drawable.ic_cloudy);
                 break;
             case "1100.0":
-                weatherIcon.setImageResource(R.drawable.ic_mostly_clear_day);
+                if (Integer.valueOf(timeSplit[0]) > 20 || Integer.valueOf(timeSplit[0]) < 7) {
+                    weatherIcon.setImageResource(R.drawable.ic_mostly_clear_night);
+                } else {
+                    weatherIcon.setImageResource(R.drawable.ic_mostly_clear_day);
+                }
                 break;
             case "1101.0":
-                weatherIcon.setImageResource(R.drawable.ic_partly_cloudy_day);
+                if (Integer.valueOf(timeSplit[0]) > 20 || Integer.valueOf(timeSplit[0]) < 7) {
+                    weatherIcon.setImageResource(R.drawable.ic_partly_cloudy_night);
+                } else {
+                    weatherIcon.setImageResource(R.drawable.ic_partly_cloudy_day);
+                }
                 break;
             case "1102.0":
                 weatherIcon.setImageResource(R.drawable.ic_mostly_cloudy);
