@@ -38,8 +38,8 @@ public class DailyWeatherAdapter extends ArrayAdapter<String> {
         temperature.setText(display[1]);
         switch (display[2]) {
             case "1000.0":
-                weatherIcon.setBackgroundResource(R.drawable.sunny);
-//                weatherIcon.setImageResource(R.drawable.ic_clear_day);
+//                weatherIcon.setBackgroundResource(R.drawable.sunny);
+                weatherIcon.setImageResource(R.drawable.ic_clear_day);
                 break;
             case "1001.0":
                 weatherIcon.setImageResource(R.drawable.ic_cloudy);
