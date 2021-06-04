@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
         String endTime = df.format(c.getTime());
         String apikey = "z6N3a8QW0Cwy80k9sTxvPNHCGqvRFq5f";
 //        double[] location = {51.4816, -3.1791};
-        String[] fields = {"temperature", "weatherCode", "precipitationProbability", "sunriseTime", "sunsetTime"};
+        String[] fields = {"temperature", "weatherCode", "precipitationProbability", "sunriseTime", "sunsetTime", "humidity"};
         String units = "metric";
         String[] timesteps = {"1h", "1d"};
         String timezone = "Europe/London";
@@ -160,8 +160,9 @@ public class MainActivity extends AppCompatActivity {
         String url = "https://api.tomorrow.io/v4/timelines" + "?apikey=" + apikey + "&location=" +
                 currentPosition.get(0) + "," + currentPosition.get(1) + "&fields=" + fields[0]
                 + "&fields=" + fields[1] + "&fields=" + fields[2] + "&fields=" + fields[3] +
-                "&fields=" + fields[4] + "&units=" + units + "&timesteps=" + timesteps[0] +
-                "&timesteps=" + timesteps[1] + "&endTime=" + endTime + "&timezone=" + timezone;
+                "&fields=" + fields[4] + "&fields=" + fields[5] + "&units=" + units +
+                "&timesteps=" + timesteps[0] + "&timesteps=" + timesteps[1] + "&endTime="
+                + endTime + "&timezone=" + timezone;
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.GET, //The type of request, e.g., GET, POST, DELETE, PUT, etc.

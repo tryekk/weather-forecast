@@ -49,8 +49,11 @@ public class ExtraInformationFragment extends Fragment {
             String[] sunrise = arr.getJSONObject(0).getJSONObject("values").getString("sunriseTime").split("T|:00\\+")[1].split(":");
             String[] sunset = arr.getJSONObject(0).getJSONObject("values").getString("sunsetTime").split("T|:00\\+")[1].split(":");
 
-            weatherList.add(sunrise[0] + ":" + sunrise[1] + ", " + sunset[0] + ":" + sunset[1]);
+            Integer humidity = (int) arr.getJSONObject(0).getJSONObject("values").getDouble("humidity");
 
+            weatherList.add("Sunrise  " + sunrise[0] + ":" + sunrise[1] + "\n"
+                    + "Sunset  " + sunset[0] + ":" + sunset[1] + "\n"
+                    + "Humidity  " + humidity + "%");
         } catch (JSONException e) {
             e.printStackTrace();
         }
