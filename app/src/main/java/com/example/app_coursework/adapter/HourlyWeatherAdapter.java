@@ -38,10 +38,12 @@ public class HourlyWeatherAdapter extends ArrayAdapter<String> {
         temperature.setText(display[1]);
 
         String[] timeSplit = display[0].split(":");  // For night-time definition
+        Integer sunrise = Integer.valueOf(display[4].split(":")[0]);
+        Integer sunset = Integer.valueOf(display[5].split(":")[0]);
 
         switch (display[2]) {
             case "1000.0":
-                if (Integer.parseInt(timeSplit[0]) > 20 || Integer.parseInt(timeSplit[0]) < 7) {
+                if (Integer.parseInt(timeSplit[0]) > sunset || Integer.parseInt(timeSplit[0]) < sunrise) {
                     weatherIcon.setImageResource(R.drawable.ic_clear_night);
                 } else {
                     weatherIcon.setImageResource(R.drawable.ic_clear_day);
