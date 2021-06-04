@@ -16,4 +16,5 @@
     <string name="location_name">Location name</string>
     <string name="coordinates">Coordinates</string>
     <string name="name">Name</string>
+    <string name="extra_information">More Information</string>
 </resources>

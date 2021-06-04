@@ -58,6 +58,25 @@
             android:layout_height="390dp"
             android:layout_below="@+id/daily_header" />
 
+        <TextView
+            android:id="@+id/extra_header"
+            style="@style/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fragment_daily_container"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginRight="5dp"
+            android:padding="15dp"
+            android:text="@string/extra_information"
+            android:textSize="20sp" />
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragment_extra_container"
+            android:layout_width="match_parent"
+            android:layout_height="390dp"
+            android:layout_below="@+id/extra_header" />
+
         <ImageView
             android:id="@+id/powered_by_tomorrow.io"
             android:layout_width="wrap_content"

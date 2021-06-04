@@ -81,6 +81,9 @@ public class MainActivity extends AppCompatActivity {
         fragmentManager.beginTransaction()
                 .replace(R.id.fragment_daily_container, new DailyWeatherFragment())
                 .commit();
+        fragmentManager.beginTransaction()
+                .replace(R.id.fragment_extra_container, new ExtraInformationFragment())
+                .commit();
     }
 
     private void requestPermission() {
@@ -101,10 +104,12 @@ public class MainActivity extends AppCompatActivity {
         // Inform user the information is being retrieved
         ListView listView = (ListView) this.findViewById(R.id.hourly_weather_list);
         ListView listViewDaily = (ListView) this.findViewById(R.id.daily_weather_list);
+        ListView listViewExtra = (ListView) this.findViewById(R.id.extra_list);
         ArrayList<String> statusList = new ArrayList<>();
         statusList.add("Retrieving weather information...");
         listView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, statusList));
         listViewDaily.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, statusList));
+        listViewExtra.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, statusList));
 
         // Get location
         locationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
