@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,86 +7,94 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <RelativeLayout
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        style="@style/menu_bar"/>
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:paddingBottom="30dp">
+        android:layout_below="@+id/toolbar"
+        tools:context=".MainActivity">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            style="@style/menu_bar"/>
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingBottom="30dp">
 
-        <TextView
-            android:id="@+id/hourly_header"
-            style="@style/header"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/toolbar"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="3dp"
-            android:layout_marginRight="5dp"
-            android:padding="15dp"
-            android:text="@string/hourly_forecast"
-            android:textSize="20sp" />
-        <!--    android:layout_marginTop="10dp"-->
+            <TextView
+                android:id="@+id/hourly_header"
+                style="@style/header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginRight="5dp"
+                android:padding="15dp"
+                android:text="@string/hourly_forecast"
+                android:textSize="20sp" />
+            <!--    android:layout_marginTop="10dp"-->
 
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/fragment_hourly_container"
-            android:layout_width="match_parent"
-            android:layout_height="380dp"
-            android:layout_below="@+id/hourly_header" />
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/fragment_hourly_container"
+                android:layout_width="match_parent"
+                android:layout_height="380dp"
+                android:layout_below="@+id/hourly_header" />
 
-        <TextView
-            android:id="@+id/daily_header"
-            style="@style/header"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/fragment_hourly_container"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="3dp"
-            android:layout_marginRight="5dp"
-            android:padding="15dp"
-            android:text="@string/daily_forecast"
-            android:textSize="20sp" />
+            <TextView
+                android:id="@+id/daily_header"
+                style="@style/header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/fragment_hourly_container"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginRight="5dp"
+                android:padding="15dp"
+                android:text="@string/daily_forecast"
+                android:textSize="20sp" />
 
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/fragment_daily_container"
-            android:layout_width="match_parent"
-            android:layout_height="390dp"
-            android:layout_below="@+id/daily_header" />
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/fragment_daily_container"
+                android:layout_width="match_parent"
+                android:layout_height="390dp"
+                android:layout_below="@+id/daily_header" />
 
-        <TextView
-            android:id="@+id/extra_header"
-            style="@style/header"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/fragment_daily_container"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="3dp"
-            android:layout_marginRight="5dp"
-            android:padding="15dp"
-            android:text="@string/extra_information"
-            android:textSize="20sp" />
+            <TextView
+                android:id="@+id/extra_header"
+                style="@style/header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/fragment_daily_container"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginRight="5dp"
+                android:padding="15dp"
+                android:text="@string/extra_information"
+                android:textSize="20sp" />
 
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/fragment_extra_container"
-            android:layout_width="match_parent"
-            android:layout_height="390dp"
-            android:layout_below="@+id/extra_header" />
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/fragment_extra_container"
+                android:layout_width="match_parent"
+                android:layout_height="390dp"
+                android:layout_below="@+id/extra_header" />
 
-        <ImageView
-            android:id="@+id/powered_by_tomorrow.io"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/fragment_daily_container"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="10dp"
-            android:src="@drawable/ic_powered_by_tomorrow_black" />
+            <ImageView
+                android:id="@+id/powered_by_tomorrow.io"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/fragment_daily_container"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp"
+                android:src="@drawable/ic_powered_by_tomorrow_black" />
 
-    </RelativeLayout>
+        </RelativeLayout>
 
-</androidx.core.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
+
+</RelativeLayout>
