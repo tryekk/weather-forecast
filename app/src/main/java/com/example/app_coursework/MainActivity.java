@@ -177,6 +177,8 @@ public class MainActivity extends AppCompatActivity {
                             hourlyWeatherFragment.parseJSON(response);
                             DailyWeatherFragment dailyWeatherFragment = DailyWeatherFragment.getInstance();
                             dailyWeatherFragment.parseJSON(response);
+                            ExtraInformationFragment extraInformationFragment = ExtraInformationFragment.getInstance();
+                            extraInformationFragment.parseJSON(response);
                     }
                 },
                 new Response.ErrorListener() { //onerror
