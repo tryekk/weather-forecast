@@ -38,8 +38,8 @@ public class HourlyWeatherAdapter extends ArrayAdapter<String> {
         temperature.setText(display[1]);
 
         String[] timeSplit = display[0].split(":");  // For night-time definition
-        int sunrise = Integer.parseInt(display[4].split(":")[0]);
-        int sunset = Integer.parseInt(display[5].split(":")[0]) + 1;
+        int sunrise = Integer.parseInt(display[4].split(":")[0]) + 1;
+        int sunset = Integer.parseInt(display[5].split(":")[0]);
 
         switch (display[2]) {
             case "1000.0":
