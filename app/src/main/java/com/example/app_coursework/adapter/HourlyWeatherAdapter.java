@@ -53,14 +53,14 @@ public class HourlyWeatherAdapter extends ArrayAdapter<String> {
                 weatherIcon.setImageResource(R.drawable.ic_cloudy);
                 break;
             case "1100.0":
-                if (Integer.parseInt(timeSplit[0]) > 20 || Integer.parseInt(timeSplit[0]) < 7) {
+                if (Integer.parseInt(timeSplit[0]) > sunset || Integer.parseInt(timeSplit[0]) < sunrise) {
                     weatherIcon.setImageResource(R.drawable.ic_mostly_clear_night);
                 } else {
                     weatherIcon.setImageResource(R.drawable.ic_mostly_clear_day);
                 }
                 break;
             case "1101.0":
-                if (Integer.parseInt(timeSplit[0]) > 20 || Integer.parseInt(timeSplit[0]) < 7) {
+                if (Integer.parseInt(timeSplit[0]) > sunset || Integer.parseInt(timeSplit[0]) < sunrise) {
                     weatherIcon.setImageResource(R.drawable.ic_partly_cloudy_night);
                 } else {
                     weatherIcon.setImageResource(R.drawable.ic_partly_cloudy_day);
