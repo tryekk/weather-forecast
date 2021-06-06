@@ -21,7 +21,7 @@
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/entry_name"
-        android:layout_marginEnd="-194dp"
+        android:layout_marginEnd="-185dp"
         android:paddingLeft="20dp"
         android:paddingTop="5dp"
         android:paddingRight="20dp"
