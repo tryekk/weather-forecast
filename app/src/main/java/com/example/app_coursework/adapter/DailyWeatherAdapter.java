@@ -33,7 +33,7 @@ public class DailyWeatherAdapter extends ArrayAdapter<String> {
         ImageView weatherIcon = (ImageView) rowView.findViewById(R.id.weather_icon);
         TextView precipitation = (TextView) rowView.findViewById(R.id.daily_precipitation);
 
-        String[] display = items.get(position).split(",");
+        String[] display = items.get(position).split("#");
         time.setText(display[0]);
         temperature.setText(display[1]);
         switch (display[2]) {

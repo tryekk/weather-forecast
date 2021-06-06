@@ -70,9 +70,9 @@ public class DailyWeatherFragment extends Fragment implements AdapterView.OnItem
                 // Weather code
                 String weatherCode = String.valueOf(arr.getJSONObject(i).getJSONObject("values").getDouble("weatherCode"));
 
-                weatherList.add(finalDayNumber + "  " + finalDay + "," +
-                        String.valueOf((int) arr.getJSONObject(i).getJSONObject("values").getDouble("temperature")) + "°C" + "," +
-                        String.valueOf(arr.getJSONObject(i).getJSONObject("values").getDouble("weatherCode")) + "," +
+                weatherList.add(finalDay + ", " + finalDayNumber + "#" +
+                        String.valueOf((int) arr.getJSONObject(i).getJSONObject("values").getDouble("temperature")) + "°C" + "#" +
+                        String.valueOf(arr.getJSONObject(i).getJSONObject("values").getDouble("weatherCode")) + "#" +
                         String.valueOf((int) arr.getJSONObject(i).getJSONObject("values").getDouble("precipitationProbability")) + "%");
             }
         } catch (JSONException | ParseException e) {
