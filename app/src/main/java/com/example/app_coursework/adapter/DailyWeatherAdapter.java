@@ -29,14 +29,17 @@ public class DailyWeatherAdapter extends ArrayAdapter<String> {
         View rowView = inflater.inflate(R.layout.daily_weather_layout, null, true);
 
         TextView time = (TextView) rowView.findViewById(R.id.daily_time);
+        TextView timeDate = (TextView) rowView.findViewById(R.id.daily_time_date);
         TextView temperature = (TextView) rowView.findViewById(R.id.daily_temperature);
         ImageView weatherIcon = (ImageView) rowView.findViewById(R.id.weather_icon);
         TextView precipitation = (TextView) rowView.findViewById(R.id.daily_precipitation);
 
         String[] display = items.get(position).split("#");
         time.setText(display[0]);
-        temperature.setText(display[1]);
-        switch (display[2]) {
+        timeDate.setText(display[1]);
+
+        temperature.setText(display[2]);
+        switch (display[3]) {
             case "1000.0":
 //                weatherIcon.setBackgroundResource(R.drawable.sunny);
                 weatherIcon.setImageResource(R.drawable.ic_clear_day);
@@ -67,7 +70,7 @@ public class DailyWeatherAdapter extends ArrayAdapter<String> {
                 break;
         }
 
-        precipitation.setText(display[3]);
+        precipitation.setText(display[4]);
 
         return rowView;
     }
