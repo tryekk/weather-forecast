@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.app_coursework.adapter.ExtraInformationAdapter;
 import com.example.app_coursework.adapter.HourlyWeatherAdapter;
 
 import org.json.JSONArray;
@@ -51,14 +52,19 @@ public class ExtraInformationFragment extends Fragment {
 
             Integer humidity = (int) arr.getJSONObject(0).getJSONObject("values").getDouble("humidity");
 
-            weatherList.add("Sunrise  " + sunrise[0] + ":" + sunrise[1] + "\n"
-                    + "Sunset  " + sunset[0] + ":" + sunset[1] + "\n"
-                    + "Humidity  " + humidity + "%");
+            Integer windSpeed = (int) arr.getJSONObject(0).getJSONObject("values").getDouble("windSpeed");
+            Integer windDirection = (int) arr.getJSONObject(0).getJSONObject("values").getDouble("windDirection");
+
+            weatherList.add("Sunrise  " + sunrise[0] + ":" + sunrise[1]);
+            weatherList.add("Sunset  " + sunset[0] + ":" + sunset[1]);
+            weatherList.add("Humidity  " + humidity + "%");
+            weatherList.add("Wind Speed  " + windSpeed + "mph");
+            weatherList.add("Wind Direction  " + windDirection + "°");
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        listView.setAdapter(new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, weatherList));
+        listView.setAdapter(new ExtraInformationAdapter(getActivity(), weatherList));
 
     }
 }

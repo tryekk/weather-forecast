@@ -152,7 +152,8 @@ public class MainActivity extends AppCompatActivity {
         String endTime = df.format(c.getTime());
         String apikey = "z6N3a8QW0Cwy80k9sTxvPNHCGqvRFq5f";
 //        double[] location = {51.4816, -3.1791};
-        String[] fields = {"temperature", "weatherCode", "precipitationProbability", "sunriseTime", "sunsetTime", "humidity"};
+        String[] fields = {"temperature", "weatherCode", "precipitationProbability", "sunriseTime",
+                "sunsetTime", "humidity", "windSpeed", "windDirection"};
         String units = "metric";
         String[] timesteps = {"1h", "1d"};
         String timezone = "Europe/London";
@@ -160,7 +161,8 @@ public class MainActivity extends AppCompatActivity {
         String url = "https://api.tomorrow.io/v4/timelines" + "?apikey=" + apikey + "&location=" +
                 currentPosition.get(0) + "," + currentPosition.get(1) + "&fields=" + fields[0]
                 + "&fields=" + fields[1] + "&fields=" + fields[2] + "&fields=" + fields[3] +
-                "&fields=" + fields[4] + "&fields=" + fields[5] + "&units=" + units +
+                "&fields=" + fields[4] + "&fields=" + fields[5] + "&fields=" + fields[6] +
+                "&fields=" + fields[7] + "&units=" + units +
                 "&timesteps=" + timesteps[0] + "&timesteps=" + timesteps[1] + "&endTime="
                 + endTime + "&timezone=" + timezone;
 
