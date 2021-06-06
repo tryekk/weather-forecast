@@ -30,8 +30,12 @@ public class ExtraInformationAdapter extends ArrayAdapter<String> {
         LayoutInflater inflater = context.getLayoutInflater();
         View rowView = inflater.inflate(R.layout.extra_information_layout, null, true);
 
-        TextView entry = (TextView) rowView.findViewById(R.id.entry);
-        entry.setText(items.get(position));
+        String[] display = items.get(position).split(",");
+
+        TextView entry = (TextView) rowView.findViewById(R.id.entry_name);
+        entry.setText(display[0]);
+        TextView entry_information = (TextView) rowView.findViewById(R.id.entry_information);
+        entry_information.setText(display[1]);
 
         return rowView;
     }

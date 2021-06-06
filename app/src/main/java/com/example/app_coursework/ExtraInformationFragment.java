@@ -46,7 +46,6 @@ public class ExtraInformationFragment extends Fragment {
         try {
             JSONArray arr = response.getJSONObject("data").getJSONArray("timelines").getJSONObject(0).getJSONArray("intervals");
 
-            // Sunrise and sunset
             String[] sunrise = arr.getJSONObject(0).getJSONObject("values").getString("sunriseTime").split("T|:00\\+")[1].split(":");
             String[] sunset = arr.getJSONObject(0).getJSONObject("values").getString("sunsetTime").split("T|:00\\+")[1].split(":");
 
@@ -55,11 +54,12 @@ public class ExtraInformationFragment extends Fragment {
             Integer windSpeed = (int) arr.getJSONObject(0).getJSONObject("values").getDouble("windSpeed");
             Integer windDirection = (int) arr.getJSONObject(0).getJSONObject("values").getDouble("windDirection");
 
-            weatherList.add("Sunrise  " + sunrise[0] + ":" + sunrise[1]);
-            weatherList.add("Sunset  " + sunset[0] + ":" + sunset[1]);
-            weatherList.add("Humidity  " + humidity + "%");
-            weatherList.add("Wind Speed  " + windSpeed + "mph");
-            weatherList.add("Wind Direction  " + windDirection + "°");
+            weatherList.add("Sunrise" + "," + sunrise[0] + ":" + sunrise[1]);
+            weatherList.add("Sunset" + "," + sunset[0] + ":" + sunset[1]);
+            weatherList.add("Humidity" + "," + humidity + "%");
+            weatherList.add("Wind Speed" + "," + windSpeed + "mph");
+            weatherList.add("Wind Direction" + "," + windDirection + "°");
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
