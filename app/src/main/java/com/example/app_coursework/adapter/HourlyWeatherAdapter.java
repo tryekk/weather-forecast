@@ -85,6 +85,7 @@ public class HourlyWeatherAdapter extends ArrayAdapter<String> {
                 weatherIcon.setImageResource(R.drawable.ic_snow);
                 break;
         }
+
         precipitation.setText(display[3]);
 
         return rowView;

@@ -66,6 +66,7 @@ public class DailyWeatherAdapter extends ArrayAdapter<String> {
                 weatherIcon.setImageResource(R.drawable.ic_rain_heavy);
                 break;
         }
+
         precipitation.setText(display[3]);
 
         return rowView;
