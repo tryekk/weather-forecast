@@ -32,7 +32,6 @@ public class DailyWeatherAdapter extends ArrayAdapter<String> {
         TextView time = (TextView) rowView.findViewById(R.id.daily_time);
         TextView timeDate = (TextView) rowView.findViewById(R.id.daily_time_date);
         TextView temperature = (TextView) rowView.findViewById(R.id.daily_temperature);
-        TextView temperatureLow = (TextView) rowView.findViewById(R.id.daily_temperature_low);
         ImageView weatherIcon = (ImageView) rowView.findViewById(R.id.weather_icon);
         TextView precipitation = (TextView) rowView.findViewById(R.id.daily_precipitation);
 
@@ -54,7 +53,6 @@ public class DailyWeatherAdapter extends ArrayAdapter<String> {
         }
 
         temperature.setText(display[2]);
-        temperatureLow.setText("/15°C");
 
         switch (display[3]) {
             case "1000.0":

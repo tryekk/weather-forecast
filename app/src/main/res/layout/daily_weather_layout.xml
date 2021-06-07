@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:textSize="18sp"
         android:paddingTop="3dp"
-        android:layout_marginRight="18dp"/>
+        android:layout_marginRight="38dp"/>
 
     <TextView
         android:id="@+id/daily_temperature"
@@ -30,15 +30,6 @@
         android:paddingTop="3dp"
         android:paddingBottom="3dp"
         android:layout_marginLeft="20dp" />
-
-    <TextView
-        android:id="@+id/daily_temperature_low"
-        android:layout_width="45dp"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:paddingTop="3dp"
-        android:paddingBottom="3dp"
-        android:layout_marginRight="10dp"/>
 
     <ImageView
         android:id="@+id/weather_icon"
