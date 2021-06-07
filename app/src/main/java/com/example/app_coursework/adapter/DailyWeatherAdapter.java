@@ -1,6 +1,7 @@
 package com.example.app_coursework.adapter;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,7 +39,19 @@ public class DailyWeatherAdapter extends ArrayAdapter<String> {
         time.setText(display[0]);
         timeDate.setText(display[1]);
 
+        // Set temperature display colour based on heat
+        if (Integer.parseInt(display[2].split("°")[0]) > 15 && Integer.parseInt(display[2].split("°")[0]) < 20) {
+            temperature.setTextColor(Color.parseColor("#f5d63d"));
+        } else if (Integer.parseInt(display[2].split("°")[0]) >= 20 && Integer.parseInt(display[2].split("°")[0]) < 25) {
+            temperature.setTextColor(Color.parseColor("#f5b342"));
+        } else if (Integer.parseInt(display[2].split("°")[0]) >= 25) {
+            temperature.setTextColor(Color.parseColor("#f55142"));
+        } else if (Integer.parseInt(display[2].split("°")[0]) < 10) {
+            temperature.setTextColor(Color.parseColor("#3dd6f5"));
+        }
+
         temperature.setText(display[2]);
+
         switch (display[3]) {
             case "1000.0":
 //                weatherIcon.setBackgroundResource(R.drawable.sunny);
