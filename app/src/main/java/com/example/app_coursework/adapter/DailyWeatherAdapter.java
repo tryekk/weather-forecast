@@ -40,13 +40,15 @@ public class DailyWeatherAdapter extends ArrayAdapter<String> {
         timeDate.setText(display[1]);
 
         // Set temperature display colour based on heat
-        if (Integer.parseInt(display[2].split("°")[0]) > 15 && Integer.parseInt(display[2].split("°")[0]) < 20) {
+        Integer temperatureValue = Integer.parseInt(display[2].split("°")[0]);
+
+        if (temperatureValue > 15 && temperatureValue < 20) {
             temperature.setTextColor(Color.parseColor("#f5d63d"));
-        } else if (Integer.parseInt(display[2].split("°")[0]) >= 20 && Integer.parseInt(display[2].split("°")[0]) < 25) {
-            temperature.setTextColor(Color.parseColor("#f5b342"));
-        } else if (Integer.parseInt(display[2].split("°")[0]) >= 25) {
+        } else if (temperatureValue >= 20 && temperatureValue < 25) {
+            temperature.setTextColor(Color.parseColor("#f5a142"));
+        } else if (temperatureValue >= 25) {
             temperature.setTextColor(Color.parseColor("#f55142"));
-        } else if (Integer.parseInt(display[2].split("°")[0]) < 10) {
+        } else if (temperatureValue < 10) {
             temperature.setTextColor(Color.parseColor("#3dd6f5"));
         }
 
