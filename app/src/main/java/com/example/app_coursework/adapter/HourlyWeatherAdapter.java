@@ -31,12 +31,15 @@ public class HourlyWeatherAdapter extends ArrayAdapter<String> {
 
         TextView time = (TextView) rowView.findViewById(R.id.hourly_time);
         TextView temperature = (TextView) rowView.findViewById(R.id.hourly_temperature);
+        TextView temperatureApparent = (TextView) rowView.findViewById(R.id.hourly_temperature_apparent);
         ImageView weatherIcon = (ImageView) rowView.findViewById(R.id.weather_icon);
         TextView precipitation = (TextView) rowView.findViewById(R.id.hourly_precipitation);
 
         String[] display = items.get(position).split(",");
         time.setText(display[0]);
+
         temperature.setText(display[1]);
+        temperatureApparent.setText(display[6]);
 
         // Set temperature display colour based on heat
         Integer temperatureValue = Integer.parseInt(display[1].split("°")[0]);
@@ -51,6 +54,7 @@ public class HourlyWeatherAdapter extends ArrayAdapter<String> {
             temperature.setTextColor(Color.parseColor("#3dd6f5"));
         }
 
+        // Weather conditions
         String[] timeSplit = display[0].split(":");  // For night-time definition
         int sunrise = Integer.parseInt(display[4].split(":")[0]) + 1;
         int sunset = Integer.parseInt(display[5].split(":")[0]);
@@ -99,6 +103,21 @@ public class HourlyWeatherAdapter extends ArrayAdapter<String> {
                 weatherIcon.setImageResource(R.drawable.ic_snow);
                 break;
         }
+
+        // Set precipitation text colour to match chance
+//        Integer rainChanceInt = Integer.parseInt(display[3].split("%")[0]);
+//
+//        if (rainChanceInt >= 5 && rainChanceInt < 10) {
+//            temperature.setTextColor(Color.parseColor("#f5d63d"));
+//        } else if (rainChanceInt >= 10 && rainChanceInt < 25) {
+//            temperature.setTextColor(Color.parseColor("#f5a142"));
+//        } else if (rainChanceInt >= 25 && rainChanceInt < 50) {
+//            temperature.setTextColor(Color.parseColor("#f55142"));
+//        } else if (rainChanceInt >= 50 && rainChanceInt < 75) {
+//            temperature.setTextColor(Color.parseColor("#3dd6f5"));
+//        } else if (rainChanceInt >= 75 && rainChanceInt < 100) {
+//            temperature.setTextColor(Color.parseColor("#3dd6f5"));
+//        }
 
         precipitation.setText(display[3]);
 

@@ -153,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
         String apikey = "z6N3a8QW0Cwy80k9sTxvPNHCGqvRFq5f";
 //        double[] location = {51.4816, -3.1791};
         String[] fields = {"temperature", "weatherCode", "precipitationProbability", "sunriseTime",
-                "sunsetTime", "humidity", "windSpeed", "windDirection"};
+                "sunsetTime", "humidity", "windSpeed", "windDirection", "temperatureApparent"};
         String units = "metric";
         String[] timesteps = {"1h", "1d"};
         String timezone = "Europe/London";
@@ -162,43 +162,43 @@ public class MainActivity extends AppCompatActivity {
                 currentPosition.get(0) + "," + currentPosition.get(1) + "&fields=" + fields[0]
                 + "&fields=" + fields[1] + "&fields=" + fields[2] + "&fields=" + fields[3] +
                 "&fields=" + fields[4] + "&fields=" + fields[5] + "&fields=" + fields[6] +
-                "&fields=" + fields[7] + "&units=" + units +
+                "&fields=" + fields[7] + "&fields=" + fields[8] + "&units=" + units +
                 "&timesteps=" + timesteps[0] + "&timesteps=" + timesteps[1] + "&endTime="
                 + endTime + "&timezone=" + timezone;
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
-                Request.Method.GET, //The type of request, e.g., GET, POST, DELETE, PUT, etc.
-                url, //as defined above
-                null, //data to send with the request, none in this case
-                new Response.Listener<JSONObject>() { //onsuccess
-                    @RequiresApi(api = Build.VERSION_CODES.N)
-                    @Override
-                    public void onResponse(JSONObject response) {
+            Request.Method.GET, //The type of request, e.g., GET, POST, DELETE, PUT, etc.
+            url, //as defined above
+            null, //data to send with the request, none in this case
+            new Response.Listener<JSONObject>() { //onsuccess
+                @RequiresApi(api = Build.VERSION_CODES.N)
+                @Override
+                public void onResponse(JSONObject response) {
 //                            Log.d("RESPONSE", response.toString(2)); //prints the response to LogCat
-                            // Process data
-                            HourlyWeatherFragment hourlyWeatherFragment = HourlyWeatherFragment.getInstance();
-                            hourlyWeatherFragment.parseJSON(response);
-                            DailyWeatherFragment dailyWeatherFragment = DailyWeatherFragment.getInstance();
-                            dailyWeatherFragment.parseJSON(response);
-                            ExtraInformationFragment extraInformationFragment = ExtraInformationFragment.getInstance();
-                            extraInformationFragment.parseJSON(response);
-                    }
-                },
-                new Response.ErrorListener() { //onerror
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        if (error.getMessage() != null) {
-                            Log.d("ERROR", error.getMessage()); //prints the error message to LogCat
-                            // Display error to user
-                            ListView listView = (ListView) MainActivity.this.findViewById(R.id.hourly_weather_list);
-                            ArrayList<String> errorList = new ArrayList<>();
-                            errorList.add("Error retrieving weather information: SSL HandshakeException");
-                            errorList.add("Try using a newer version of Android");
-                            ArrayAdapter adapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, errorList);
-                            listView.setAdapter(adapter);
-                        }
+                        // Process data
+                        HourlyWeatherFragment hourlyWeatherFragment = HourlyWeatherFragment.getInstance();
+                        hourlyWeatherFragment.parseJSON(response);
+                        DailyWeatherFragment dailyWeatherFragment = DailyWeatherFragment.getInstance();
+                        dailyWeatherFragment.parseJSON(response);
+                        ExtraInformationFragment extraInformationFragment = ExtraInformationFragment.getInstance();
+                        extraInformationFragment.parseJSON(response);
+                }
+            },
+            new Response.ErrorListener() { //onerror
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    if (error.getMessage() != null) {
+                        Log.d("ERROR", error.getMessage()); //prints the error message to LogCat
+                        // Display error to user
+                        ListView listView = (ListView) MainActivity.this.findViewById(R.id.hourly_weather_list);
+                        ArrayList<String> errorList = new ArrayList<>();
+                        errorList.add("Error retrieving weather information: SSL HandshakeException");
+                        errorList.add("Try using a newer version of Android");
+                        ArrayAdapter adapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, errorList);
+                        listView.setAdapter(adapter);
                     }
                 }
+            }
         );
         requestQueue.add(jsonObjectRequest);
     }

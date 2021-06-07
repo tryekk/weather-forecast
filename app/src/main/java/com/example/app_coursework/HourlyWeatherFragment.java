@@ -55,7 +55,8 @@ public class HourlyWeatherFragment extends Fragment {
                         String.valueOf((int) arr.getJSONObject(i).getJSONObject("values").getDouble("temperature")) + "°C" + "," +
                         String.valueOf(arr.getJSONObject(i).getJSONObject("values").getDouble("weatherCode")) + "," +
                         String.valueOf((int) arr.getJSONObject(i).getJSONObject("values").getDouble("precipitationProbability")) + "%" + "," +
-                        sunrise[1] + "," + sunset[1]);
+                        sunrise[1] + "," + sunset[1] + "," +
+                        String.valueOf((int) arr.getJSONObject(i).getJSONObject("values").getDouble("temperatureApparent")) + "°C");
             }
         } catch (JSONException e) {
             e.printStackTrace();
