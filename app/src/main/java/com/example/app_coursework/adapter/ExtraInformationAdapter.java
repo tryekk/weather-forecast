@@ -1,6 +1,7 @@
 package com.example.app_coursework.adapter;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +37,21 @@ public class ExtraInformationAdapter extends ArrayAdapter<String> {
         entry.setText(display[0]);
         TextView entry_information = (TextView) rowView.findViewById(R.id.entry_information);
         entry_information.setText(display[1]);
+
+        if (display[0].equals("Grass Pollen") || display[0].equals("Tree Pollen")) {
+            switch (display[1].split("/")[0]) {
+                case "1":
+                    entry_information.setTextColor(Color.parseColor("#60e04c"));
+                case "2":
+                    entry_information.setTextColor(Color.parseColor("#e0de4c"));
+                case "3":
+                    entry_information.setTextColor(Color.parseColor("#e0b14c"));
+                case "4":
+                    entry_information.setTextColor(Color.parseColor("#e0874c"));
+                case "5":
+                    entry_information.setTextColor(Color.parseColor("#e05d4c"));
+            }
+        }
 
         return rowView;
     }

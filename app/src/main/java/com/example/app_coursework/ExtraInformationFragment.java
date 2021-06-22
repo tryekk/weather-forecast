@@ -54,11 +54,16 @@ public class ExtraInformationFragment extends Fragment {
             Integer windSpeed = (int) arr.getJSONObject(0).getJSONObject("values").getDouble("windSpeed");
             Integer windDirection = (int) arr.getJSONObject(0).getJSONObject("values").getDouble("windDirection");
 
+            Integer grassIndex = (int) arr.getJSONObject(0).getJSONObject("values").getDouble("grassIndex");
+            Integer treeIndex = (int) arr.getJSONObject(0).getJSONObject("values").getDouble("treeIndex");
+
             weatherList.add("Sunrise" + "," + sunrise[0] + ":" + sunrise[1]);
             weatherList.add("Sunset" + "," + sunset[0] + ":" + sunset[1]);
             weatherList.add("Humidity" + "," + humidity + "%");
             weatherList.add("Wind Speed" + "," + windSpeed + "mph");
             weatherList.add("Wind Direction" + "," + windDirection + "°");
+            weatherList.add("Grass Pollen" + "," + grassIndex + "/5");
+            weatherList.add("Tree Pollen" + "," + treeIndex + "/5");
 
         } catch (JSONException e) {
             e.printStackTrace();
