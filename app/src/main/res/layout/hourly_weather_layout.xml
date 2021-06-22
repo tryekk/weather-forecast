@@ -7,7 +7,7 @@
 
     <TextView
         android:id="@+id/hourly_time"
-        android:layout_width="170dp"
+        android:layout_width="165dp"
         android:layout_height="wrap_content"
         android:textSize="18sp"
         android:paddingTop="3dp"
@@ -18,7 +18,7 @@
         android:id="@+id/hourly_temperature_apparent"
         android:layout_width="43dp"
         android:layout_height="wrap_content"
-        android:textSize="14sp"
+        android:textSize="10sp"
         android:paddingTop="3dp"
         android:paddingBottom="3dp"
         android:layout_marginLeft="3dp"
@@ -43,7 +43,7 @@
         android:id="@+id/hourly_precipitation"
         android:layout_width="60dp"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:paddingTop="3dp"
         android:paddingBottom="3dp"
         android:layout_marginLeft="20dp"/>
