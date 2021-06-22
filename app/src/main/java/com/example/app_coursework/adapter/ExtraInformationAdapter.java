@@ -42,14 +42,19 @@ public class ExtraInformationAdapter extends ArrayAdapter<String> {
             switch (display[1].split("/")[0]) {
                 case "1":
                     entry_information.setTextColor(Color.parseColor("#60e04c"));
+                    break;
                 case "2":
                     entry_information.setTextColor(Color.parseColor("#e0de4c"));
+                    break;
                 case "3":
                     entry_information.setTextColor(Color.parseColor("#e0b14c"));
+                    break;
                 case "4":
                     entry_information.setTextColor(Color.parseColor("#e0874c"));
+                    break;
                 case "5":
                     entry_information.setTextColor(Color.parseColor("#e05d4c"));
+                    break;
             }
         }
 
