@@ -26,6 +26,11 @@
             android:orientation="vertical"
             android:paddingBottom="30dp">
 
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/fragment_current_container"
+                android:layout_width="match_parent"
+                android:layout_height="200dp" />
+
             <TextView
                 android:id="@+id/hourly_header"
                 style="@style/header"
@@ -36,7 +41,8 @@
                 android:layout_marginRight="5dp"
                 android:padding="15dp"
                 android:text="@string/hourly_forecast"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:layout_below="@+id/fragment_current_container" />
             <!--    android:layout_marginTop="10dp"-->
 
             <androidx.fragment.app.FragmentContainerView
