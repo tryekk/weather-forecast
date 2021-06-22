@@ -85,7 +85,9 @@ public class DailyWeatherAdapter extends ArrayAdapter<String> {
                 break;
         }
 
-        precipitation.setText(display[4]);
+        if (Integer.parseInt(display[4].split("%")[0]) > 0) {
+            precipitation.setText(display[4]);
+        }
 
         return rowView;
     }

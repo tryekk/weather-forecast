@@ -43,7 +43,7 @@
         android:id="@+id/hourly_precipitation"
         android:layout_width="60dp"
         android:layout_height="wrap_content"
-        android:textSize="21sp"
+        android:textSize="18sp"
         android:paddingTop="3dp"
         android:paddingBottom="3dp"
         android:layout_marginLeft="20dp"/>

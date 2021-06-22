@@ -119,7 +119,9 @@ public class HourlyWeatherAdapter extends ArrayAdapter<String> {
 //            temperature.setTextColor(Color.parseColor("#3dd6f5"));
 //        }
 
-        precipitation.setText(display[3]);
+        if (Integer.parseInt(display[3].split("%")[0]) > 0) {
+            precipitation.setText(display[3]);
+        }
 
         return rowView;
     }
