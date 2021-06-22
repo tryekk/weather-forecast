@@ -107,7 +107,7 @@ public class HourlyWeatherAdapter extends ArrayAdapter<String> {
         // Set precipitation text colour to match chance
 //        Integer rainChanceInt = Integer.parseInt(display[3].split("%")[0]);
 
-        temperature.setTextColor(Color.parseColor("#0fe5f5"));
+        precipitation.setTextColor(Color.parseColor("#0fe5f5"));
 
 //        if (rainChanceInt >= 5 && rainChanceInt < 10) {
 //            temperature.setTextColor(Color.parseColor("#f5d63d"));

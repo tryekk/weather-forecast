@@ -60,7 +60,7 @@ public class ExtraInformationFragment extends Fragment {
             weatherList.add("Sunrise" + "," + sunrise[0] + ":" + sunrise[1]);
             weatherList.add("Sunset" + "," + sunset[0] + ":" + sunset[1]);
             weatherList.add("Humidity" + "," + humidity + "%");
-            weatherList.add("Wind Speed" + "," + windSpeed + "mph");
+            weatherList.add("Wind Speed" + "," + windSpeed + " mph");
             weatherList.add("Wind Direction" + "," + windDirection + "°");
             weatherList.add("Grass Pollen" + "," + grassIndex + "/5");
             weatherList.add("Tree Pollen" + "," + treeIndex + "/5");
