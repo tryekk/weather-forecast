@@ -70,19 +70,34 @@ public class CurrentWeatherFragment extends Fragment {
             currentWeatherTextView.setText(currentWeather);
 
             // Update display
+            Integer timeSplit = Integer.parseInt(dateFormatted[1].split(":")[0]);
+            Integer sunriseSplit = Integer.parseInt(sunrise[1].split(":")[0]);  // For night-time definition
+            Integer sunsetSplit = Integer.parseInt(sunset[1].split(":")[0]);
+
             switch (weatherCode) {
                 case 1000:
-//                weatherIcon.setBackgroundResource(R.drawable.sunny);
-                    currentWeatherIcon.setImageResource(R.drawable.ic_clear_day);
+                    if (timeSplit > sunsetSplit || timeSplit < sunriseSplit) {
+                        currentWeatherIcon.setImageResource(R.drawable.ic_clear_night);
+                    } else {
+                        currentWeatherIcon.setImageResource(R.drawable.ic_clear_day);
+                    }
                     break;
                 case 1001:
                     currentWeatherIcon.setImageResource(R.drawable.ic_cloudy);
                     break;
                 case 1100:
-                    currentWeatherIcon.setImageResource(R.drawable.ic_mostly_clear_day);
+                    if (timeSplit > sunsetSplit || timeSplit < sunriseSplit) {
+                        currentWeatherIcon.setImageResource(R.drawable.ic_mostly_clear_night);
+                    } else {
+                        currentWeatherIcon.setImageResource(R.drawable.ic_mostly_clear_day);
+                    }
                     break;
                 case 1101:
-                    currentWeatherIcon.setImageResource(R.drawable.ic_partly_cloudy_day);
+                    if (timeSplit > sunsetSplit || timeSplit < sunriseSplit) {
+                        currentWeatherIcon.setImageResource(R.drawable.ic_partly_cloudy_night);
+                    } else {
+                        currentWeatherIcon.setImageResource(R.drawable.ic_partly_cloudy_day);
+                    }
                     break;
                 case 1102:
                     currentWeatherIcon.setImageResource(R.drawable.ic_mostly_cloudy);
