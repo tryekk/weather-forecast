@@ -1,5 +1,6 @@
 package com.example.app_coursework;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -70,6 +71,19 @@ public class CurrentWeatherFragment extends Fragment {
             currentTemperatureTextView.setText(currentTemperature);
             TextView currentWeatherTextView = (TextView) getActivity().findViewById(R.id.current_weather);
             currentWeatherTextView.setText(currentWeather);
+
+            // Set temperature display colour based on heat
+            Integer temperatureValue = Integer.parseInt(currentTemperature.split("°")[0]);
+
+            if (temperatureValue > 15 && temperatureValue < 20) {
+                currentTemperatureTextView.setTextColor(Color.parseColor("#f5d63d"));
+            } else if (temperatureValue >= 20 && temperatureValue < 25) {
+                currentTemperatureTextView.setTextColor(Color.parseColor("#f5a142"));
+            } else if (temperatureValue >= 25) {
+                currentTemperatureTextView.setTextColor(Color.parseColor("#f55142"));
+            } else if (temperatureValue < 10) {
+                currentTemperatureTextView.setTextColor(Color.parseColor("#3dd6f5"));
+            }
 
             int timeSplit = Integer.parseInt(dateFormatted[1].split(":")[0]);
             int sunriseSplit = Integer.parseInt(sunrise[1].split(":")[0]);  // For night-time definition
