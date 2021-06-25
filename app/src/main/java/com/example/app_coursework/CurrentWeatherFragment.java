@@ -37,7 +37,7 @@ public class CurrentWeatherFragment extends Fragment {
         instance = this;
 
         TextView textViewDate = (TextView) v.findViewById(R.id.current_date);
-        String timeStamp = new SimpleDateFormat("EEEE, d'th' MMM").format(Calendar.getInstance().getTime());
+        String timeStamp = new SimpleDateFormat("EEEE, d'th' MMMM").format(Calendar.getInstance().getTime());
         textViewDate.setText(timeStamp);
 
         return v;
