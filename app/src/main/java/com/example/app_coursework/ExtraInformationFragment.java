@@ -44,7 +44,7 @@ public class ExtraInformationFragment extends Fragment {
     protected void parseJSON(JSONObject response) {
         weatherList.clear();
         try {
-            JSONArray arr = response.getJSONObject("data").getJSONArray("timelines").getJSONObject(0).getJSONArray("intervals");
+            JSONArray arr = response.getJSONObject("data").getJSONArray("timelines").getJSONObject(1).getJSONArray("intervals");
 
             String[] sunrise = arr.getJSONObject(0).getJSONObject("values").getString("sunriseTime").split("T|:00\\+")[1].split(":");
             String[] sunset = arr.getJSONObject(0).getJSONObject("values").getString("sunsetTime").split("T|:00\\+")[1].split(":");
