@@ -20,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -76,6 +77,9 @@ public class MainActivity extends AppCompatActivity {
         // Get a fragment manager
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
+                .replace(R.id.fragment_current_container, new CurrentWeatherFragment())
+                .commit();
+        fragmentManager.beginTransaction()
                 .replace(R.id.fragment_hourly_container, new HourlyWeatherFragment())
                 .commit();
         fragmentManager.beginTransaction()
@@ -102,12 +106,13 @@ public class MainActivity extends AppCompatActivity {
     // Method is modified code from - user:TharakaNirmana @ https://stackoverflow.com/questions/20438627/getlastknownlocation-returns-null
     private void getLastKnownLocationAndWeather() {
         // Inform user the information is being retrieved
-        ListView listView = (ListView) this.findViewById(R.id.hourly_weather_list);
+        TextView textViewCurrent = (TextView) this.findViewById(R.id.date);
+        ListView listViewHourly = (ListView) this.findViewById(R.id.hourly_weather_list);
         ListView listViewDaily = (ListView) this.findViewById(R.id.daily_weather_list);
         ListView listViewExtra = (ListView) this.findViewById(R.id.extra_list);
         ArrayList<String> statusList = new ArrayList<>();
         statusList.add("Retrieving weather information...");
-        listView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, statusList));
+        listViewHourly.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, statusList));
         listViewDaily.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, statusList));
         listViewExtra.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, statusList));
 
@@ -177,6 +182,8 @@ public class MainActivity extends AppCompatActivity {
                 public void onResponse(JSONObject response) {
 //                            Log.d("RESPONSE", response.toString(2)); //prints the response to LogCat
                         // Process data
+                        CurrentWeatherFragment currentWeatherFragment = CurrentWeatherFragment.getInstance();
+                        currentWeatherFragment.parseJSON(response);
                         HourlyWeatherFragment hourlyWeatherFragment = HourlyWeatherFragment.getInstance();
                         hourlyWeatherFragment.parseJSON(response);
                         DailyWeatherFragment dailyWeatherFragment = DailyWeatherFragment.getInstance();
@@ -194,7 +201,6 @@ public class MainActivity extends AppCompatActivity {
                         ListView listView = (ListView) MainActivity.this.findViewById(R.id.hourly_weather_list);
                         ArrayList<String> errorList = new ArrayList<>();
                         errorList.add("Error retrieving weather information: SSL HandshakeException");
-                        errorList.add("Try using a newer version of Android");
                         ArrayAdapter adapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, errorList);
                         listView.setAdapter(adapter);
                     }
