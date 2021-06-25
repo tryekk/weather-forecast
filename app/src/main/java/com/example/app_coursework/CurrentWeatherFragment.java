@@ -49,58 +49,55 @@ public class CurrentWeatherFragment extends Fragment {
     protected void parseJSON(JSONObject response) {
         ImageView currentWeatherIcon = (ImageView) getActivity().findViewById(R.id.current_weather_icon);
 
+
         try {
-            JSONArray arr = response.getJSONObject("data").getJSONArray("timelines").getJSONObject(1).getJSONArray("intervals");
+            JSONArray arr = response.getJSONObject("data").getJSONArray("timelines").getJSONObject(0).getJSONArray("intervals");
+            String[] dateFormatted = arr.getJSONObject(0).getString("startTime").split("T|:00\\+");  // Get time from UTC timestamp string
 
-            // Format date
-            String[] dateFormatted = arr.getJSONObject(0).getString("startTime").split("T");
-            DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-            Date dt1 = df.parse(dateFormatted[0]);
-            DateFormat format2 = new SimpleDateFormat("EE");
-            String finalDay = format2.format(dt1);
-            DateFormat formatDayNumber = new SimpleDateFormat("dd");
-            String finalDayNumber = formatDayNumber.format(dt1);
+            // Sunrise and sunset
+            String[] sunrise = arr.getJSONObject(0).getJSONObject("values").getString("sunriseTime").split("T|:00\\+");
+            String[] sunset = arr.getJSONObject(0).getJSONObject("values").getString("sunsetTime").split("T|:00\\+");
 
-            // Weather code
-            String weatherCode = String.valueOf(arr.getJSONObject(0).getJSONObject("values").getDouble("weatherCode"));
+            Integer weatherCode = Integer.valueOf((int) arr.getJSONObject(0).getJSONObject("values").getDouble("weatherCode"));
 
-            String currentWeatherString = (finalDay + "#" + finalDayNumber + "#" +
-                    String.valueOf((int) arr.getJSONObject(0).getJSONObject("values").getDouble("temperature")) + "°C" + "#" +
-                    String.valueOf(arr.getJSONObject(0).getJSONObject("values").getDouble("weatherCode")) + "#" +
-                    String.valueOf((int) arr.getJSONObject(0).getJSONObject("values").getDouble("precipitationProbability")) + "%");
+            String currentWeather = (dateFormatted[1] + "," +
+                    String.valueOf((int) arr.getJSONObject(0).getJSONObject("values").getDouble("temperature")) + "°C" + "," +
+                    String.valueOf((int) arr.getJSONObject(0).getJSONObject("values").getDouble("precipitationProbability")) + "%" + "," +
+                    sunrise[1] + "," + sunset[1] + "," +
+                    String.valueOf((int) arr.getJSONObject(0).getJSONObject("values").getDouble("temperatureApparent")) + "°C");
 
             // Update display
             switch (weatherCode) {
-                case "1000.0":
+                case 1000:
 //                weatherIcon.setBackgroundResource(R.drawable.sunny);
                     currentWeatherIcon.setImageResource(R.drawable.ic_clear_day);
                     break;
-                case "1001.0":
+                case 1001:
                     currentWeatherIcon.setImageResource(R.drawable.ic_cloudy);
                     break;
-                case "1100.0":
+                case 1100:
                     currentWeatherIcon.setImageResource(R.drawable.ic_mostly_clear_day);
                     break;
-                case "1101.0":
+                case 1101:
                     currentWeatherIcon.setImageResource(R.drawable.ic_partly_cloudy_day);
                     break;
-                case "1102.0":
+                case 1102:
                     currentWeatherIcon.setImageResource(R.drawable.ic_mostly_cloudy);
                     break;
-                case "4000.0":
+                case 4000:
                     currentWeatherIcon.setImageResource(R.drawable.ic_drizzle);
                     break;
-                case "4001.0":
+                case 4001:
                     currentWeatherIcon.setImageResource(R.drawable.ic_rain);
                     break;
-                case "4200.0":
+                case 4200:
                     currentWeatherIcon.setImageResource(R.drawable.ic_rain_light);
                     break;
-                case "4201.0":
+                case 4201:
                     currentWeatherIcon.setImageResource(R.drawable.ic_rain_heavy);
                     break;
             }
-        } catch (JSONException | ParseException e) {
+        } catch (JSONException e) {
             e.printStackTrace();
         }
     }

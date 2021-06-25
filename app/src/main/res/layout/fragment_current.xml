@@ -8,7 +8,6 @@
         android:id="@+id/current_weather_icon"
         android:layout_width="75dp"
         android:layout_height="75dp"
-        android:layout_below="@+id/fragment_daily_container"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         />
