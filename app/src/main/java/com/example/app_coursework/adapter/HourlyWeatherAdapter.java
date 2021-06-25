@@ -39,7 +39,7 @@ public class HourlyWeatherAdapter extends ArrayAdapter<String> {
         time.setText(display[0]);
 
         temperature.setText(display[1]);
-        temperatureApparent.setText(display[6]);
+//        temperatureApparent.setText(display[6]);
 
         // Set temperature display colour based on heat
         Integer temperatureValue = Integer.parseInt(display[1].split("°")[0]);
