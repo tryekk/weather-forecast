@@ -36,7 +36,7 @@ public class CurrentWeatherFragment extends Fragment {
         instance = this;
 
         TextView textViewDate = (TextView) v.findViewById(R.id.current_date);
-        String timeStamp = new SimpleDateFormat("EEEE, MMM d'th'").format(Calendar.getInstance().getTime());
+        String timeStamp = new SimpleDateFormat("EEEE, d'th' MMM").format(Calendar.getInstance().getTime());
         textViewDate.setText(timeStamp);
 
         return v;
@@ -48,7 +48,6 @@ public class CurrentWeatherFragment extends Fragment {
 
     protected void parseJSON(JSONObject response) {
         ImageView currentWeatherIcon = (ImageView) getActivity().findViewById(R.id.current_weather_icon);
-
 
         try {
             JSONArray arr = response.getJSONObject("data").getJSONArray("timelines").getJSONObject(0).getJSONArray("intervals");
@@ -63,19 +62,18 @@ public class CurrentWeatherFragment extends Fragment {
             Integer weatherCode = (int) arr.getJSONObject(0).getJSONObject("values").getDouble("weatherCode");
 
             String currentWeather = (
-                    String.valueOf((int) arr.getJSONObject(0).getJSONObject("values").getDouble("precipitationProbability")) + "%" + " " +
-//                    sunrise[1] + "," + sunset[1] + "," +
-                    String.valueOf((int) arr.getJSONObject(0).getJSONObject("values").getDouble("temperatureApparent")) + "°C");
+                    "Feels like " + String.valueOf((int) arr.getJSONObject(0).getJSONObject("values").getDouble("temperatureApparent")) + "°C" +
+                    "\n" + String.valueOf((int) arr.getJSONObject(0).getJSONObject("values").getDouble("precipitationProbability")) + "%" + " chance of rain");
 
+            // Update display
             TextView currentTemperatureTextView = (TextView) getActivity().findViewById(R.id.current_temperature);
             currentTemperatureTextView.setText(currentTemperature);
             TextView currentWeatherTextView = (TextView) getActivity().findViewById(R.id.current_weather);
             currentWeatherTextView.setText(currentWeather);
 
-            // Update display
-            Integer timeSplit = Integer.parseInt(dateFormatted[1].split(":")[0]);
-            Integer sunriseSplit = Integer.parseInt(sunrise[1].split(":")[0]);  // For night-time definition
-            Integer sunsetSplit = Integer.parseInt(sunset[1].split(":")[0]);
+            int timeSplit = Integer.parseInt(dateFormatted[1].split(":")[0]);
+            int sunriseSplit = Integer.parseInt(sunrise[1].split(":")[0]);  // For night-time definition
+            int sunsetSplit = Integer.parseInt(sunset[1].split(":")[0]);
 
             switch (weatherCode) {
                 case 1000:
