@@ -35,7 +35,7 @@ public class CurrentWeatherFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_current, container, false);
         instance = this;
 
-        TextView textViewDate = (TextView) v.findViewById(R.id.date);
+        TextView textViewDate = (TextView) v.findViewById(R.id.current_date);
         String timeStamp = new SimpleDateFormat("EEEE, MMM d'th'").format(Calendar.getInstance().getTime());
         textViewDate.setText(timeStamp);
 
@@ -58,13 +58,16 @@ public class CurrentWeatherFragment extends Fragment {
             String[] sunrise = arr.getJSONObject(0).getJSONObject("values").getString("sunriseTime").split("T|:00\\+");
             String[] sunset = arr.getJSONObject(0).getJSONObject("values").getString("sunsetTime").split("T|:00\\+");
 
-            Integer weatherCode = Integer.valueOf((int) arr.getJSONObject(0).getJSONObject("values").getDouble("weatherCode"));
+            Integer weatherCode = (int) arr.getJSONObject(0).getJSONObject("values").getDouble("weatherCode");
 
-            String currentWeather = (dateFormatted[1] + "," +
+            String currentWeather = (
                     String.valueOf((int) arr.getJSONObject(0).getJSONObject("values").getDouble("temperature")) + "°C" + "," +
                     String.valueOf((int) arr.getJSONObject(0).getJSONObject("values").getDouble("precipitationProbability")) + "%" + "," +
-                    sunrise[1] + "," + sunset[1] + "," +
+//                    sunrise[1] + "," + sunset[1] + "," +
                     String.valueOf((int) arr.getJSONObject(0).getJSONObject("values").getDouble("temperatureApparent")) + "°C");
+
+            TextView currentWeatherTextView = (TextView) getActivity().findViewById(R.id.current_weather);
+            currentWeatherTextView.setText(currentWeather);
 
             // Update display
             switch (weatherCode) {
