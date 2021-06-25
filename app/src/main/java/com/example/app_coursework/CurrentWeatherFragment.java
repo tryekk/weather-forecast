@@ -54,6 +54,8 @@ public class CurrentWeatherFragment extends Fragment {
             JSONArray arr = response.getJSONObject("data").getJSONArray("timelines").getJSONObject(0).getJSONArray("intervals");
             String[] dateFormatted = arr.getJSONObject(0).getString("startTime").split("T|:00\\+");  // Get time from UTC timestamp string
 
+            String currentTemperature = String.valueOf((int) arr.getJSONObject(0).getJSONObject("values").getDouble("temperature")) + "°C";
+
             // Sunrise and sunset
             String[] sunrise = arr.getJSONObject(0).getJSONObject("values").getString("sunriseTime").split("T|:00\\+");
             String[] sunset = arr.getJSONObject(0).getJSONObject("values").getString("sunsetTime").split("T|:00\\+");
@@ -61,11 +63,12 @@ public class CurrentWeatherFragment extends Fragment {
             Integer weatherCode = (int) arr.getJSONObject(0).getJSONObject("values").getDouble("weatherCode");
 
             String currentWeather = (
-                    String.valueOf((int) arr.getJSONObject(0).getJSONObject("values").getDouble("temperature")) + "°C" + " " +
                     String.valueOf((int) arr.getJSONObject(0).getJSONObject("values").getDouble("precipitationProbability")) + "%" + " " +
 //                    sunrise[1] + "," + sunset[1] + "," +
                     String.valueOf((int) arr.getJSONObject(0).getJSONObject("values").getDouble("temperatureApparent")) + "°C");
 
+            TextView currentTemperatureTextView = (TextView) getActivity().findViewById(R.id.current_temperature);
+            currentTemperatureTextView.setText(currentTemperature);
             TextView currentWeatherTextView = (TextView) getActivity().findViewById(R.id.current_weather);
             currentWeatherTextView.setText(currentWeather);
 
