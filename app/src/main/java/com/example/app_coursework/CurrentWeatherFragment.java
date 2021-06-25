@@ -61,8 +61,8 @@ public class CurrentWeatherFragment extends Fragment {
             Integer weatherCode = (int) arr.getJSONObject(0).getJSONObject("values").getDouble("weatherCode");
 
             String currentWeather = (
-                    String.valueOf((int) arr.getJSONObject(0).getJSONObject("values").getDouble("temperature")) + "°C" + "," +
-                    String.valueOf((int) arr.getJSONObject(0).getJSONObject("values").getDouble("precipitationProbability")) + "%" + "," +
+                    String.valueOf((int) arr.getJSONObject(0).getJSONObject("values").getDouble("temperature")) + "°C" + " " +
+                    String.valueOf((int) arr.getJSONObject(0).getJSONObject("values").getDouble("precipitationProbability")) + "%" + " " +
 //                    sunrise[1] + "," + sunset[1] + "," +
                     String.valueOf((int) arr.getJSONObject(0).getJSONObject("values").getDouble("temperatureApparent")) + "°C");
 
