@@ -82,6 +82,8 @@ public class CurrentWeatherFragment extends Fragment {
                 currentTemperatureTextView.setTextColor(Color.parseColor("#f55142"));
             } else if (temperatureValue < 10) {
                 currentTemperatureTextView.setTextColor(Color.parseColor("#3dd6f5"));
+            } else {
+                currentTemperatureTextView.setTextColor(Color.parseColor("#808080"));
             }
 
             // For night-time definition
