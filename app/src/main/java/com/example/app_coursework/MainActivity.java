@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
                 "sunsetTime", "humidity", "windSpeed", "windDirection", "temperatureApparent",
                 "grassIndex", "treeIndex"};
         String units = "metric";
-        String[] timesteps = {"1h", "1d"};
+        String[] timesteps = {"1m", "1h", "1d"};
         String timezone = "Europe/London";
 
         String url = "https://api.tomorrow.io/v4/timelines" + "?apikey=" + apikey + "&location=" +
@@ -170,7 +170,8 @@ public class MainActivity extends AppCompatActivity {
                 "&fields=" + fields[4] + "&fields=" + fields[5] + "&fields=" + fields[6] +
                 "&fields=" + fields[7] + "&fields=" + fields[8] + "&fields=" + fields[9] +
                 "&fields=" + fields[10] + "&units=" + units + "&timesteps=" + timesteps[0] +
-                "&timesteps=" + timesteps[1] + "&endTime=" + endTime + "&timezone=" + timezone;
+                "&timesteps=" + timesteps[1] + "&timesteps=" + timesteps[2] +
+                "&endTime=" + endTime + "&timezone=" + timezone;
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
             Request.Method.GET, //The type of request, e.g., GET, POST, DELETE, PUT, etc.
@@ -192,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
                         extraInformationFragment.parseJSON(response);
                 }
             },
-            new Response.ErrorListener() { //onerror
+            new Response.ErrorListener() { //on error
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     if (error.getMessage() != null) {
@@ -200,7 +201,7 @@ public class MainActivity extends AppCompatActivity {
                         // Display error to user
                         ListView listView = (ListView) MainActivity.this.findViewById(R.id.hourly_weather_list);
                         ArrayList<String> errorList = new ArrayList<>();
-                        errorList.add("Error retrieving weather information: SSL HandshakeException");
+                        errorList.add("Error retrieving weather information");
                         ArrayAdapter adapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, errorList);
                         listView.setAdapter(adapter);
                     }

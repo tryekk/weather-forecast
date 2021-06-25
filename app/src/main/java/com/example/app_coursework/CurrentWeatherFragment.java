@@ -51,20 +51,24 @@ public class CurrentWeatherFragment extends Fragment {
         ImageView currentWeatherIcon = (ImageView) getActivity().findViewById(R.id.current_weather_icon);
 
         try {
-            JSONArray arr = response.getJSONObject("data").getJSONArray("timelines").getJSONObject(0).getJSONArray("intervals");
-            String[] dateFormatted = arr.getJSONObject(0).getString("startTime").split("T|:00\\+");  // Get time from UTC timestamp string
+            // Use hourly forecast to retrieve sunrise and sunset
+            JSONArray arr = response.getJSONObject("data").getJSONArray("timelines").getJSONObject(1).getJSONArray("intervals");
 
-            String currentTemperature = String.valueOf((int) arr.getJSONObject(0).getJSONObject("values").getDouble("temperature")) + "°C";
+            String[] dateFormatted = arr.getJSONObject(0).getString("startTime").split("T|:00\\+");  // Get time from UTC timestamp string
 
             // Sunrise and sunset
             String[] sunrise = arr.getJSONObject(0).getJSONObject("values").getString("sunriseTime").split("T|:00\\+");
             String[] sunset = arr.getJSONObject(0).getJSONObject("values").getString("sunsetTime").split("T|:00\\+");
 
-            Integer weatherCode = (int) arr.getJSONObject(0).getJSONObject("values").getDouble("weatherCode");
+            // Switch to 1m forecast from hourly forecast
+            JSONArray arr1m = response.getJSONObject("data").getJSONArray("timelines").getJSONObject(0).getJSONArray("intervals");
+
+            String currentTemperature = String.valueOf((int) arr1m.getJSONObject(0).getJSONObject("values").getDouble("temperature")) + "°C";
+            Integer weatherCode = (int) arr1m.getJSONObject(0).getJSONObject("values").getDouble("weatherCode");
 
             String currentWeather = (
-                    "Feels like " + String.valueOf((int) arr.getJSONObject(0).getJSONObject("values").getDouble("temperatureApparent")) + "°C" +
-                    "\n" + String.valueOf((int) arr.getJSONObject(0).getJSONObject("values").getDouble("precipitationProbability")) + "%" + " chance of rain");
+                    "Feels like " + String.valueOf((int) arr1m.getJSONObject(0).getJSONObject("values").getDouble("temperatureApparent")) + "°C" +
+                    "\n" + String.valueOf((int) arr1m.getJSONObject(0).getJSONObject("values").getDouble("precipitationProbability")) + "%" + " chance of rain");
 
             // Update display
             TextView currentTemperatureTextView = (TextView) getActivity().findViewById(R.id.current_temperature);
