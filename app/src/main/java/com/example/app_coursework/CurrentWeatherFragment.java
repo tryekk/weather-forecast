@@ -74,7 +74,6 @@ public class CurrentWeatherFragment extends Fragment {
 
             // Set temperature display colour based on heat
             Integer temperatureValue = Integer.parseInt(currentTemperature.split("°")[0]);
-
             if (temperatureValue > 15 && temperatureValue < 20) {
                 currentTemperatureTextView.setTextColor(Color.parseColor("#f5d63d"));
             } else if (temperatureValue >= 20 && temperatureValue < 25) {
@@ -85,8 +84,9 @@ public class CurrentWeatherFragment extends Fragment {
                 currentTemperatureTextView.setTextColor(Color.parseColor("#3dd6f5"));
             }
 
+            // For night-time definition
             int timeSplit = Integer.parseInt(dateFormatted[1].split(":")[0]);
-            int sunriseSplit = Integer.parseInt(sunrise[1].split(":")[0]);  // For night-time definition
+            int sunriseSplit = Integer.parseInt(sunrise[1].split(":")[0]);
             int sunsetSplit = Integer.parseInt(sunset[1].split(":")[0]);
 
             switch (weatherCode) {
