@@ -66,17 +66,9 @@ public class CurrentWeatherFragment extends Fragment {
             String currentTemperature = String.valueOf((int) arr1m.getJSONObject(0).getJSONObject("values").getDouble("temperature")) + "°C";
             Integer weatherCode = (int) arr1m.getJSONObject(0).getJSONObject("values").getDouble("weatherCode");
 
-            String currentWeather = (
-                    "Party Cloudy" +
-                    "\n" + "Feels like " + String.valueOf((int) arr1m.getJSONObject(0).getJSONObject("values").getDouble("temperatureApparent")) + "°C" +
-                    "\n" + String.valueOf((int) arr1m.getJSONObject(0).getJSONObject("values").getDouble("precipitationProbability")) + "%" + " chance of rain" +
-                    "\n" + "18° High | 13° Low");
-
             // Update display
             TextView currentTemperatureTextView = (TextView) getActivity().findViewById(R.id.current_temperature);
             currentTemperatureTextView.setText(currentTemperature);
-            TextView currentWeatherTextView = (TextView) getActivity().findViewById(R.id.current_weather);
-            currentWeatherTextView.setText(currentWeather);
 
             // Set temperature display colour based on heat
             Integer temperatureValue = Integer.parseInt(currentTemperature.split("°")[0]);
@@ -97,8 +89,11 @@ public class CurrentWeatherFragment extends Fragment {
             int sunriseSplit = Integer.parseInt(sunrise[1].split(":")[0]);
             int sunsetSplit = Integer.parseInt(sunset[1].split(":")[0]);
 
+            String weatherCondition = "null";
+
             switch (weatherCode) {
                 case 1000:
+                    weatherCondition = "Clear";
                     if (timeSplit > sunsetSplit || timeSplit < sunriseSplit) {
                         currentWeatherIcon.setImageResource(R.drawable.ic_clear_night);
                     } else {
@@ -106,9 +101,11 @@ public class CurrentWeatherFragment extends Fragment {
                     }
                     break;
                 case 1001:
+                    weatherCondition = "Cloudy";
                     currentWeatherIcon.setImageResource(R.drawable.ic_cloudy);
                     break;
                 case 1100:
+                    weatherCondition = "Mostly Clear";
                     if (timeSplit > sunsetSplit || timeSplit < sunriseSplit) {
                         currentWeatherIcon.setImageResource(R.drawable.ic_mostly_clear_night);
                     } else {
@@ -116,6 +113,7 @@ public class CurrentWeatherFragment extends Fragment {
                     }
                     break;
                 case 1101:
+                    weatherCondition = "Partly Cloudy";
                     if (timeSplit > sunsetSplit || timeSplit < sunriseSplit) {
                         currentWeatherIcon.setImageResource(R.drawable.ic_partly_cloudy_night);
                     } else {
@@ -123,21 +121,36 @@ public class CurrentWeatherFragment extends Fragment {
                     }
                     break;
                 case 1102:
+                    weatherCondition = "Mostly Cloudy";
                     currentWeatherIcon.setImageResource(R.drawable.ic_mostly_cloudy);
                     break;
                 case 4000:
+                    weatherCondition = "Drizzle";
                     currentWeatherIcon.setImageResource(R.drawable.ic_drizzle);
                     break;
                 case 4001:
+                    weatherCondition = "Rain";
                     currentWeatherIcon.setImageResource(R.drawable.ic_rain);
                     break;
                 case 4200:
+                    weatherCondition = "Light Rain";
                     currentWeatherIcon.setImageResource(R.drawable.ic_rain_light);
                     break;
                 case 4201:
+                    weatherCondition = "Heavy Rain";
                     currentWeatherIcon.setImageResource(R.drawable.ic_rain_heavy);
                     break;
             }
+
+            String currentWeather = (
+                weatherCondition +
+                "\n" + "Feels like " + String.valueOf((int) arr1m.getJSONObject(0).getJSONObject("values").getDouble("temperatureApparent")) + "°C" +
+                "\n" + String.valueOf((int) arr1m.getJSONObject(0).getJSONObject("values").getDouble("precipitationProbability")) + "%" + " chance of rain" +
+                "\n" + "18° High | 13° Low");
+
+            TextView currentWeatherTextView = (TextView) getActivity().findViewById(R.id.current_weather);
+            currentWeatherTextView.setText(currentWeather);
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
