@@ -36,9 +36,9 @@ public class CurrentWeatherFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_current, container, false);
         instance = this;
 
-        TextView textViewDate = (TextView) v.findViewById(R.id.current_date);
-        String timeStamp = new SimpleDateFormat("EEEE, d'th' MMMM").format(Calendar.getInstance().getTime());
-        textViewDate.setText(timeStamp);
+//        TextView textViewDate = (TextView) v.findViewById(R.id.current_date);
+//        String timeStamp = new SimpleDateFormat("EEEE, d'th' MMMM").format(Calendar.getInstance().getTime());
+//        textViewDate.setText(timeStamp);
 
         return v;
     }
@@ -67,8 +67,10 @@ public class CurrentWeatherFragment extends Fragment {
             Integer weatherCode = (int) arr1m.getJSONObject(0).getJSONObject("values").getDouble("weatherCode");
 
             String currentWeather = (
-                    "Feels like " + String.valueOf((int) arr1m.getJSONObject(0).getJSONObject("values").getDouble("temperatureApparent")) + "°C" +
-                    "\n" + String.valueOf((int) arr1m.getJSONObject(0).getJSONObject("values").getDouble("precipitationProbability")) + "%" + " chance of rain");
+                    "Party Cloudy" +
+                    "\n" + "Feels like " + String.valueOf((int) arr1m.getJSONObject(0).getJSONObject("values").getDouble("temperatureApparent")) + "°C" +
+                    "\n" + String.valueOf((int) arr1m.getJSONObject(0).getJSONObject("values").getDouble("precipitationProbability")) + "%" + " chance of rain" +
+                    "\n" + "18° High | 13° Low");
 
             // Update display
             TextView currentTemperatureTextView = (TextView) getActivity().findViewById(R.id.current_temperature);

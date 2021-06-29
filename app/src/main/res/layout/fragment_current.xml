@@ -8,7 +8,7 @@
         android:id="@+id/current_weather_icon"
         android:layout_width="95dp"
         android:layout_height="95dp"
-        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="40dp"
         android:layout_marginTop="20dp"
         />
 
@@ -17,8 +17,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="30sp"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="115dp"
+        android:layout_marginLeft="55dp"
+        android:textAlignment="center"
+        android:gravity="center_horizontal"
         />
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -26,20 +28,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="18sp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/current_temperature"
+        android:layout_marginLeft="185dp"
+        android:layout_marginTop="45dp"
         android:layout_marginBottom="10dp"
         android:textAlignment="center"
         android:gravity="center_horizontal"
         />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/current_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="21sp"
-        android:layout_below="@+id/current_weather"
-        android:layout_centerHorizontal="true"
-        />
+<!--    <androidx.appcompat.widget.AppCompatTextView-->
+<!--        android:id="@+id/current_date"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:textSize="21sp"-->
+<!--        android:layout_below="@+id/current_weather"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        />-->
 
 </RelativeLayout>

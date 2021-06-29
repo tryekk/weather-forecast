@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
     // Method is modified code from - user:TharakaNirmana @ https://stackoverflow.com/questions/20438627/getlastknownlocation-returns-null
     private void getLastKnownLocationAndWeather() {
         // Inform user the information is being retrieved
-        TextView textViewCurrent = (TextView) this.findViewById(R.id.current_date);
+//        TextView textViewCurrent = (TextView) this.findViewById(R.id.current_date);
         ListView listViewHourly = (ListView) this.findViewById(R.id.hourly_weather_list);
         ListView listViewDaily = (ListView) this.findViewById(R.id.daily_weather_list);
         ListView listViewExtra = (ListView) this.findViewById(R.id.extra_list);

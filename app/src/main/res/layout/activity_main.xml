@@ -29,8 +29,8 @@
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/fragment_current_container"
                 android:layout_width="match_parent"
-                android:layout_height="240dp"
-                android:layout_marginTop="10dp"
+                android:layout_height="180dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginBottom="15dp"/>
 
             <TextView
