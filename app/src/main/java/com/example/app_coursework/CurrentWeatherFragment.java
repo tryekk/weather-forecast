@@ -148,7 +148,7 @@ public class CurrentWeatherFragment extends Fragment {
                     toolbar.setBackgroundColor(Color.parseColor("#FFFFFF"));
                     fragment.setBackgroundColor(Color.parseColor("#FFFFFF"));
                 } else {
-                    window.setStatusBarColor(R.color.weather_list_dark);
+                    window.setStatusBarColor(Color.parseColor("#151F28"));
                     toolbar.setBackgroundResource(R.color.weather_list_dark);
                     fragment.setBackgroundResource(R.color.weather_list_dark);
                 }
