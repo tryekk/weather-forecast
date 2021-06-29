@@ -145,7 +145,7 @@ public class CurrentWeatherFragment extends Fragment {
             // Update weather conditions display
             String currentWeather = (
                 weatherCondition +
-                "\n" + "Feels like " + String.valueOf((int) arr1m.getJSONObject(0).getJSONObject("values").getDouble("temperatureApparent")) + "°C" +
+                "\n" + "Feels like " + String.valueOf((int) arr1m.getJSONObject(0).getJSONObject("values").getDouble("temperatureApparent")) + "°" +
                 "\n" + String.valueOf((int) arr1m.getJSONObject(0).getJSONObject("values").getDouble("precipitationProbability")) + "%" + " chance of rain");
 
             TextView currentWeatherTextView = (TextView) getActivity().findViewById(R.id.current_weather);
