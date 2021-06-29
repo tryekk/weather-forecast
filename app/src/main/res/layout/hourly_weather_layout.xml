@@ -7,32 +7,24 @@
 
     <TextView
         android:id="@+id/hourly_time"
-        android:layout_width="165dp"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:textSize="18sp"
         android:paddingTop="3dp"
         android:paddingLeft="20dp"
-        android:layout_marginRight="2dp"/>
-
-    <TextView
-        android:id="@+id/hourly_temperature_apparent"
-        android:layout_width="43dp"
-        android:layout_height="wrap_content"
-        android:textSize="10sp"
-        android:paddingTop="3dp"
-        android:paddingBottom="3dp"
-        android:layout_marginLeft="3dp"
-        android:layout_marginRight="1dp"/>
+        android:layout_marginRight="114dp" />
 
     <TextView
         android:id="@+id/hourly_temperature"
-        android:layout_width="50dp"
+        android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:textSize="21sp"
         android:paddingTop="3dp"
         android:paddingBottom="3dp"
         android:layout_marginLeft="0dp"
-        android:layout_marginRight="20dp"/>
+        android:layout_marginRight="20dp"
+        android:textAlignment="viewEnd"
+        android:gravity="end" />
 
     <ImageView
         android:id="@+id/weather_icon"

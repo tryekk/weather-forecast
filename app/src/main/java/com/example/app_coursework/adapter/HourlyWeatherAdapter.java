@@ -31,7 +31,6 @@ public class HourlyWeatherAdapter extends ArrayAdapter<String> {
 
         TextView time = (TextView) rowView.findViewById(R.id.hourly_time);
         TextView temperature = (TextView) rowView.findViewById(R.id.hourly_temperature);
-        TextView temperatureApparent = (TextView) rowView.findViewById(R.id.hourly_temperature_apparent);
         ImageView weatherIcon = (ImageView) rowView.findViewById(R.id.weather_icon);
         TextView precipitation = (TextView) rowView.findViewById(R.id.hourly_precipitation);
 

@@ -52,7 +52,7 @@ public class HourlyWeatherFragment extends Fragment {
                 String[] sunset = arr.getJSONObject(i).getJSONObject("values").getString("sunsetTime").split("T|:00\\+");
 
                 weatherList.add(dateFormatted[1] + "," +
-                        String.valueOf((int) arr.getJSONObject(i).getJSONObject("values").getDouble("temperature")) + "°C" + "," +
+                        String.valueOf((int) arr.getJSONObject(i).getJSONObject("values").getDouble("temperature")) + "°" + "," +
                         String.valueOf(arr.getJSONObject(i).getJSONObject("values").getDouble("weatherCode")) + "," +
                         String.valueOf((int) arr.getJSONObject(i).getJSONObject("values").getDouble("precipitationProbability")) + "%" + "," +
                         sunrise[1] + "," + sunset[1] + "," +

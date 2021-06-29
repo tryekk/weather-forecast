@@ -16,20 +16,22 @@
 
     <TextView
         android:id="@+id/daily_time_date"
-        android:layout_width="80dp"
+        android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:textSize="18sp"
         android:paddingTop="3dp"
-        android:layout_marginRight="72dp"/>
+        android:layout_marginRight="112dp"/>
 
     <TextView
         android:id="@+id/daily_temperature"
-        android:layout_width="50dp"
+        android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:textSize="21sp"
         android:paddingTop="3dp"
         android:paddingBottom="3dp"
-        android:layout_marginRight="20dp" />
+        android:layout_marginRight="20dp"
+        android:textAlignment="viewEnd"
+        android:gravity="end" />
 
     <ImageView
         android:id="@+id/weather_icon"
