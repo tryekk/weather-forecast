@@ -4,45 +4,55 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/current_weather_icon"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginTop="0dp"
-        />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="30dp"
+        android:paddingBottom="40dp"
+        android:paddingLeft="25dp"
+        android:paddingRight="40dp">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/current_temperature"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:textSize="38sp"
-        android:textAlignment="center"
-        android:gravity="center"
-        android:layout_alignParentBottom="true"
-        />
+        <ImageView
+            android:id="@+id/current_weather_icon"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="0dp"
+            />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/current_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="22sp"
-        android:layout_marginTop="5dp"
-        android:layout_alignParentRight="true"
-        android:textAlignment="viewEnd"
-        android:gravity="end"
-        />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/current_temperature"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:textSize="38sp"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:layout_alignParentBottom="true"
+            />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/current_weather"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="21sp"
-        android:layout_marginBottom="5dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:textAlignment="viewEnd"
-        android:gravity="end"
-        />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/current_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="22sp"
+            android:layout_marginTop="5dp"
+            android:layout_alignParentRight="true"
+            android:textAlignment="viewEnd"
+            android:gravity="end"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/current_weather"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="21sp"
+            android:layout_marginBottom="5dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:textAlignment="viewEnd"
+            android:gravity="end"
+            />
+
+    </RelativeLayout>
 
 </RelativeLayout>

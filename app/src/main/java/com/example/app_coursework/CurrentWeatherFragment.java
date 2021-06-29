@@ -1,5 +1,6 @@
 package com.example.app_coursework;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.example.app_coursework.adapter.DailyWeatherAdapter;
@@ -70,18 +72,31 @@ public class CurrentWeatherFragment extends Fragment {
             TextView currentTemperatureTextView = (TextView) getActivity().findViewById(R.id.current_temperature);
             currentTemperatureTextView.setText(currentTemperature);
 
-            // Set temperature display colour based on heat
+            // Set temperature display and toolbar colour based on heat
+            Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+            View fragment = this.getView();
+
             Integer temperatureValue = Integer.parseInt(currentTemperature.split("°")[0]);
             if (temperatureValue > 15 && temperatureValue < 20) {
                 currentTemperatureTextView.setTextColor(Color.parseColor("#f5d63d"));
+                toolbar.setBackgroundColor(Color.parseColor("#f5d63d"));
+                fragment.setBackgroundResource(R.drawable.background_gradient_warm_mild);
             } else if (temperatureValue >= 20 && temperatureValue < 25) {
                 currentTemperatureTextView.setTextColor(Color.parseColor("#f5a142"));
+                toolbar.setBackgroundColor(Color.parseColor("#f5a142"));
+                fragment.setBackgroundResource(R.drawable.background_gradient_warm);
             } else if (temperatureValue >= 25) {
                 currentTemperatureTextView.setTextColor(Color.parseColor("#f55142"));
+                toolbar.setBackgroundColor(Color.parseColor("#f55142"));
+                fragment.setBackgroundResource(R.drawable.background_gradient_hot);
             } else if (temperatureValue < 10) {
                 currentTemperatureTextView.setTextColor(Color.parseColor("#3dd6f5"));
+                toolbar.setBackgroundColor(Color.parseColor("#3dd6f5"));
+                fragment.setBackgroundResource(R.drawable.background_gradient_cold);
             } else {
                 currentTemperatureTextView.setTextColor(Color.parseColor("#808080"));
+                toolbar.setBackgroundColor(000000);
+                fragment.setBackgroundColor(Color.parseColor("#000000"));
             }
 
             // For night-time definition

@@ -29,11 +29,7 @@
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/fragment_current_container"
                 android:layout_width="match_parent"
-                android:layout_height="165dp"
-                android:layout_marginTop="40dp"
-                android:layout_marginBottom="30dp"
-                android:paddingLeft="25dp"
-                android:paddingRight="40dp"/>
+                android:layout_height="235dp" />
 
             <TextView
                 android:id="@+id/hourly_header"
