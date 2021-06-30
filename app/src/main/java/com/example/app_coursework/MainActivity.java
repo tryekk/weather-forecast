@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentManager;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
@@ -20,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,6 +47,8 @@ import java.util.List;
 import java.util.TimeZone;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import jp.wasabeef.blurry.Blurry;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.Manifest.permission.SYSTEM_ALERT_WINDOW;
@@ -94,6 +98,10 @@ public class MainActivity extends AppCompatActivity {
         fragmentManager.beginTransaction()
                 .replace(R.id.fragment_extra_container, new ExtraInformationFragment())
                 .commit();
+
+//        Bitmap toDrawOn = Bitmap.createBitmap(30, 30, Bitmap.Config.ARGB_8888);
+//        ImageView imageView = (ImageView) this.findViewById(R.id.image_view);
+//        Blurry.with(this).from(toDrawOn).into(imageView);
     }
 
     private void requestPermission() {

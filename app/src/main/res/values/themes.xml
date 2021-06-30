@@ -10,7 +10,8 @@
         <item name="colorSecondaryVariant">@color/dark_blue</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">@color/menu_bar_light</item>
+<!--        <item name="android:statusBarColor" tools:targetApi="l">@color/menu_bar_light</item>-->
+        <item name="android:statusBarColor">@android:color/transparent</item>
         <!-- Customize your theme here. -->
 
 <!--        <item name="android:listViewStyle">@style/ListViewStyle.Light</item>-->
