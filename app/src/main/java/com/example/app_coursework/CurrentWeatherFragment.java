@@ -142,12 +142,13 @@ public class CurrentWeatherFragment extends Fragment {
                     fragment.setBackgroundResource(R.drawable.background_dark_gradient_cold);
                 }
             } else {
-                currentTemperatureTextView.setTextColor(Color.parseColor("#808080"));
                 if (theme.equals("light")) {
+                    currentTemperatureTextView.setTextColor(Color.parseColor("#808080"));
                     window.setStatusBarColor(Color.parseColor("#FFFFFF"));
                     toolbar.setBackgroundColor(Color.parseColor("#FFFFFF"));
                     fragment.setBackgroundColor(Color.parseColor("#FFFFFF"));
                 } else {
+                    currentTemperatureTextView.setTextColor(Color.parseColor("#b7bcbf"));
                     window.setStatusBarColor(Color.parseColor("#151F28"));
                     toolbar.setBackgroundResource(R.color.weather_list_dark);
                     fragment.setBackgroundResource(R.color.weather_list_dark);

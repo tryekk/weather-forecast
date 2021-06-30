@@ -10,4 +10,5 @@
     <color name="weather_list_light">#FFFFFF</color>
     <color name="header_light">#4C6D94</color>
     <color name="header_dark">#759EB8</color>
+    <color name="font_dark">#b7bcbf</color>
 </resources>
