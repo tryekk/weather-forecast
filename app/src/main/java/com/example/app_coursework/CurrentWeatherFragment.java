@@ -122,12 +122,12 @@ public class CurrentWeatherFragment extends Fragment {
             } else if (temperatureValue >= 25) {
                 currentTemperatureTextView.setTextColor(Color.parseColor("#f55142"));
                 if (theme.equals("light")) {
-                    toolbar.setBackgroundColor(Color.parseColor("#f55142"));
-                    window.setStatusBarColor(Color.parseColor("#f55142"));
+                    toolbar.setBackgroundColor(Color.parseColor("#00000000"));
+                    window.setStatusBarColor(Color.TRANSPARENT);
                     fragment.setBackgroundResource(R.drawable.background_gradient_hot);
                 } else {
-                    toolbar.setBackgroundColor(Color.parseColor("#4DF55142"));
-                    window.setStatusBarColor(Color.parseColor("#4DF55142"));
+                    toolbar.setBackgroundColor(Color.parseColor("#00000000"));
+                    window.setStatusBarColor(Color.TRANSPARENT);
                     fragment.setBackgroundResource(R.drawable.background_dark_gradient_hot);
                 }
             } else if (temperatureValue < 10) {
