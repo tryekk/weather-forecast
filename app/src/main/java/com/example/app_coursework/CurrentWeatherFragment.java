@@ -85,6 +85,7 @@ public class CurrentWeatherFragment extends Fragment {
             Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
             View fragment = this.getView();
             TextView header = getActivity().findViewById(R.id.blank_header);
+            getActivity().getWindow().setStatusBarColor(Color.parseColor("#33000000"));
 
             String theme = "light";
             switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {

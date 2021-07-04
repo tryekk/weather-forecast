@@ -7,7 +7,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="45dp"
+        android:paddingTop="35dp"
         android:paddingBottom="40dp"
         android:paddingLeft="25dp"
         android:paddingRight="40dp">
@@ -34,7 +34,7 @@
             android:id="@+id/current_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="22sp"
+            android:textSize="24sp"
             android:layout_marginTop="5dp"
             android:layout_alignParentRight="true"
             android:textAlignment="viewEnd"
