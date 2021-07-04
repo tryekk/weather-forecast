@@ -74,7 +74,18 @@ public class CurrentWeatherFragment extends Fragment {
 
             // Update display
             TextView textViewDate = (TextView) getActivity().findViewById(R.id.current_date);
-            String timeStamp = new SimpleDateFormat("EEEE, d'th' MMM").format(Calendar.getInstance().getTime());
+            Date date = Calendar.getInstance().getTime();
+            String suffix;
+            if (Calendar.DAY_OF_MONTH == 1) {
+                suffix = "st";
+            } else if (Calendar.DAY_OF_MONTH == 2) {
+                suffix = "nd";
+            } else if (Calendar.DAY_OF_MONTH == 3) {
+                suffix = "rd";
+            } else {
+                suffix = "th";
+            }
+            String timeStamp = new SimpleDateFormat("EEEE\nd" + suffix + "MMMM").format(date);
             textViewDate.setText(timeStamp);
 
             TextView currentTemperatureTextView = (TextView) getActivity().findViewById(R.id.current_temperature);

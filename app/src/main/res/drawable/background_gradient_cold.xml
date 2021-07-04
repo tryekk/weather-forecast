@@ -3,7 +3,7 @@
     <item>
         <shape>
             <gradient
-                android:angle="260"
+                android:angle="270"
                 android:startColor="#3dd6f5"
                 android:endColor="@color/weather_list_light"
                 android:type="linear"
