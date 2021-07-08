@@ -34,6 +34,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.app_coursework.database.WeatherLocation;
 import com.example.app_coursework.database.WeatherLocationDatabase;
+import com.example.app_coursework.opengl.OpenGLView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -61,12 +62,16 @@ public class MainActivity extends AppCompatActivity {
     private RequestQueue requestQueue;
     private LocationManager locationManager;
 
+    private OpenGLView openGLView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setTitle("Current Location");
+        // OpenGL ES
+        openGLView = (OpenGLView) findViewById(R.id.opengl_view);
 
         // Make fullscreen
         getWindow().getDecorView().setSystemUiVisibility(
@@ -102,6 +107,18 @@ public class MainActivity extends AppCompatActivity {
 //        Bitmap toDrawOn = Bitmap.createBitmap(30, 30, Bitmap.Config.ARGB_8888);
 //        ImageView imageView = (ImageView) this.findViewById(R.id.image_view);
 //        Blurry.with(this).from(toDrawOn).into(imageView);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        openGLView.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        openGLView.onPause();
     }
 
     private void requestPermission() {
