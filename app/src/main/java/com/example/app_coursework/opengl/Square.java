@@ -16,18 +16,18 @@ public class Square {
     private int colorHandle;
 
     private final String vertexShaderCode =
-		"precision mediump float;" +
+	"precision mediump float;" +
         "attribute vec3 vPosition;" +
-		"attribute vec2 vTexCoord;" +
-        "out vec2 fragCoord;" +
+	"attribute vec2 vTexCoord;" +
+        "out vec2 aTexCoord;" +
         "void main() {" +
         "  gl_Position = vPosition;" +
-        "  fragCoord = vTexCoord;" + // We are in the space -1.0 - 1.0 so just transform this to 0.0 - 1.0 to get fragment coordinates.
+        "  aTexCoord = vTexCoord;" + // We are in the space -1.0 - 1.0 so just transform this to 0.0 - 1.0 to get fragment coordinates.
         "}";
 
     private final String fragmentShaderCode =
         "precision mediump float;" +
-        "in vec2 fragCoord" +
+        "in vec2 aTexCoord" +
         "uniform sampler2D u_Texture;" +
         "uniform float u_Time;" +
         "float noise(float t)" +
@@ -60,7 +60,7 @@ public class Square {
         "}" +
         "void main()" +
         "{" +
-        "	vec2 uv = fragCoord.xy;" +
+        "	vec2 uv = aTexCoord.xy;" +
         "	vec2 uv1 = vec2(uv.x * 20.0, uv.y * 1.3 + noise(floor(uv.x * 20.0)));" +
         "    vec2 uvi = floor(vec2(uv1.x, uv1.y ));" +
         "    vec2 uvf = uv1 - uvi;" +
@@ -68,7 +68,6 @@ public class Square {
         "    v += raindot(fract(uv * 20.0 + vec2(0, 0.1 * u_Time)), floor(uv * 20.0 + vec2(0, 0.1 * u_Time)), u_Time);" +
         // "    gl_FragColor = texture(u_Texture, uv + vec2(dFdx(v), dFdy(v)), 3.0 / (v + 1.0));" + // Use this line once you have textures setup.
         "    gl_FragColor = vec4(0.8, 0.5, 0.5, 1.0) * (1.0 / distance(vec2(0.5, 0.5), uv);" +
-//                " + vec2(dFdx(v), dFdy(v)), 3.0 / (v + 1.0)));"
         "}";
 
 
@@ -136,14 +135,14 @@ public class Square {
         // Enable a handle to the triangle vertices
         GLES20.glEnableVertexAttribArray(positionHandle);
         // Prepare the triangle coordinate data
-        GLES20.glVertexAttribPointer(0, 3,
+        GLES20.glVertexAttribPointer(positionHandle, 3,
                 GLES20.GL_FLOAT, false,
                 vertexStride, vertexBuffer);
 
 		// Enable a handle to the triangle vertices
         GLES20.glEnableVertexAttribArray(texCoordHandle);
 		// Prepare the triangle coordinate data
-		GLES20.glVertexAttribPointer(1, 2,
+		GLES20.glVertexAttribPointer(texCoordHandle, 2,
                 GLES20.GL_FLOAT, false,
                 vertexStride, vertexBuffer);
 
