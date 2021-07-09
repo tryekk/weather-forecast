@@ -22,7 +22,7 @@ public class Square {
         "out vec2 fragCoord;" +
         "void main() {" +
         "  gl_Position = vPosition;" +
-        "  fragCoord = vPosition * 0.5 + vec2(0.5, 0.5);" + // We are in the space -1.0 - 1.0 so just transform this to 0.0 - 1.0 to get fragment coordinates.
+        "  fragCoord = vTexCoord;" + // We are in the space -1.0 - 1.0 so just transform this to 0.0 - 1.0 to get fragment coordinates.
         "}";
 
     private final String fragmentShaderCode =
