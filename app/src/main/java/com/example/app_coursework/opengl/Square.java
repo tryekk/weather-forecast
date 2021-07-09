@@ -12,7 +12,7 @@ public class Square {
     private final int mProgram;
 
     private int positionHandle;
-	private int texCoordHandle
+	private int texCoordHandle;
     private int colorHandle;
 
     private final String vertexShaderCode =
@@ -45,30 +45,31 @@ public class Square {
         "}" +
         "float trailDrop(vec2 uv, vec2 id, float t) {" +
         "    float f = clamp(noise2(id) - 0.5, 0.0, 1.0);" +
-        "	// wobbly path
-    " +"
-    float wobble = 0.5 + 0.2 " +
-    "        * cos(12.0 * uv.y) " +
-    "        * sin(50.0 * uv.y);" +
-    "    float v = 1.0 - 300.0 / f * pow(uv.x - 0.5 + 0.2 * wobble, 2.0);" +
-    "    // head
-    "    v *= clamp(30.0 * uv.y, 0.0, 1.0);" +
-    "    v *= clamp( uv.y + 7.0 * t - 0.6, 0.0, 1.0);" +
-    "    // tail
-    "    v *= clamp(1.0 - uv.y - pow(t, 2.0), 0.0, 1.0);" +
-    "    return f * clamp(v * 10.0, 0.0, 1.0);" +
-    "}"
-    "void main()" +
-    "{" +
-    "	vec2 uv = fragCoord.xy;" +
-    "	vec2 uv1 = vec2(uv.x * 20.0, uv.y * 1.3 + noise(floor(uv.x * 20.0)));" +
-    "    vec2 uvi = floor(vec2(uv1.x, uv1.y ));" +
-    "    vec2 uvf = uv1 - uvi;" +
-    "    float v = trailDrop(uvf, uvi, mod(u_Time + noise(floor(uv.x * 20.0)), 3.0) / 3.0);" +
-    "    v += raindot(fract(uv * 20.0 + vec2(0, 0.1 * u_Time)), floor(uv * 20.0 + vec2(0, 0.1 * u_Time)), u_Time);" +
-    // "    gl_FragColor = texture(u_Texture, uv + vec2(dFdx(v), dFdy(v)), 3.0 / (v + 1.0));" + // Use this line once you have textures setup.
-	"    gl_FragColor = vec4(0.8, 0.5, 0.5, 1.0) * (1.0 / distance(vec2(0.5, 0.5), uv + vec2(dFdx(v), dFdy(v)), 3.0 / (v + 1.0)));" +
-    "}";
+        "	// wobbly path"
+         +
+        "float wobble = 0.5 + 0.2 " +
+        "        * cos(12.0 * uv.y) " +
+        "        * sin(50.0 * uv.y);" +
+        "    float v = 1.0 - 300.0 / f * pow(uv.x - 0.5 + 0.2 * wobble, 2.0);" +
+        "    // head" +
+        "    v *= clamp(30.0 * uv.y, 0.0, 1.0);" +
+        "    v *= clamp( uv.y + 7.0 * t - 0.6, 0.0, 1.0);" +
+        "    // tail" +
+        "    v *= clamp(1.0 - uv.y - pow(t, 2.0), 0.0, 1.0);" +
+        "    return f * clamp(v * 10.0, 0.0, 1.0);" +
+        "}" +
+        "void main()" +
+        "{" +
+        "	vec2 uv = fragCoord.xy;" +
+        "	vec2 uv1 = vec2(uv.x * 20.0, uv.y * 1.3 + noise(floor(uv.x * 20.0)));" +
+        "    vec2 uvi = floor(vec2(uv1.x, uv1.y ));" +
+        "    vec2 uvf = uv1 - uvi;" +
+        "    float v = trailDrop(uvf, uvi, mod(u_Time + noise(floor(uv.x * 20.0)), 3.0) / 3.0);" +
+        "    v += raindot(fract(uv * 20.0 + vec2(0, 0.1 * u_Time)), floor(uv * 20.0 + vec2(0, 0.1 * u_Time)), u_Time);" +
+        // "    gl_FragColor = texture(u_Texture, uv + vec2(dFdx(v), dFdy(v)), 3.0 / (v + 1.0));" + // Use this line once you have textures setup.
+        "    gl_FragColor = vec4(0.8, 0.5, 0.5, 1.0) * (1.0 / distance(vec2(0.5, 0.5), uv);" +
+//                " + vec2(dFdx(v), dFdy(v)), 3.0 / (v + 1.0)));"
+        "}";
 
 
     private FloatBuffer vertexBuffer;
@@ -78,13 +79,13 @@ public class Square {
     static final int COORDS_PER_VERTEX = 5;
 
     static float squareCoords[] = {
-            -0.5f,  0.5f, 0.0f, 0.0, 1.0,   // top left
-            -0.5f, -0.5f, 0.0f, 0.0, 0.0,   // bottom left
-             0.5f, -0.5f, 0.0f, 1.0, 0.0,   // bottom right
+            -0.5f,  0.5f, 0.0f, 0.0f, 1.0f,   // top left
+            -0.5f, -0.5f, 0.0f, 0.0f, 0.0f,   // bottom left
+             0.5f, -0.5f, 0.0f, 1.0f, 0.0f,   // bottom right
 
-             0.5f, -0.5f, 0.0f, 1.0, 0.0,   // bottom right
-             0.5f,  0.5f, 0.0f, 1.0, 1.0,   // top right
-            -0.5f,  0.5f, 0.0f, 0.0, 1.0 }; // top left
+             0.5f, -0.5f, 0.0f, 1.0f, 0.0f,   // bottom right
+             0.5f,  0.5f, 0.0f, 1.0f, 1.0f,   // top right
+            -0.5f,  0.5f, 0.0f, 0.0f, 1.0f }; // top left
 
     // Set color with red, green, blue and alpha (opacity) values
     float color[] = { 0.1f, 0.1f, 0.8f, 1.0f };
@@ -135,16 +136,16 @@ public class Square {
         // Enable a handle to the triangle vertices
         GLES20.glEnableVertexAttribArray(positionHandle);
         // Prepare the triangle coordinate data
-        GLES20.glVertexAttribPointer(positionHandle, 3,
+        GLES20.glVertexAttribPointer(0, 3,
                 GLES20.GL_FLOAT, false,
-                vertexStride, 0);
+                vertexStride, vertexBuffer);
 
 		// Enable a handle to the triangle vertices
         GLES20.glEnableVertexAttribArray(texCoordHandle);
 		// Prepare the triangle coordinate data
-		GLES20.glVertexAttribPointer(texCoordHandle, 2,
+		GLES20.glVertexAttribPointer(1, 2,
                 GLES20.GL_FLOAT, false,
-                vertexStride, 3);
+                vertexStride, vertexBuffer);
 
         // get handle to fragment shader's vColor member
         // colorHandle = GLES20.glGetUniformLocation(mProgram, "vColor");
