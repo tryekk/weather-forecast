@@ -9,6 +9,7 @@ import javax.microedition.khronos.opengles.GL10;
 public class OpenGLRenderer implements GLSurfaceView.Renderer {
 
     private Triangle mTriangle;
+    private Square mSquare;
 
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
@@ -16,6 +17,9 @@ public class OpenGLRenderer implements GLSurfaceView.Renderer {
 
         // initialize a triangle
         mTriangle = new Triangle();
+        // initialize a square
+        mSquare = new Square();
+
     }
 
     @Override
@@ -28,6 +32,7 @@ public class OpenGLRenderer implements GLSurfaceView.Renderer {
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
 
         mTriangle.draw();  // Draw triangle
+        mSquare.draw();  // Draw square
     }
 
     public static int loadShader(int type, String shaderCode){

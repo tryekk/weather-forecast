@@ -5,19 +5,18 @@ import android.opengl.GLES20;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
+import java.nio.ShortBuffer;
 
-public class Triangle {
+public class Square {
 
     private final int mProgram;
 
     private int positionHandle;
     private int colorHandle;
 
-    private final int vertexCount = triangleCoords.length / COORDS_PER_VERTEX;
+    private final int vertexCount = squareCoords.length / COORDS_PER_VERTEX;
     private final int vertexStride = COORDS_PER_VERTEX * 4; // 4 bytes per vertex
 
-
-    // Shaders
     private final String vertexShaderCode =
             "attribute vec4 vPosition;" +
                     "void main() {" +
@@ -33,31 +32,30 @@ public class Triangle {
 
 
     private FloatBuffer vertexBuffer;
+    private ShortBuffer drawListBuffer;
 
     // number of coordinates per vertex in this array
     static final int COORDS_PER_VERTEX = 3;
-    static float triangleCoords[] = {   // in counterclockwise order:
-         0.0f,  0.5f,  0.0f, // top
-        -0.5f,  0.0f,  0.0f, // bottom left
-         0.5f,  0.0f,  0.0f  // bottom right
-    };
+    static float squareCoords[] = {
+            -0.5f,  0.5f, 0.0f,   // top left
+            -0.5f, -0.5f, 0.0f,   // bottom left
+             0.5f, -0.5f, 0.0f,   // bottom right
+
+             0.5f, -0.5f, 0.0f,   // bottom right 2
+             0.5f,  0.5f, 0.0f,   // top right
+            -0.5f,  0.5f, 0.0f }; // top left 2
 
     // Set color with red, green, blue and alpha (opacity) values
     float color[] = { 0.1f, 0.1f, 0.8f, 1.0f };
 
-    public Triangle() {
-        // initialize vertex byte buffer for shape coordinates
+    public Square() {
+        // initialize vertex byte buffer for shape coordinates  (vertex buffer)
         ByteBuffer bb = ByteBuffer.allocateDirect(
-                // (number of coordinate values * 4 bytes per float)
-                triangleCoords.length * 4);
-        // use the device hardware's native byte order
+                // (# of coordinate values * 4 bytes per float)
+                squareCoords.length * 4);
         bb.order(ByteOrder.nativeOrder());
-
-        // create a floating point buffer from the ByteBuffer
         vertexBuffer = bb.asFloatBuffer();
-        // add the coordinates to the FloatBuffer
-        vertexBuffer.put(triangleCoords);
-        // set the buffer to read the first coordinate
+        vertexBuffer.put(squareCoords);
         vertexBuffer.position(0);
 
 
@@ -101,7 +99,7 @@ public class Triangle {
         // Set color for drawing the triangle
         GLES20.glUniform4fv(colorHandle, 1, color, 0);
 
-        // Draw the triangle
+        // Draw the square
         GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, vertexCount);
 
         // Disable vertex array
