@@ -93,7 +93,7 @@ public class Square {
 	
     // number of values per vertex in this array
     static final int POSITION_SIZE = 3;
-    static final int TEXCOORD_SIZE = 2
+    static final int TEXCOORD_SIZE = 2;
     static final int VERTEX_STRIDE = (POSITION_SIZE + TEXCOORD_SIZE) * 4;
     static final int VERTEX_COUNT = 6;
 
@@ -114,7 +114,7 @@ public class Square {
         byteBuffer.order(ByteOrder.nativeOrder());
 	    
         vertexBuffer = byteBuffer.asFloatBuffer();
-        vertexBuffer.put(squareCoords);
+        vertexBuffer.put(vertices);
         vertexBuffer.position(0);
 
         // Adding shaders
@@ -134,38 +134,40 @@ public class Square {
 
         // creates OpenGL ES program executables
         GLES20.glLinkProgram(mProgram);
-    }
 
-    public void draw() {
-	    
-        // Add program to OpenGL ES environment
-        GLES20.glUseProgram(mProgram);
 
         // get handle to vertex shader's vPosition member
         positionHandle = GLES20.glGetAttribLocation(mProgram, "vPosition");
         // Enable a handle to the triangle vertices
+        vertexBuffer.position(0);
         GLES20.glEnableVertexAttribArray(positionHandle);
         // Prepare the triangle coordinate data
         GLES20.glVertexAttribPointer(positionHandle, POSITION_SIZE,
                 GLES20.GL_FLOAT, false,
                 VERTEX_STRIDE, vertexBuffer);
-	    
-	
-	 // get handle to vertex shader's vTexCoord member
+
+
+        // get handle to vertex shader's vTexCoord member
         texCoordHandle = GLES20.glGetAttribLocation(mProgram, "vTexCoord");
-	// Enable a handle to the triangle vertices
+        // Enable a handle to the triangle vertices
+        vertexBuffer.position(3);
         GLES20.glEnableVertexAttribArray(texCoordHandle);
-	// Prepare the triangle coordinate data
-	GLES20.glVertexAttribPointer(texCoordHandle, TEXCOORD_SIZE,
+        // Prepare the triangle coordinate data
+        GLES20.glVertexAttribPointer(texCoordHandle, TEXCOORD_SIZE,
                 GLES20.GL_FLOAT, false,
                 VERTEX_STRIDE, vertexBuffer);
+    }
+
+    public void draw() {
+        // Add program to OpenGL ES environment
+        GLES20.glUseProgram(mProgram);
 
         // Draw the square
         GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, VERTEX_COUNT);
 
-        // Disable vertex array
-        GLES20.glDisableVertexAttribArray(positionHandle);
-        GLES20.glDisableVertexAttribArray(texCoordHandle);
+//        // Disable vertex array
+//        GLES20.glDisableVertexAttribArray(positionHandle);
+//        GLES20.glDisableVertexAttribArray(texCoordHandle);
     }
 
 }
