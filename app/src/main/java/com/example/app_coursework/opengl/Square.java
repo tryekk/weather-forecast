@@ -101,6 +101,9 @@ public class Square {
         vertexBuffer = bb.asFloatBuffer();
         vertexBuffer.put(squareCoords);
         vertexBuffer.position(0);
+	 
+	final int buffers[] = new int[1];
+	GLES20.glGenBuffers(1, buffers, 0);
 
 
         // Adding shaders
