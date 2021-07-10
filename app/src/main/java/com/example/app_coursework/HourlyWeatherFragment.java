@@ -77,11 +77,13 @@ public class HourlyWeatherFragment extends Fragment {
         rootView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         rootView.setOrientation(LinearLayout.HORIZONTAL);
 
+        LayoutInflater inflater = LayoutInflater.from(getContext());
         for (int i = 0; i < 50; i++) {
-            ImageView imageView = new ImageView(getContext());
-            imageView.setImageResource(R.drawable.ic_clear_day);
-            rootView.addView(imageView);
+            View view  = inflater.inflate(R.layout.hourly_forecast_element, rootView, false);
+            // set item content in view
+            rootView.addView(view);
         }
+
 
         scrollView.addView(rootView);
     }
