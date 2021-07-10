@@ -138,12 +138,10 @@ public class MainActivity extends AppCompatActivity {
     private void getLastKnownLocationAndWeather() {
         // Inform user the information is being retrieved
 //        TextView textViewCurrent = (TextView) this.findViewById(R.id.current_date);
-//        ListView listViewHourly = (ListView) this.findViewById(R.id.hourly_weather_list);
         ListView listViewDaily = (ListView) this.findViewById(R.id.daily_weather_list);
         ListView listViewExtra = (ListView) this.findViewById(R.id.extra_list);
         ArrayList<String> statusList = new ArrayList<>();
         statusList.add("Retrieving weather information...");
-//        listViewHourly.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, statusList));
         listViewDaily.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, statusList));
         listViewExtra.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, statusList));
 

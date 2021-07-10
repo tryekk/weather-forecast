@@ -4,7 +4,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.HorizontalScrollView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,7 +24,7 @@ import java.util.ArrayList;
 
 public class HourlyWeatherFragment extends Fragment {
 
-    ListView listView;
+    View v;
     ArrayList<String> weatherList = new ArrayList<>();
     private static HourlyWeatherFragment instance = null;
 
@@ -28,7 +32,7 @@ public class HourlyWeatherFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_hourly, container, false);
+        v = inflater.inflate(R.layout.fragment_hourly, container, false);
         instance = this;
 
         return v;
@@ -60,9 +64,26 @@ public class HourlyWeatherFragment extends Fragment {
             e.printStackTrace();
         }
 
-        HourlyWeatherAdapter adapter = new HourlyWeatherAdapter (getActivity(), weatherList);
+//        HourlyWeatherAdapter adapter = new HourlyWeatherAdapter (getActivity(), weatherList);
 //        listView.setAdapter(adapter);
 
+        drawElements();
+    }
+
+    private void drawElements() {
+        HorizontalScrollView scrollView = v.findViewById(R.id.hourly_horizontal);
+
+        LinearLayout rootView = new LinearLayout(getContext());
+        rootView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        rootView.setOrientation(LinearLayout.HORIZONTAL);
+
+        for (int i = 0; i < 50; i++) {
+            ImageView imageView = new ImageView(getContext());
+            imageView.setImageResource(R.drawable.ic_clear_day);
+            rootView.addView(imageView);
+        }
+
+        scrollView.addView(rootView);
     }
 
 }
