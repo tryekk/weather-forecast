@@ -14,14 +14,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
+            android:paddingBottom="5dp"
             />
 
         <ImageView
             android:id="@+id/weather_icon"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
+            android:layout_width="53dp"
+            android:layout_height="53dp"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/time"
+            />
+
+        <TextView
+            android:id="@+id/hourly_rain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:textSize="15sp"
+            android:layout_below="@+id/weather_icon"
             />
 
         <TextView

@@ -1,5 +1,6 @@
 package com.example.app_coursework;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -89,10 +90,15 @@ public class HourlyWeatherFragment extends Fragment {
 
         TextView time = forecast_element.findViewById(R.id.time);
         ImageView weatherIcon = forecast_element.findViewById(R.id.weather_icon);
+        TextView precipitation = forecast_element.findViewById(R.id.hourly_rain);
         TextView temperature = forecast_element.findViewById(R.id.hourly_temperature);
 
         // Time
         time.setText(weatherData[0]);
+
+        // Rain
+        precipitation.setText(weatherData[3]);
+        precipitation.setTextColor(Color.parseColor("#0fe5f5"));
 
         // Temperature
         temperature.setText(weatherData[1]);
