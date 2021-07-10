@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setTitle("Current Location");
         // OpenGL ES
-        openGLView = (OpenGLView) findViewById(R.id.opengl_view);
+//        openGLView = (OpenGLView) findViewById(R.id.opengl_view);
 
         // Make fullscreen
         getWindow().getDecorView().setSystemUiVisibility(
@@ -109,17 +109,17 @@ public class MainActivity extends AppCompatActivity {
 //        Blurry.with(this).from(toDrawOn).into(imageView);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        openGLView.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        openGLView.onPause();
-    }
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        openGLView.onResume();
+//    }
+//
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
+//        openGLView.onPause();
+//    }
 
     private void requestPermission() {
         ActivityCompat.requestPermissions(this, new String[]{ACCESS_FINE_LOCATION}, 1);
@@ -138,12 +138,12 @@ public class MainActivity extends AppCompatActivity {
     private void getLastKnownLocationAndWeather() {
         // Inform user the information is being retrieved
 //        TextView textViewCurrent = (TextView) this.findViewById(R.id.current_date);
-        ListView listViewHourly = (ListView) this.findViewById(R.id.hourly_weather_list);
+//        ListView listViewHourly = (ListView) this.findViewById(R.id.hourly_weather_list);
         ListView listViewDaily = (ListView) this.findViewById(R.id.daily_weather_list);
         ListView listViewExtra = (ListView) this.findViewById(R.id.extra_list);
         ArrayList<String> statusList = new ArrayList<>();
         statusList.add("Retrieving weather information...");
-        listViewHourly.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, statusList));
+//        listViewHourly.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, statusList));
         listViewDaily.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, statusList));
         listViewExtra.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, statusList));
 
@@ -230,11 +230,11 @@ public class MainActivity extends AppCompatActivity {
                     if (error.getMessage() != null) {
                         Log.d("ERROR", error.getMessage()); //prints the error message to LogCat
                         // Display error to user
-                        ListView listView = (ListView) MainActivity.this.findViewById(R.id.hourly_weather_list);
+//                        ListView listView = (ListView) MainActivity.this.findViewById(R.id.hourly_weather_list);
                         ArrayList<String> errorList = new ArrayList<>();
                         errorList.add("Error retrieving weather information");
                         ArrayAdapter adapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, errorList);
-                        listView.setAdapter(adapter);
+//                        listView.setAdapter(adapter);
                     }
                 }
             }

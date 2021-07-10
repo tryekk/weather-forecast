@@ -31,8 +31,6 @@ public class HourlyWeatherFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_hourly, container, false);
         instance = this;
 
-        listView = (ListView) v.findViewById(R.id.hourly_weather_list);
-
         return v;
     }
 
@@ -63,7 +61,7 @@ public class HourlyWeatherFragment extends Fragment {
         }
 
         HourlyWeatherAdapter adapter = new HourlyWeatherAdapter (getActivity(), weatherList);
-        listView.setAdapter(adapter);
+//        listView.setAdapter(adapter);
 
     }
 
