@@ -19,6 +19,7 @@ import com.example.app_coursework.adapter.HourlyWeatherAdapter;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -85,7 +86,16 @@ public class HourlyWeatherFragment extends Fragment {
         View forecast_element = inflaterElement.inflate(R.layout.hourly_forecast_element, rootView, false);
 
         String[] weatherData = weatherConditions.split(",");
+
+        TextView time = forecast_element.findViewById(R.id.time);
         ImageView weatherIcon = forecast_element.findViewById(R.id.weather_icon);
+        TextView temperature = forecast_element.findViewById(R.id.hourly_temperature);
+
+        // Time
+        time.setText(weatherData[0]);
+
+        // Temperature
+        temperature.setText(weatherData[1]);
 
         // Weather conditions
         String[] timeSplit = weatherData[0].split(":");  // For night-time definition
