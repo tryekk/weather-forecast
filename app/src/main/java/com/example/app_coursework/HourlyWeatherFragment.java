@@ -27,7 +27,7 @@ public class HourlyWeatherFragment extends Fragment {
     View v;
     LinearLayout rootView;
     HorizontalScrollView scrollView;
-    ArrayList<String> weatherList = new ArrayList<>();
+    LayoutInflater inflaterElement;
     private static HourlyWeatherFragment instance = null;
 
 
@@ -43,6 +43,11 @@ public class HourlyWeatherFragment extends Fragment {
         rootView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         rootView.setOrientation(LinearLayout.HORIZONTAL);
 
+        scrollView.addView(rootView);
+
+        // For each element
+        inflaterElement = LayoutInflater.from(getContext());
+
         return v;
     }
 
@@ -51,9 +56,8 @@ public class HourlyWeatherFragment extends Fragment {
     }
 
     protected void parseJSON(JSONObject response) {
-        weatherList.clear();
+        rootView.removeAllViews();
         try {
-            LayoutInflater inflater = LayoutInflater.from(getContext());
             // Read JSON
             JSONArray arr = response.getJSONObject("data").getJSONArray("timelines").getJSONObject(1).getJSONArray("intervals");
             for (int i = 0; i < arr.length(); i++) {
@@ -63,21 +67,77 @@ public class HourlyWeatherFragment extends Fragment {
                 String[] sunrise = arr.getJSONObject(i).getJSONObject("values").getString("sunriseTime").split("T|:00\\+");
                 String[] sunset = arr.getJSONObject(i).getJSONObject("values").getString("sunsetTime").split("T|:00\\+");
 
-                weatherList.add(dateFormatted[1] + "," +
+                String weatherConditions = (dateFormatted[1] + "," +
                         String.valueOf((int) arr.getJSONObject(i).getJSONObject("values").getDouble("temperature")) + "°" + "," +
                         String.valueOf(arr.getJSONObject(i).getJSONObject("values").getDouble("weatherCode")) + "," +
                         String.valueOf((int) arr.getJSONObject(i).getJSONObject("values").getDouble("precipitationProbability")) + "%" + "," +
                         sunrise[1] + "," + sunset[1] + "," +
                         String.valueOf((int) arr.getJSONObject(i).getJSONObject("values").getDouble("temperatureApparent")) + "°C");
 
-                // Draw each element
-                View view  = inflater.inflate(R.layout.hourly_forecast_element, rootView, false);
-                rootView.addView(view);
+                setContents(weatherConditions);
             }
-            scrollView.addView(rootView);
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    private void setContents(String weatherConditions) {
+        View forecast_element = inflaterElement.inflate(R.layout.hourly_forecast_element, rootView, false);
+
+        String[] weatherData = weatherConditions.split(",");
+        ImageView weatherIcon = forecast_element.findViewById(R.id.weather_icon);
+
+        // Weather conditions
+        String[] timeSplit = weatherData[0].split(":");  // For night-time definition
+        int sunrise = Integer.parseInt(weatherData[4].split(":")[0]) + 1;
+        int sunset = Integer.parseInt(weatherData[5].split(":")[0]);
+
+        switch (weatherData[2]) {
+            case "1000.0":
+                if (Integer.parseInt(timeSplit[0]) > sunset || Integer.parseInt(timeSplit[0]) < sunrise) {
+                    weatherIcon.setImageResource(R.drawable.ic_clear_night);
+                } else {
+                    weatherIcon.setImageResource(R.drawable.ic_clear_day);
+                }
+                break;
+            case "1001.0":
+                weatherIcon.setImageResource(R.drawable.ic_cloudy);
+                break;
+            case "1100.0":
+                if (Integer.parseInt(timeSplit[0]) > sunset || Integer.parseInt(timeSplit[0]) < sunrise) {
+                    weatherIcon.setImageResource(R.drawable.ic_mostly_clear_night);
+                } else {
+                    weatherIcon.setImageResource(R.drawable.ic_mostly_clear_day);
+                }
+                break;
+            case "1101.0":
+                if (Integer.parseInt(timeSplit[0]) > sunset || Integer.parseInt(timeSplit[0]) < sunrise) {
+                    weatherIcon.setImageResource(R.drawable.ic_partly_cloudy_night);
+                } else {
+                    weatherIcon.setImageResource(R.drawable.ic_partly_cloudy_day);
+                }
+                break;
+            case "1102.0":
+                weatherIcon.setImageResource(R.drawable.ic_mostly_cloudy);
+                break;
+            case "4000.0":
+                weatherIcon.setImageResource(R.drawable.ic_drizzle);
+                break;
+            case "4001.0":
+                weatherIcon.setImageResource(R.drawable.ic_rain);
+                break;
+            case "4200.0":
+                weatherIcon.setImageResource(R.drawable.ic_rain_light);
+                break;
+            case "4201.0":
+                weatherIcon.setImageResource(R.drawable.ic_rain_heavy);
+                break;
+            case "5000.0":
+                weatherIcon.setImageResource(R.drawable.ic_snow);
+                break;
+        }
+
+        rootView.addView(forecast_element);
     }
 
 }
