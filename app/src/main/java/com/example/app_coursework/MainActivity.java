@@ -64,14 +64,14 @@ public class MainActivity extends AppCompatActivity {
 
     private OpenGLView openGLView;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setTitle("Current Location");
+
         // OpenGL ES
-//        openGLView = (OpenGLView) findViewById(R.id.opengl_view);
+        openGLView = (OpenGLView) findViewById(R.id.opengl_view);
 
         // Make fullscreen
         getWindow().getDecorView().setSystemUiVisibility(
@@ -109,17 +109,17 @@ public class MainActivity extends AppCompatActivity {
 //        Blurry.with(this).from(toDrawOn).into(imageView);
     }
 
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        openGLView.onResume();
-//    }
-//
-//    @Override
-//    protected void onPause() {
-//        super.onPause();
-//        openGLView.onPause();
-//    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        openGLView.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        openGLView.onPause();
+    }
 
     private void requestPermission() {
         ActivityCompat.requestPermissions(this, new String[]{ACCESS_FINE_LOCATION}, 1);

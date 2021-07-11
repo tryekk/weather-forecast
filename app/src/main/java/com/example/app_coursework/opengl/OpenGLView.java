@@ -10,17 +10,18 @@ public class OpenGLView extends GLSurfaceView {
 
     public OpenGLView(Context context) {
         super(context);
-        init();
+        init(context);
     }
 
     public OpenGLView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init();
+        init(context);
     }
 
-    private void init() {
+    private void init(Context activityContext) {
         setEGLContextClientVersion(2);
         setPreserveEGLContextOnPause(true);
-        setRenderer(new OpenGLRenderer());
+        setRenderer(new OpenGLRenderer(activityContext));
+        setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
     }
 }
