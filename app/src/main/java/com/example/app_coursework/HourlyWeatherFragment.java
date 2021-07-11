@@ -89,6 +89,11 @@ public class HourlyWeatherFragment extends Fragment {
 
         // Time
         time.setText(weatherData[0]);
+        if (weatherData[0].split(":")[0].equals("01")) {  // Split days before 1am
+//            forecast_element.setBackgroundResource(R.drawable.border);
+            View border = inflaterElement.inflate(R.layout.border, rootView, false);
+            rootView.addView(border);
+        }
 
         // Rain
         precipitation.setText(weatherData[3]);
