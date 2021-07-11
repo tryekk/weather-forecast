@@ -7,10 +7,10 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-<!--    <com.example.app_coursework.opengl.OpenGLView-->
-<!--        android:id="@+id/opengl_view"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent" />-->
+    <com.example.app_coursework.opengl.OpenGLView
+        android:id="@+id/opengl_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -40,14 +40,14 @@
                 style="@style/header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/fragment_current_container"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="3dp"
                 android:layout_marginRight="5dp"
                 android:paddingLeft="15dp"
                 android:paddingBottom="15dp"
                 android:text="@string/hourly_forecast"
-                android:textSize="20sp"
-                android:layout_below="@+id/fragment_current_container" />
+                android:textSize="20sp" />
             <!--    android:layout_marginTop="10dp"-->
 
             <androidx.fragment.app.FragmentContainerView
