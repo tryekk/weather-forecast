@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -12,7 +11,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.app_coursework.adapter.ExtraInformationAdapter;
-import com.example.app_coursework.adapter.HourlyWeatherAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;

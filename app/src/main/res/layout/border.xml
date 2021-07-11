@@ -1,0 +1,17 @@
+<LinearLayout
+    android:id="@+id/hourly_forecast_element"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:layout_marginLeft="15dp"
+    android:layout_marginRight="10dp">
+
+    <View
+        android:layout_width="2dp"
+        android:layout_height="match_parent"
+        android:background="#4D878787" />
+
+</LinearLayout>

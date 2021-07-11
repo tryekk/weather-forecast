@@ -8,21 +8,15 @@ import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.app_coursework.adapter.HourlyWeatherAdapter;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
 
 public class HourlyWeatherFragment extends Fragment {
 
@@ -95,13 +89,33 @@ public class HourlyWeatherFragment extends Fragment {
 
         // Time
         time.setText(weatherData[0]);
+        if (weatherData[0].split(":")[0].equals("00")) {  // Split days
+//            forecast_element.setBackgroundResource(R.drawable.border);
+            View border = inflaterElement.inflate(R.layout.border, rootView, false);
+            rootView.addView(border);
+        }
 
         // Rain
         precipitation.setText(weatherData[3]);
-        precipitation.setTextColor(Color.parseColor("#0fe5f5"));
+        if (Integer.parseInt(weatherData[3].split("%")[0]) > 0) {
+            precipitation.setTextColor(Color.parseColor("#0fe5f5"));
+        }
 
         // Temperature
         temperature.setText(weatherData[1]);
+
+        // Set temperature display colour based on heat
+        Integer temperatureValue = Integer.parseInt(weatherData[1].split("°")[0]);
+
+        if (temperatureValue > 15 && temperatureValue < 20) {
+            temperature.setTextColor(Color.parseColor("#f5d63d"));
+        } else if (temperatureValue >= 20 && temperatureValue < 25) {
+            temperature.setTextColor(Color.parseColor("#f5a142"));
+        } else if (temperatureValue >= 25) {
+            temperature.setTextColor(Color.parseColor("#f55142"));
+        } else if (temperatureValue < 10) {
+            temperature.setTextColor(Color.parseColor("#3dd6f5"));
+        }
 
         // Weather conditions
         String[] timeSplit = weatherData[0].split(":");  // For night-time definition
