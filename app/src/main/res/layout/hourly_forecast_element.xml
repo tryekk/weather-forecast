@@ -1,7 +1,8 @@
 <LinearLayout
     android:id="@+id/hourly_forecast_element"
-    android:layout_width="80dp"
+    android:layout_width="75dp"
     android:layout_height="wrap_content"
+    android:layout_marginLeft="5dp"
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
