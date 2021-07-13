@@ -10,6 +10,10 @@ import android.util.Log;
 import com.example.app_coursework.MainActivity;
 import com.example.app_coursework.R;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
@@ -19,13 +23,13 @@ import java.util.Date;
 public class Square {
 
     float[] vertices = {
-            -1.0f, 1.0f, 0.0f, 0.0f, 1.0f,   // top left
-            -1.0f, -1.0f, 0.0f, 0.0f, 0.0f,   // bottom left
-            1.0f, -1.0f, 0.0f, 1.0f, 0.0f,   // bottom right
+            -1.0f, 1.0f, 0.0f, 0.0f, 0.0f,   // top left
+            -1.0f, -1.0f, 0.0f, 0.0f, 1.0f,   // bottom left
+            1.0f, -1.0f, 0.0f, 1.0f, 1.0f,   // bottom right
 
-            1.0f, -1.0f, 0.0f, 1.0f, 0.0f,   // bottom right
-            1.0f, 1.0f, 0.0f, 1.0f, 1.0f,   // top right
-            -1.0f, 1.0f, 0.0f, 0.0f, 1.0f}; // top left
+            1.0f, -1.0f, 0.0f, 1.0f, 1.0f,   // bottom right
+            1.0f, 1.0f, 0.0f, 1.0f, 0.0f,   // top right
+            -1.0f, 1.0f, 0.0f, 0.0f, 0.0f}; // top left
 
     private static final int mPositionSize = 3;
     private static final int mTexCoordSize = 2;
@@ -43,31 +47,24 @@ public class Square {
 
     private float timeCounter = 0.0f;
 
-    private final String vertexShaderCode =
-                    "precision mediump float;                   \n" +
-                    "attribute vec3 a_Position;                 \n" +
-                    "attribute vec2 a_TexCoord;                 \n" +
-                    "varying vec2 v_TexCoord;                   \n" +
-                    "void main()                                \n" +
-                    "{                                          \n" +
-                    "   gl_Position = vec4(a_Position, 1.0);    \n" +
-                    "   v_TexCoord = a_TexCoord;                \n" +
-                    "}                                            ";
-    private final String fragmentShaderCode =
-//                    "#extension GL_EXT_shader_texture_lod : require\n" +
-//                    "#extension GL_OES_standard_derivatives : require\n" +
-                    "precision mediump float;\n" +
-                    "varying vec2 v_TexCoord;\n" +
-                    "uniform sampler2D u_Texture;\n" +
-                    "uniform float u_Time;\n" +
-                    "void main()\n" +
-                    "{\n" +
-                    "   gl_FragColor = vec4(.2 * abs(sin(1.5 + u_Time * .7)), .2 * abs(sin(u_Time * .4)), .2 * abs(cos(u_Time * .3)), 1.0) / (distance(vec2(abs(sin(0.5 + u_Time * .6)), abs(cos(1.7 + u_Time * .4))), v_TexCoord) + 0.1);" +
-                    "}";
-
     public Square(Context activityContext) {
 
         this.mActivityContext = activityContext;
+
+        StringBuilder builder = new StringBuilder();
+
+        try (BufferedReader reader = new BufferedReader(
+                new InputStreamReader(mActivityContext.getAssets().open("rain.vs")))
+        ) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                builder.append(line).append("\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        String vertexShaderCode = builder.toString();
 
         // Load in the vertex shader.
         int vertexShaderHandle = GLES20.glCreateShader(GLES20.GL_VERTEX_SHADER);
@@ -92,6 +89,21 @@ public class Square {
                 GLES20.glDeleteShader(vertexShaderHandle);
             }
         }
+
+        builder = new StringBuilder();
+
+        try (BufferedReader reader = new BufferedReader(
+                new InputStreamReader(mActivityContext.getAssets().open("rain.fs")))
+        ) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                builder.append(line).append("\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        String fragmentShaderCode = builder.toString();
 
         // Load in the fragement shader.
         int fragmentShaderHandle = GLES20.glCreateShader(GLES20.GL_FRAGMENT_SHADER);
@@ -151,12 +163,11 @@ public class Square {
         GLES20.glUseProgram(mProgramHandle);
 
         mTimeHandle = GLES20.glGetUniformLocation(mProgramHandle, "u_Time");
+
+
+        mTexture = loadTexture(mActivityContext, R.drawable.london);
         mTextureHandle = GLES20.glGetUniformLocation(mProgramHandle, "u_Texture");
-
-        mTexture = loadTexture(mActivityContext, R.drawable._80828_wr2018cover);
-
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, mTexture);
-
         GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
         GLES20.glUniform1i(mTextureHandle, 0);
 
@@ -190,7 +201,7 @@ public class Square {
 
         GLES20.glUniform1f(mTimeHandle, timeCounter);
 
-        // GLES20.glBindTexture(mTexture, GLES20.GL_TEXTURE_2D);
+        GLES20.glBindTexture(mTexture, GLES20.GL_TEXTURE_2D);
 
         GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, 6);
     }
