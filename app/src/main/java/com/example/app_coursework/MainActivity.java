@@ -72,7 +72,6 @@ public class MainActivity extends AppCompatActivity {
 
         // OpenGL ES
         openGLView = (OpenGLView) findViewById(R.id.opengl_view);
-        openGLView.setVisibility(View.GONE);  // TEMPORARY HIDE
 
         // Make fullscreen
         getWindow().getDecorView().setSystemUiVisibility(
