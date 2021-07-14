@@ -24,7 +24,7 @@
             android:id="@+id/current_temperature"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:textSize="38sp"
+            android:textSize="48sp"
             android:textAlignment="center"
             android:gravity="center"
             android:layout_alignParentBottom="true"
