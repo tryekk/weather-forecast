@@ -53,17 +53,53 @@ public class Square {
                     "   gl_Position = vec4(a_Position, 1.0);    \n" +
                     "   v_TexCoord = a_TexCoord;                \n" +
                     "}                                            ";
+//    private final String fragmentShaderCode =
+////                    "#extension GL_EXT_shader_texture_lod : require\n" +
+////                    "#extension GL_OES_standard_derivatives : require\n" +
+//                    "precision mediump float;\n" +
+//                    "varying vec2 v_TexCoord;\n" +
+//                    "uniform sampler2D u_Texture;\n" +
+//                    "uniform float u_Time;\n" +
+//                    "void main()\n" +
+//                    "{\n" +
+//                    "   gl_FragColor = vec4(.2 * abs(sin(1.5 + u_Time * .7)), .2 * abs(sin(u_Time * .4)), .2 * abs(cos(u_Time * .3)), 1.0) / (distance(vec2(abs(sin(0.5 + u_Time * .6)), abs(cos(1.7 + u_Time * .4))), v_TexCoord) + 0.1);" +
+//                    "}";
+
     private final String fragmentShaderCode =
-//                    "#extension GL_EXT_shader_texture_lod : require\n" +
-//                    "#extension GL_OES_standard_derivatives : require\n" +
-                    "precision mediump float;\n" +
-                    "varying vec2 v_TexCoord;\n" +
-                    "uniform sampler2D u_Texture;\n" +
-                    "uniform float u_Time;\n" +
-                    "void main()\n" +
-                    "{\n" +
-                    "   gl_FragColor = vec4(.2 * abs(sin(1.5 + u_Time * .7)), .2 * abs(sin(u_Time * .4)), .2 * abs(cos(u_Time * .3)), 1.0) / (distance(vec2(abs(sin(0.5 + u_Time * .6)), abs(cos(1.7 + u_Time * .4))), v_TexCoord) + 0.1);" +
-                    "}";
+            "precision highp float noise(float t) { return fract(sin(t*100.0)*1000.0); }\n" +
+
+            "float noise2(vec2 p) { return noise(p.x + noise(p.y)); }\n" +
+            "float raindot(vec2 uv, vec2 id, float t) {\n" +
+                "vec2 p = 0.1 + 0.8 * vec2(noise2(id), noise2(id + vec2(1.0, 0.0)));\n" +
+                "float r = clamp(0.5 - mod(t + noise2(id), 1.0), 0.0, 1.0);\n" +
+                "return smoothstep(0.3 * r, 0.0, length(p - uv));\n" +
+            "}\n" +
+
+            "float trailDrop(vec2 uv, vec2 id, float t) {\n" +
+                "float f = clamp(noise2(id) - 0.5, 0.0, 1.0);\n" +
+                // wobbly path
+                "float wobble = 0.5 + 0.2\n" +
+                        "* cos(12.0 * uv.y)\n" +
+                        "* sin(50.0 * uv.y);\n" +
+                "float v = 1.0 - 300.0 / f * pow(uv.x - 0.5 + 0.2 * wobble, 2.0);\n" +
+                // head
+                "v *= clamp(30.0 * uv.y, 0.0, 1.0);\n" +
+                "v *= clamp( uv.y + 7.0 * t - 0.6, 0.0, 1.0);\n" +
+                // tail
+                "v *= clamp(1.0 - uv.y - pow(t, 2.0), 0.0, 1.0);\n" +
+                "return f * clamp(v * 10.0, 0.0, 1.0);\n" +
+            "}\n" +
+
+            "void mainImage( out vec4 fragColor, in vec2 fragCoord )\n" +
+            "{\n" +
+                "vec2 uv = fragCoord.xy / iResolution.xy;\n" +
+                "vec2 uv1 = vec2(uv.x * 20.0, uv.y * 1.3 + noise(floor(uv.x * 20.0)));\n" +
+                "vec2 uvi = floor(vec2(uv1.x, uv1.y ));\n" +
+                "vec2 uvf = uv1 - uvi;\n" +
+                "float v = trailDrop(uvf, uvi, mod(iTime + noise(floor(uv.x * 20.0)), 3.0) / 3.0);\n" +
+                "v += raindot(fract(uv * 20.0 + vec2(0, 0.1 * iTime)), floor(uv * 20.0 + vec2(0, 0.1 * iTime)), iTime);\n" +
+                "fragColor = textureLod(iChannel0, uv + vec2(dFdx(v), dFdy(v)), 3.0 / (v + 1.0));\n" +
+        "}\n";
 
     public Square(Context activityContext) {
 
