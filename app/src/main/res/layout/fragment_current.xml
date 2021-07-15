@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingTop="32dp"
-        android:paddingBottom="47dp"
+        android:paddingBottom="44dp"
         android:paddingLeft="25dp"
         android:paddingRight="40dp">
 
