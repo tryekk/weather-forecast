@@ -21,6 +21,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.example.app_coursework.adapter.DailyWeatherAdapter;
+import com.example.app_coursework.opengl.OpenGLView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -93,6 +94,10 @@ public class CurrentWeatherFragment extends Fragment {
 
             // Set temperature display and toolbar colour based on heat
 
+            // OpenGL ES
+            OpenGLView openGLView = (OpenGLView) getActivity().findViewById(R.id.opengl_view);
+            // openGLView.setVisibility(View.GONE);  // TEMPORARY HIDE
+
             Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
             View fragment = this.getView();
             TextView header = getActivity().findViewById(R.id.blank_header);
@@ -108,64 +113,66 @@ public class CurrentWeatherFragment extends Fragment {
                     break;
             }
 
-            Integer temperatureValue = Integer.parseInt(currentTemperature.split("°")[0]);
-            if (temperatureValue > 15 && temperatureValue < 20) {
-                currentTemperatureTextView.setTextColor(Color.parseColor("#f5d63d"));
-                if (theme.equals("light")) {
-                    toolbar.setBackgroundColor(Color.parseColor("#B3f5d63d"));
-                    header.setBackgroundColor(Color.parseColor("#f5d63d"));
-                    fragment.setBackgroundResource(R.drawable.background_gradient_warm_mild);
-                } else {
-                    toolbar.setBackgroundColor(Color.parseColor("#B36E5F19"));
-                    header.setBackgroundColor(Color.parseColor("#6E5F19"));
-                    fragment.setBackgroundResource(R.drawable.background_dark_gradient_warm_mild);
-                }
-            } else if (temperatureValue >= 20 && temperatureValue < 25) {
-                currentTemperatureTextView.setTextColor(Color.parseColor("#f5a142"));
-                if (theme.equals("light")) {
-                    toolbar.setBackgroundColor(Color.parseColor("#B3f5a142"));
-                    header.setBackgroundColor(Color.parseColor("#f5a142"));
-                    fragment.setBackgroundResource(R.drawable.background_gradient_warm);
-                } else {
-                    toolbar.setBackgroundColor(Color.parseColor("#B3885B28"));
-                    header.setBackgroundColor(Color.parseColor("#885B28"));
-                    fragment.setBackgroundResource(R.drawable.background_dark_gradient_warm);
-                }
-            } else if (temperatureValue >= 25) {
-                currentTemperatureTextView.setTextColor(Color.parseColor("#f55142"));
-                if (theme.equals("light")) {
-                    toolbar.setBackgroundColor(Color.parseColor("#B3f55142"));
-                    header.setBackgroundColor(Color.parseColor("#f55142"));
-                    fragment.setBackgroundResource(R.drawable.background_gradient_hot);
-                } else {
-                    toolbar.setBackgroundColor(Color.parseColor("#B3952F26"));
-                    header.setBackgroundColor(Color.parseColor("#952F26"));
-                    fragment.setBackgroundResource(R.drawable.background_dark_gradient_hot);
-                }
-            } else if (temperatureValue < 10) {
-                currentTemperatureTextView.setTextColor(Color.parseColor("#3dd6f5"));
-                if (theme.equals("light")) {
-                    toolbar.setBackgroundColor(Color.parseColor("#B33dd6f5"));
-                    header.setBackgroundColor(Color.parseColor("#3dd6f5"));
-                    fragment.setBackgroundResource(R.drawable.background_gradient_cold);
-                } else {
-                    toolbar.setBackgroundColor(Color.parseColor("#B31F7B8E"));
-                    header.setBackgroundColor(Color.parseColor("#1F7B8E"));
-                    fragment.setBackgroundResource(R.drawable.background_dark_gradient_cold);
-                }
-            } else {
-                if (theme.equals("light")) {
-                    currentTemperatureTextView.setTextColor(Color.parseColor("#808080"));
-                    toolbar.setBackgroundColor(Color.parseColor("#B3FFFFFF"));
-                    header.setBackgroundColor(Color.parseColor("#FFFFFF"));
-                    fragment.setBackgroundColor(Color.parseColor("#FFFFFF"));
-                } else {
-                    currentTemperatureTextView.setTextColor(Color.parseColor("#b7bcbf"));
-                    toolbar.setBackgroundColor(Color.parseColor("#B3151F28"));
-                    header.setBackgroundResource(R.color.weather_list_dark);
-                    fragment.setBackgroundResource(R.color.weather_list_dark);
-                }
-            }
+            // Temp remove background so rain shows up.
+
+//            Integer temperatureValue = Integer.parseInt(currentTemperature.split("°")[0]);
+//            if (temperatureValue > 15 && temperatureValue < 20) {
+//                currentTemperatureTextView.setTextColor(Color.parseColor("#f5d63d"));
+//                if (theme.equals("light")) {
+//                    toolbar.setBackgroundColor(Color.parseColor("#B3f5d63d"));
+//                    header.setBackgroundColor(Color.parseColor("#f5d63d"));
+//                    fragment.setBackgroundResource(R.drawable.background_gradient_warm_mild);
+//                } else {
+//                    toolbar.setBackgroundColor(Color.parseColor("#B36E5F19"));
+//                    header.setBackgroundColor(Color.parseColor("#6E5F19"));
+//                    fragment.setBackgroundResource(R.drawable.background_dark_gradient_warm_mild);
+//                }
+//            } else if (temperatureValue >= 20 && temperatureValue < 25) {
+//                currentTemperatureTextView.setTextColor(Color.parseColor("#f5a142"));
+//                if (theme.equals("light")) {
+//                    toolbar.setBackgroundColor(Color.parseColor("#B3f5a142"));
+//                    header.setBackgroundColor(Color.parseColor("#f5a142"));
+//                    fragment.setBackgroundResource(R.drawable.background_gradient_warm);
+//                } else {
+//                    toolbar.setBackgroundColor(Color.parseColor("#B3885B28"));
+//                    header.setBackgroundColor(Color.parseColor("#885B28"));
+//                    fragment.setBackgroundResource(R.drawable.background_dark_gradient_warm);
+//                }
+//            } else if (temperatureValue >= 25) {
+//                currentTemperatureTextView.setTextColor(Color.parseColor("#f55142"));
+//                if (theme.equals("light")) {
+//                    toolbar.setBackgroundColor(Color.parseColor("#B3f55142"));
+//                    header.setBackgroundColor(Color.parseColor("#f55142"));
+//                    fragment.setBackgroundResource(R.drawable.background_gradient_hot);
+//                } else {
+//                    toolbar.setBackgroundColor(Color.parseColor("#B3952F26"));
+//                    header.setBackgroundColor(Color.parseColor("#952F26"));
+//                    fragment.setBackgroundResource(R.drawable.background_dark_gradient_hot);
+//                }
+//            } else if (temperatureValue < 10) {
+//                currentTemperatureTextView.setTextColor(Color.parseColor("#3dd6f5"));
+//                if (theme.equals("light")) {
+//                    toolbar.setBackgroundColor(Color.parseColor("#B33dd6f5"));
+//                    header.setBackgroundColor(Color.parseColor("#3dd6f5"));
+//                    fragment.setBackgroundResource(R.drawable.background_gradient_cold);
+//                } else {
+//                    toolbar.setBackgroundColor(Color.parseColor("#B31F7B8E"));
+//                    header.setBackgroundColor(Color.parseColor("#1F7B8E"));
+//                    fragment.setBackgroundResource(R.drawable.background_dark_gradient_cold);
+//                }
+//            } else {
+//                if (theme.equals("light")) {
+//                    currentTemperatureTextView.setTextColor(Color.parseColor("#808080"));
+//                    toolbar.setBackgroundColor(Color.parseColor("#B3FFFFFF"));
+//                    header.setBackgroundColor(Color.parseColor("#FFFFFF"));
+//                    fragment.setBackgroundColor(Color.parseColor("#FFFFFF"));
+//                } else {
+//                    currentTemperatureTextView.setTextColor(Color.parseColor("#b7bcbf"));
+//                    toolbar.setBackgroundColor(Color.parseColor("#B3151F28"));
+//                    header.setBackgroundResource(R.color.weather_list_dark);
+//                    fragment.setBackgroundResource(R.color.weather_list_dark);
+//                }
+//            }
 
             // For night-time definition
             int timeSplit = Integer.parseInt(dateFormatted[1].split(":")[0]);

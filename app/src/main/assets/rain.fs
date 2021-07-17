@@ -1,8 +1,8 @@
 precision highp float;
 
-varying vec2 v_TexCoord;
-
 uniform float u_Time;
+uniform vec2 u_Resolution;
+
 uniform sampler2D u_Texture;
 
 // Pseudo random number generator.
@@ -30,29 +30,15 @@ float noise( vec2 U )
 
 void main( void ) {
 
-	vec2 uv = v_TexCoord;
+	vec2 uv = (gl_FragCoord.xy / u_Resolution.xy) * vec2(1., -1.); //    * vec2(4608. / 2720., -1.);
 
 	vec2 n1 = vec2(noise(20. * uv), noise(20. * uv + .8));
 
-	vec4 colour = texture2D(u_Texture, uv + n1 * 0.01);
-
-        // Blur
-        // for( float d= 0.; d < 3.14; d += 3.14 / 16.)
-        // {
-        //    for(float i = 1. / 3.; i <= 1.0; i += 1. / 3.)
-        //    {
-        //        colour += texture2D(u_Texture, uv + vec2(cos(d), sin(d)) * 0.005 * i);
-        //    }
-        // }
-
-    	// gl_FragColor = colour / (3. * 16. - 15.0);
-
-    	gl_FragColor = colour;
-
+	gl_FragColor = texture2D(u_Texture, uv);
 
 	for (float r = 3.; r > 0.; r--) {
 
-        vec2 size = r * 10. * vec2(1080., 2340.) / 2340.;
+        vec2 size = r * 10. * u_Resolution.xy / max(u_Resolution.x, u_Resolution.y);
 
 		vec3 n2 = vec3(noise(10. * floor(size * uv + .25) / size), noise(10. * floor(size * uv + .25) / size + 1.), noise(10. * floor(size * uv + .25) / size + 2.));
 
@@ -66,7 +52,6 @@ void main( void ) {
 		{
 		    vec3 v = normalize(-vec3(cos(grid), mix(.2, 2., t - .5)));
             gl_FragColor = texture2D(u_Texture, uv + v.xy * .3);
-
             // gl_FragColor = vec4(t * .1, t * .4, 0.8 + t * .2, t);
         }
 	}

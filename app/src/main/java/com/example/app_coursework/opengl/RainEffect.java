@@ -7,64 +7,48 @@ import android.opengl.GLES20;
 import android.opengl.GLUtils;
 import android.util.Log;
 
-import com.example.app_coursework.MainActivity;
 import com.example.app_coursework.R;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
-import java.util.Calendar;
-import java.util.Date;
 
-public class Square {
+public class RainEffect {
 
-    float[] vertices = {
-            -1.0f, 1.0f, 0.0f, 0.0f, 0.0f,   // top left
-            -1.0f, -1.0f, 0.0f, 0.0f, 1.0f,   // bottom left
-            1.0f, -1.0f, 0.0f, 1.0f, 1.0f,   // bottom right
+    private static final int sPositionSize = 3;
+    private static final int sStrideBytes = (sPositionSize) * 4;
 
-            1.0f, -1.0f, 0.0f, 1.0f, 1.0f,   // bottom right
-            1.0f, 1.0f, 0.0f, 1.0f, 0.0f,   // top right
-            -1.0f, 1.0f, 0.0f, 0.0f, 0.0f}; // top left
+    private static final float[] sVertices = {
+            -1.0f,  1.0f, 0.0f, // top left
+            -1.0f, -1.0f, 0.0f, // bottom left
+             1.0f, -1.0f, 0.0f, // bottom right
 
-    private static final int mPositionSize = 3;
-    private static final int mTexCoordSize = 2;
-    private static final int mStrideBytes = (mPositionSize + mTexCoordSize) * 4;
+             1.0f, -1.0f, 0.0f, // bottom right
+             1.0f,  1.0f, 0.0f, // top right
+            -1.0f,  1.0f, 0.0f  // top left
+    };
 
-    private Context mActivityContext;
+    private final Context mActivityContext;
 
-    private final int mProgramHandle;
-    private final int mPositionHandle;
-    private final int mTexCoordHandle;
-    private final int mTimeHandle;
-    private final int mTextureHandle;
+    private int mProgramHandle;
 
-    private final int mTexture;
+    private int mTimeLoc;
+    private int mResolutionLoc;
+    private int mTextureLoc;
 
-    private float timeCounter = 0.0f;
+    private float mTime;
 
-    public Square(Context activityContext) {
-
+    public RainEffect(Context activityContext, int width, int height) {
         this.mActivityContext = activityContext;
 
-        StringBuilder builder = new StringBuilder();
+        init(width, height);
+    }
 
-        try (BufferedReader reader = new BufferedReader(
-                new InputStreamReader(mActivityContext.getAssets().open("rain.vs")))
-        ) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                builder.append(line).append("\n");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        String vertexShaderCode = builder.toString();
+    private void init(int width, int height) {
+        String vertexSource = loadSource(mActivityContext, "rain.vs");
 
         // Load in the vertex shader.
         int vertexShaderHandle = GLES20.glCreateShader(GLES20.GL_VERTEX_SHADER);
@@ -72,7 +56,7 @@ public class Square {
         if (vertexShaderHandle != 0)
         {
             // Pass in the shader source.
-            GLES20.glShaderSource(vertexShaderHandle, vertexShaderCode);
+            GLES20.glShaderSource(vertexShaderHandle, vertexSource);
 
             // Compile the shader.
             GLES20.glCompileShader(vertexShaderHandle);
@@ -84,26 +68,13 @@ public class Square {
             // If the compilation failed, delete the shader.
             if (compileStatus[0] == 0) {
                 String status = GLES20.glGetShaderInfoLog(vertexShaderHandle);
-                Log.e("Vertex Shader", status);
+                Log.e("[Vertex Shader]", status);
 
                 GLES20.glDeleteShader(vertexShaderHandle);
             }
         }
 
-        builder = new StringBuilder();
-
-        try (BufferedReader reader = new BufferedReader(
-                new InputStreamReader(mActivityContext.getAssets().open("rain.fs")))
-        ) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                builder.append(line).append("\n");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        String fragmentShaderCode = builder.toString();
+        String fragmentSource = loadSource(mActivityContext, "rain.fs");
 
         // Load in the fragement shader.
         int fragmentShaderHandle = GLES20.glCreateShader(GLES20.GL_FRAGMENT_SHADER);
@@ -111,7 +82,7 @@ public class Square {
         if (fragmentShaderHandle != 0)
         {
             // Pass in the shader source.
-            GLES20.glShaderSource(fragmentShaderHandle, fragmentShaderCode);
+            GLES20.glShaderSource(fragmentShaderHandle, fragmentSource);
 
             // Compile the shader.
             GLES20.glCompileShader(fragmentShaderHandle);
@@ -123,7 +94,7 @@ public class Square {
             // If the compilation failed, delete the shader.
             if (compileStatus[0] == 0) {
                 String status = GLES20.glGetShaderInfoLog(fragmentShaderHandle);
-                Log.e("Fragment Shader", status);
+                Log.e("[Fragment Shader]", status);
 
                 GLES20.glDeleteShader(fragmentShaderHandle);
             }
@@ -142,7 +113,6 @@ public class Square {
 
             // Bind attributes
             GLES20.glBindAttribLocation(mProgramHandle, 0, "a_Position");
-            GLES20.glBindAttribLocation(mProgramHandle, 1, "a_TexCoord");
 
             // Link the two shaders together into a program.
             GLES20.glLinkProgram(mProgramHandle);
@@ -154,7 +124,7 @@ public class Square {
             // If the link failed, delete the program.
             if (linkStatus[0] == 0) {
                 String status = GLES20.glGetShaderInfoLog(mProgramHandle);
-                Log.e("Shader", status);
+                Log.e("[Shader Link]", status);
 
                 GLES20.glDeleteProgram(mProgramHandle);
             }
@@ -162,51 +132,62 @@ public class Square {
 
         GLES20.glUseProgram(mProgramHandle);
 
-        mTimeHandle = GLES20.glGetUniformLocation(mProgramHandle, "u_Time");
+        mTimeLoc = GLES20.glGetUniformLocation(mProgramHandle, "u_Time");
+        mResolutionLoc = GLES20.glGetUniformLocation(mProgramHandle, "u_Resolution");
+        mTextureLoc = GLES20.glGetUniformLocation(mProgramHandle, "u_Texture");
 
+        GLES20.glUniform2f(mResolutionLoc, width, height);
 
-        mTexture = loadTexture(mActivityContext, R.drawable.radek_vebr_pimy68gnh9o_unsplash);
-        mTextureHandle = GLES20.glGetUniformLocation(mProgramHandle, "u_Texture");
-        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, mTexture);
+        int texture = loadTexture(mActivityContext, R.drawable.radek_vebr_pimy68gnh9o_unsplash);
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, texture);
         GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
-        GLES20.glUniform1i(mTextureHandle, 0);
+        GLES20.glUniform1i(mTextureLoc, 0);
 
-        FloatBuffer vertexBuffer = ByteBuffer.allocateDirect(vertices.length * 4).order(ByteOrder.nativeOrder()).asFloatBuffer();
-        vertexBuffer.put(vertices).position(0);
+        FloatBuffer vertexBuffer = ByteBuffer.allocateDirect(sVertices.length * 4)
+                .order(ByteOrder.nativeOrder()).asFloatBuffer();
+        vertexBuffer.put(sVertices).position(0);
 
-        mPositionHandle = GLES20.glGetAttribLocation(mProgramHandle, "a_Position");
-        mTexCoordHandle = GLES20.glGetAttribLocation(mProgramHandle, "a_TexCoord");
+        int positionHandle = GLES20.glGetAttribLocation(mProgramHandle, "a_Position");
 
         // Pass in the position information
         vertexBuffer.position(0);
-        GLES20.glVertexAttribPointer(mPositionHandle, mPositionSize, GLES20.GL_FLOAT, false,
-                mStrideBytes, vertexBuffer);
+        GLES20.glVertexAttribPointer(positionHandle, sPositionSize, GLES20.GL_FLOAT, false,
+                sStrideBytes, vertexBuffer);
 
-        GLES20.glEnableVertexAttribArray(mPositionHandle);
-
-        // Pass in the color information
-        vertexBuffer.position(3);
-        GLES20.glVertexAttribPointer(mTexCoordHandle, mTexCoordSize, GLES20.GL_FLOAT, false,
-                mStrideBytes, vertexBuffer);
-
-        GLES20.glEnableVertexAttribArray(mTexCoordHandle);
+        GLES20.glEnableVertexAttribArray(positionHandle);
     }
 
-    public void draw() {
+    public void onResolutionChanged(int width, int height) {
+        // Update resolution uniform
+        GLES20.glUniform2f(mResolutionLoc, width, height);
+    }
 
-        // Update time.
-        timeCounter += 1f / 60f;
+    public void render() {
+        mTime += 1f / 60f;
 
-        GLES20.glUseProgram(mProgramHandle);
-
-        GLES20.glUniform1f(mTimeHandle, timeCounter);
-
-        GLES20.glBindTexture(mTexture, GLES20.GL_TEXTURE_2D);
+        // Update time uniform
+        GLES20.glUniform1f(mTimeLoc, mTime);
 
         GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, 6);
     }
 
-    public static int loadTexture(final Context context, final int resourceId)
+    private static String loadSource(Context activityContext, String path) {
+        StringBuilder builder = new StringBuilder();
+
+        try (BufferedReader reader = new BufferedReader(
+                new InputStreamReader(activityContext.getAssets().open(path)))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                builder.append(line).append("\n");
+            }
+        } catch (IOException e) {
+            Log.e("[Load Shader]", "Failed to load shader source for file \"" + path + "\". " + e.getMessage());
+        }
+
+        return builder.toString();
+    }
+
+    private static int loadTexture(final Context context, final int resourceId)
     {
         final int[] textureHandle = new int[1];
 
@@ -241,5 +222,4 @@ public class Square {
 
         return textureHandle[0];
     }
-
 }

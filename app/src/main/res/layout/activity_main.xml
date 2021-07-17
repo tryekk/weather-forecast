@@ -7,17 +7,11 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <com.example.app_coursework.opengl.OpenGLView
-        android:id="@+id/opengl_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".MainActivity"
-        tools:visibility="gone">
+        tools:context=".MainActivity">
 
         <RelativeLayout
             android:layout_width="match_parent"

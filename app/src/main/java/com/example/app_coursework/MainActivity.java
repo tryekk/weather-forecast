@@ -62,64 +62,56 @@ public class MainActivity extends AppCompatActivity {
     private RequestQueue requestQueue;
     private LocationManager locationManager;
 
-    private OpenGLView openGLView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setTitle("Current Location");
 
-        // OpenGL ES
-        openGLView = (OpenGLView) findViewById(R.id.opengl_view);
-        openGLView.setVisibility(View.GONE);  // TEMPORARY HIDE
+        // Make fullscreen
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 
-//        // Make fullscreen
-//        getWindow().getDecorView().setSystemUiVisibility(
-//                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-//                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-//
-//        // Initialize room database
-//        weatherLocationDatabase = WeatherLocationDatabase.getInstance(getApplicationContext());
-//
-//        // Add toolbar to the appbar
-//        Toolbar toolbar = findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-////        getSupportActionBar().setDisplayShowTitleEnabled(false);
-//
-//        // Get location
-//        requestPermission();
-//
-//        // Get a fragment manager
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        fragmentManager.beginTransaction()
-//                .replace(R.id.fragment_current_container, new CurrentWeatherFragment())
-//                .commit();
-//        fragmentManager.beginTransaction()
-//                .replace(R.id.fragment_hourly_container, new HourlyWeatherFragment())
-//                .commit();
-//        fragmentManager.beginTransaction()
-//                .replace(R.id.fragment_daily_container, new DailyWeatherFragment())
-//                .commit();
-//        fragmentManager.beginTransaction()
-//                .replace(R.id.fragment_extra_container, new ExtraInformationFragment())
-//                .commit();
-//
-////        Bitmap toDrawOn = Bitmap.createBitmap(30, 30, Bitmap.Config.ARGB_8888);
-////        ImageView imageView = (ImageView) this.findViewById(R.id.image_view);
-////        Blurry.with(this).from(toDrawOn).into(imageView);
+        // Initialize room database
+        weatherLocationDatabase = WeatherLocationDatabase.getInstance(getApplicationContext());
+
+        // Add toolbar to the appbar
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+//        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        // Get location
+        requestPermission();
+
+        // Get a fragment manager
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.fragment_current_container, new CurrentWeatherFragment())
+                .commit();
+        fragmentManager.beginTransaction()
+                .replace(R.id.fragment_hourly_container, new HourlyWeatherFragment())
+                .commit();
+        fragmentManager.beginTransaction()
+                .replace(R.id.fragment_daily_container, new DailyWeatherFragment())
+                .commit();
+        fragmentManager.beginTransaction()
+                .replace(R.id.fragment_extra_container, new ExtraInformationFragment())
+                .commit();
+
+//        Bitmap toDrawOn = Bitmap.createBitmap(30, 30, Bitmap.Config.ARGB_8888);
+//        ImageView imageView = (ImageView) this.findViewById(R.id.image_view);
+//        Blurry.with(this).from(toDrawOn).into(imageView);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        openGLView.onResume();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        openGLView.onPause();
     }
 
     private void requestPermission() {

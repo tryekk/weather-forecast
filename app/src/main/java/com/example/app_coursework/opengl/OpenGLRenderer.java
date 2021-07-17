@@ -13,10 +13,14 @@ import javax.microedition.khronos.opengles.GL10;
 public class OpenGLRenderer implements GLSurfaceView.Renderer {
 
     private Context mActivityContext;
-    private Square mSquare;
+    private int mWidth, mHeight;
 
-    public OpenGLRenderer(final Context activityContext) {
+    private RainEffect rainEffect;
+
+    public OpenGLRenderer(final Context activityContext, int width, int height) {
         this.mActivityContext = activityContext;
+        this.mWidth = width;
+        this.mHeight = height;
     }
 
     @Override
@@ -26,20 +30,24 @@ public class OpenGLRenderer implements GLSurfaceView.Renderer {
         GLES20.glEnable(GLES20.GL_BLEND);
         GLES20.glBlendFunc(GLES20.GL_SRC_ALPHA, GLES20.GL_ONE_MINUS_SRC_ALPHA);
 
-        mSquare = new Square(mActivityContext);
-
+        rainEffect = new RainEffect(mActivityContext, mWidth, mHeight);
     }
 
     @Override
     public void onSurfaceChanged(GL10 gl, int width, int height) {
+        this.mWidth = width;
+        this.mHeight = height;
 
+        GLES20.glViewport(0, 0, width, height);
+
+        rainEffect.onResolutionChanged(width, height);
     }
 
     @Override
     public void onDrawFrame(GL10 gl) {
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
 
-        mSquare.draw();
+        rainEffect.render();
     }
 
 }
