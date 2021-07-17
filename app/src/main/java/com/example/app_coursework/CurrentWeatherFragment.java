@@ -69,7 +69,7 @@ public class CurrentWeatherFragment extends Fragment {
             // Switch to 1m forecast from hourly forecast
             JSONArray arr1m = response.getJSONObject("data").getJSONArray("timelines").getJSONObject(0).getJSONArray("intervals");
 
-            String currentTemperature = String.valueOf((int) arr1m.getJSONObject(0).getJSONObject("values").getDouble("temperature")) + "°C";
+            String currentTemperature = String.valueOf((int) arr1m.getJSONObject(0).getJSONObject("values").getDouble("temperature")) + "°";
             Integer weatherCode = (int) arr1m.getJSONObject(0).getJSONObject("values").getDouble("weatherCode");
 
             // Update display
