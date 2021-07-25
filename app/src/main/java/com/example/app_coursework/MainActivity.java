@@ -62,16 +62,11 @@ public class MainActivity extends AppCompatActivity {
     private RequestQueue requestQueue;
     private LocationManager locationManager;
 
-    private OpenGLView openGLView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setTitle("Current Location");
-
-        // OpenGL ES
-        openGLView = (OpenGLView) findViewById(R.id.opengl_view);
 
         // Make fullscreen
         getWindow().getDecorView().setSystemUiVisibility(
@@ -112,13 +107,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        openGLView.onResume();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        openGLView.onPause();
     }
 
     private void requestPermission() {

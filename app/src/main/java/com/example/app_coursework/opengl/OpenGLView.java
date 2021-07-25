@@ -21,7 +21,7 @@ public class OpenGLView extends GLSurfaceView {
     private void init(Context activityContext) {
         setEGLContextClientVersion(2);
         setPreserveEGLContextOnPause(true);
-        setRenderer(new OpenGLRenderer(activityContext));
+        setRenderer(new OpenGLRenderer(activityContext, getWidth(), getHeight()));
         setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
     }
 }

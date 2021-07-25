@@ -7,11 +7,6 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <com.example.app_coursework.opengl.OpenGLView
-        android:id="@+id/opengl_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -32,15 +27,15 @@
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/fragment_current_container"
                 android:layout_width="match_parent"
-                android:layout_height="265dp"
+                android:layout_height="270dp"
                 android:layout_below="@+id/blank_header" />
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/fragment_hourly_container"
                 android:layout_width="match_parent"
                 android:layout_height="130dp"
-                android:layout_marginTop="8dp"
-                android:layout_below="@+id/fragment_current_container" />
+                android:layout_below="@+id/fragment_current_container"
+                android:layout_marginTop="8dp" />
 
             <TextView
                 android:id="@+id/daily_header"
@@ -48,19 +43,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/fragment_hourly_container"
-                android:text="@string/daily_forecast"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="5dp"
                 android:padding="15dp"
+                android:text="@string/daily_forecast"
                 android:textSize="20sp" />
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/fragment_daily_container"
                 android:layout_width="match_parent"
                 android:layout_height="390dp"
-                android:paddingLeft="5dp"
-                android:layout_below="@+id/daily_header" />
+                android:layout_below="@+id/daily_header"
+                android:paddingLeft="5dp" />
 
             <TextView
                 android:id="@+id/extra_header"
@@ -68,19 +63,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/fragment_daily_container"
-                android:text="@string/extra_information"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="3dp"
                 android:layout_marginRight="5dp"
                 android:padding="15dp"
+                android:text="@string/extra_information"
                 android:textSize="20sp" />
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/fragment_extra_container"
                 android:layout_width="match_parent"
                 android:layout_height="270dp"
-                android:paddingLeft="5dp"
-                android:layout_below="@+id/extra_header" />
+                android:layout_below="@+id/extra_header"
+                android:paddingLeft="5dp" />
 
             <ImageView
                 android:id="@+id/powered_by_tomorrow.io"
